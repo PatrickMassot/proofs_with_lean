@@ -43,11 +43,15 @@ lemma non_impair_ssi_pair (n : ℤ) : ¬ n is odd ↔ n is even := by
 
 @[push_neg_extra]
 lemma non_pair_ssi_impair' (n : ℤ) : (∀ k, n ≠ 2*k) ↔ n is odd := by
-  rw [← non_pair_ssi_impair, «pair», not_exists]
+  rw [← non_pair_ssi_impair]
+  change (∀ (k : ℤ), ¬n = 2 * k) ⇔ ¬∃ k, n = 2*k
+  simp
 
 @[push_neg_extra]
 lemma non_impair_ssi_pair' (n : ℤ) : (∀ k, n ≠ 2*k + 1) ↔ n is even := by
-  rw [← non_impair_ssi_pair, «impair», not_exists]
+  rw [← non_impair_ssi_pair]
+  change _ ⇔ ¬∃ k, _
+  simp
 
 lemma impair_car_non_pair (n : ℤ) (h : ¬ n is even) : n is odd :=
   (non_pair_ssi_impair n).1 h

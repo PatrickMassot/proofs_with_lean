@@ -2,16 +2,16 @@ import ProofsWithLean.Lib_en
 setup_env
 
 /-
-# Feuille 1 : Calculs
+# File 1 : Computations
 
-Le logiciel connait les règles de simplification algébrique usuelles.
-Cela lui permet de démontrer des égalités entre expressions portant
-sur des nombres arbitraires, sans aucune hypothèse.
+The software knows the usual algebraic simplification rules.
+This enables it to demonstrate equalities between expressions involving
+arbitrary numbers, without any assumptions.
 
-Commençons par un exemple où le résultat est clair à l’œil nu.
+Let's start with an example where the result is clear to the naked eye.
 -/
 
-Example "Calcul purement algébrique facile"
+Example "Purely algebraic easy computation"
   Given: (a b : ℝ)
   Assume:
   Conclusion: a + b - a = b
@@ -20,12 +20,12 @@ Proof:
 QED
 
 /-
-L’ordinateur vérifie ce genre de résultat to développant patiemment.
-L’important est que le résultat ne demande aucune hypothèse sur les nombres
-`a` and `b`. Nous appelerons ceci du calcul « purement algébrique ».
+The computer verifies this kind of result by patiently expanding everything.
+The important thing is that the result requires no assumptions about the numbers
+`a` and `b`. We'll call this “purely algebraic” calculation.
 -/
 
-Example "Calcul purement algébrique d’apparence moins facile"
+Example "Purely algebraic computation that looks less easy"
   Given: (a b : ℝ)
   Assume:
   Conclusion: (a + b)^3 - (a - b)^3 = 6*a^2*b + 2*b^3
@@ -34,9 +34,9 @@ Proof:
 QED
 
 /-
-À vous de jouer !
+It’s your turn to play!
 -/
-Exercise "01.1 Calcul purement algébrique d’apparence moins facile"
+Exercise "01.1 Purely algebraic computation that looks less easy"
   Given: (a b : ℝ)
   Assume:
   Conclusion: (a + b)^3 + (a - b)^3 = 6*a*b^2 + 2*a^3
@@ -45,18 +45,18 @@ Proof:
 QED
 
 /-
-Les choses plus intéressantes commencent lorsqu’on fait des hypothèses.
-On peut alors alterner des étapes faisant intervenir ces hypothèses and des
-étapes de calcul algébrique purement algébrique.
+The more interesting stuff starts when you make assumptions.
+You can then alternate between steps involving these assumptions and purely
+algebraic calculation steps.
 
-Chaque hypothèse a un nom, mais il n’est pas nécessaire d’y faire référence.
-Dans l’exemple suivant, on fait l’hypothèse que `b` vaut `2`, and on nomme cette
-hypothèse `hb`. La première ligne du calcul invoque cette hypothèse, la seconde
-est purement algébrique. La justification `by computation` fait exactement le même
-travail que `We compute`.
+Each hypothesis has a name, but it's not necessary to refer to it.
+In the following example, we make the assumption that `b` is `2`, and we name
+this assumption `hb`. The first line of the calculation invokes this
+assumption, while the second is purely algebraic. The `by computation`
+justification does exactly the same job as `We compute`.
 -/
 
-Example "Un calcul faisant intervenir une hypothèse"
+Example "A computation involving an assumption"
   Given: (a b : ℝ)
   Assume: (hb : b = 2)
   Conclusion: a + a*b = 3*a
@@ -67,22 +67,23 @@ Proof:
 QED
 
 /-
-Il est important de bien distinguer les deux types d’étapes de calcul
-apparaissant ci-dessus. La premier fait intervenir une hypothèse, la seconde non.
+It’s important to distinguish between the two types of calculation steps shown
+above. The first involves a hypothesis, the second does not.
 
-Les règles d’indentation sont très pointilleuses and un peu complexes,
-particulièrement quand un calcul ne termine pas la démonstration.
-Le plus sûr est de toujours laisser `Calc` seul sur sa ligne puis
-indenter les lignes suivantes, avec le même niveau d’indentation d’une ligne à l’autre.
+Indentation rules are a little subtle, especially when a
+calculation doesn't complete the demonstration. The safest thing to do is
+always to leave `Calc` alone on its line and then indent the following lines,
+with the same level of indentation from one line to the next.
 
-L’alignement des signes d’égalité and des justifications sont purement cosmétiques.
+The alignment of equality signs and justifications is purely cosmetic.
 
-Le fait de répéter le `a + a*2` est pénible. Since sur papier, on peut s’en passer.
-Sur papier on écrit rien, ici on remplace la répétition par `_`, toujours avec la même règle
-d’alignement.
+Repeating the `a + a*2` is a pain. Since on paper, you can do without it. On
+paper we write nothing, here we replace the repetition by `_`, still with the
+same alignment rule.
 -/
 
-Example "Le même calcul, sans répéter le membre de droite à gauche de la ligne suivante."
+Example "The same calculation, without repeating the right-hand-side to left on
+         the next line."
   Given: (a b : ℝ)
   Assume: (hb : b = 2)
   Conclusion: a + a*b = 3*a
@@ -92,7 +93,7 @@ Proof:
     _       = 3*a     by computation
 QED
 
-Exercise "01.2 Calcul to deux étapes utilisant une hypothèse"
+Exercise "01.2 Computation in two steps, using an assumption."
   Given: (a b : ℝ)
   Assume: (ha : a = -b)
   Conclusion: b + b*(a + b) = b
@@ -100,7 +101,7 @@ Proof:
   sorry
 QED
 
-Exercise "01.3 Calcul to quatre étapes utilisant des hypothèses"
+Exercise "01.3 Computation in four steps, using an assumption."
   Given: (a b c : ℝ)
   Assume: (h : a = -b) (h' : b + c = 0)
   Conclusion: b*(a - c) = 0
@@ -109,10 +110,10 @@ Proof:
 QED
 
 /-
-Les calculs peuvent aussi démontrer des inégalités.
+Computations can also prove inequalities.
 -/
 
-Example "Une première inégalité"
+Example "A first inequality"
   Given: (a b : ℝ)
   Assume: (h : a ≤ 2*b)
   Conclusion: a + b ≤ 3*b
@@ -122,7 +123,7 @@ Proof:
     _     = 3*b     by computation
 QED
 
-Exercise "01.4 Inégalité"
+Exercise "01.4 Inequality"
   Given: (a b : ℝ)
   Assume: (h : b ≤ a)
   Conclusion: a + b ≤ 2*a
@@ -130,7 +131,7 @@ Proof:
   sorry
 QED
 
-Exercise "01.5 Inégalité"
+Exercise "01.5 Inequality"
   Given: (a b : ℝ)
   Assume: (h : a + b ≤ 3)
   Conclusion: 2*a + b ≤ a + 3
@@ -139,13 +140,13 @@ Proof:
 QED
 
 /-
-On notera que la commande `Calc` se charge de gérer l’enchaînement des symboles
-de relation, ici une inégalité (large) suivie d’une égalité. Voyons un exemple faisant
-intervenir également une inégalité stricte. On notera que l’enchaînement d’une inégalité
-large est d’une inégalité stricte fournit to conclusion une inégalité stricte.
+Note that the `Calc` command handles the sequence of relationship symbols, in
+this case an inequality followed by an equality. Let's look at an example
+also involving a strict inequality. Note that linking an inequality with a
+strict inequality results in a strict inequality.
 -/
 
-Example "Inégalités larges and strictes"
+Example "Inequalities and strict inequalities"
   Given: (a b : ℝ)
   Assume: (h : a + b ≤ 3) (hb : a < 5)
   Conclusion: 2*a + b < 8
@@ -157,7 +158,7 @@ Proof:
     _       = 8         by computation
 QED
 
-Exercise "01.6 Inégalités larges and strictes"
+Exercise "01.6 Inequalities and strict inequalities"
   Given: (a b : ℝ)
   Assume: (h : 2*a + b ≤ 3) (hb : a < 5)
   Conclusion: 3*a + b < 8
@@ -167,14 +168,13 @@ QED
 
 
 /-
-Une étape de calcul peut faire intervenir deux hypothèses comme justification.
-Il est important de comprendre que l’objectif n’est pas de regrouper deux lignes
-de calcul to une. Dans l’exemple suivant, l’inégalité `b*(a + b) ≤ b*3`
-nécessite à la fois de savoir que `a + b ≤ 3` and que `b ≥ 0`, on ne peut pas la séparer
-en deux étapes.
+A calculation step may involve two assumptions as justification. It is
+important to understand that the aim is not to combine two lines of calculation
+into one. In the following example, the inequality `b*(a + b) ≤ b*3` requires
+both that `a + b ≤ 3` and that `b ≥ 0`, so it cannot be split into two steps.
 -/
 
-Example "Inégalité avec deux éléments de justification"
+Example "Inequality with two justification items"
   Given: (a b : ℝ)
   Assume: (h : a + b ≤ 3) (h' : b ≥ 0)
   Conclusion: b*(a + b) ≤ 3*b
@@ -184,7 +184,7 @@ Proof:
     _         = 3*b by computation
 QED
 
-Exercise "01.7 Inégalité avec deux éléments de justification"
+Exercise "01.7 Inequality with two justification items"
   Given: (a b : ℝ)
   Assume: (h : a + b ≤ 2) (h' : a ≥ 0)
   Conclusion: a*(a + b) + a ≤ 3*a

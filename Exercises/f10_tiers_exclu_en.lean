@@ -228,7 +228,7 @@ but courant to poussant une négation à travers des quantificateurs.
 Example "La fonction x ↦ 2x n'est pas paire."
   Given:
   Assume:
-  Conclusion: ¬ (fun x ↦ 2*x) is evene
+  Conclusion: ¬ (fct x ↦ 2*x) is even
 Proof:
   Let's prove that ¬ ∀ x, 2 * (-x) = 2 * x -- Cette ligne est optionnelle
   It suffices to prove that ∃ x : ℝ, 2 * (-x) ≠ 2 * x

@@ -2,89 +2,90 @@ import ProofsWithLean.Lib_en
 setup_env
 
 /-
-# Feuille 2 : Quantificateur universel
+# File 2: Universal quantifier
 -/
 
 /-
-On rappelle que `f is evene` signifie `∀ x, f (-x) = f x` and
-`f is odde` signifie `∀ x, f (-x) = -f x`.
+Recall `f is even` mean `∀ x, f (-x) = f x` and
+`f is odd` means `∀ x, f (-x) = -f x`.
 
 Dans l’exemple suivant, on démontre un énoncé de la forme `∀ x, P x` using
 la commande `Fix`.
 -/
 
-Example "La fonction qui envoie x sur x² is evene."
+Example "The function that maps `x` to `x²` is even."
   Given:
   Assume:
-  Conclusion: (fct x ↦ x^2) is evene
+  Conclusion: (fct x ↦ x^2) is even
 Proof:
   Fix x : ℝ
   Let's prove that (-x)^2 = x^2
   We compute
 QED
 
-Exercise "02.1 La fonction qui envoie `x` sur `x³` is odde."
+Exercise "02.1 The function that maps `x` to `x³` is odd."
   Given:
   Assume:
-  Conclusion: (fct x ↦ x^3) is odde
+  Conclusion: (fct x ↦ x^3) is odd
 Proof:
   sorry
 QED
 
 /-
-Dans les exemples suivants, on utilise un énoncé débutant par un quantificateur universel
-au moyen des commandes `Since … on conclut …` or `Comme … we get …` selon qu’on obtient
-directement la conclusion voulue or que l’on souhaite obtenir un fait intermédiaire.
+In the following examples, we use a statement beginning with a universal
+quantifier with the commands `Since … we conclude that …` or `Since … we get …`
+depending on whether we obtain the desired conclusion directly or wish to
+obtain an intermediate fact.
 -/
 
-Example "Spécialisation d’une hypothèse de parité pour conclure."
+Example "Specializing a parity assumption to conclude."
   Given: (f : ℝ → ℝ)
-  Assume: (hf : f is evene)
+  Assume: (hf : f is even)
   Conclusion: f (-5) = f 5
 Proof:
-  Since f is evene we conclude that f (-5) = f 5
+  Since f is even we conclude that f (-5) = f 5
 QED
 
-Example "Spécialisation d’une hypothèse de parité to créant un fait intermédiaire."
+Example "Specializing a parity assumption to create an intermediate fact."
   Given: (f g : ℝ → ℝ)
-  Assume: (hf : f is evene)
+  Assume: (hf : f is even)
   Conclusion: g (f (-5)) = g (f 5)
 Proof:
-  Since f is evene we get hf5 : f (-5) = f 5
+  Since f is even we get hf5 : f (-5) = f 5
   Since f (-5) = f 5 we conclude that g (f (-5)) = g (f 5)
 QED
 
-Exercise "02.2 Spécialisation d’une hypothèse d’imparité."
+Exercise "02.2 Specializing a parity assumption to create an intermediate fact."
   Given: (f : ℝ → ℝ)
-  Assume: (hf : f is odde)
+  Assume: (hf : f is odd)
   Conclusion: f (-3) = -f 3
 Proof:
   sorry
 QED
 
 /-
-Voyons maintenant un exemple qui démontre un énoncé quantifié using
-deux hypothèses quantifiées.
-Dans cet exemple, on nomme `x₀` le nombre réel introduit par la
-commande `Fix` pour insister sur le fait qu’il est fixé and bien voir
-qu’après la ligne `Since f is evene we get hfx₀ : f (-x₀) = f x₀`, la nouvelle
-hypothèse `hfx₀` ne porte que sur ce seul nombre.
+Let's now look at an example that proves a quantified statement using two
+quantified hypotheses.
+In this example, we name the real number introduced by the `Fix` command `x₀`
+to emphasize the fact that it is fixed and clearly see that after the line
+`Since f is even we get hf₀ : f (-x₀) = f x₀`, the new hypothesis `hf₀`
+relates to this number alone.
 
-On notera aussi que la justification `by computation`, destinée aux étapes
-n’utilisant pas d’hypothèse, s’occupe de la définition
-de l’addition de fonctions. De même, dans des exercices suivants, elle s’occupera
-de celle de la composition de fonctions.
+Note also that the `by computation` justification, intended for steps not using
+an assumption, deals with the definition of the addition of functions.
+Similarly, in subsequent exercises, it will deal with the definition of the
+composition of functions.
 -/
 
-Example "Si f and g sont paires alors leur somme l’est aussi."
+Example "If f and g are even then so is their sum."
   Given: (f g : ℝ → ℝ)
-  Assume: (hf : f is evene) (hg : g is evene)
-  Conclusion: (f + g) is evene
+  Assume: (hf : f is even) (hg : g is even)
+  Conclusion: (f + g) is even
 Proof:
   Let's prove that ∀ x, (f + g) (-x) = (f + g) x
   Fix x₀ : ℝ
-  Since f is evene we get hf₀ : f (-x₀) = f x₀
-  Since g is evene we get hg₀ : g (-x₀) = g x₀
+  Since f is even we get hf₀ : f (-x₀) = f x₀
+  Since g is even we get hg₀ : g (-x₀) = g x₀
   Calc
     (f + g) (-x₀) = f (-x₀) + g (-x₀) by computation
     _             = f x₀ + g (-x₀)    since f (-x₀) = f x₀
@@ -93,41 +94,41 @@ Proof:
 QED
 
 /-
-Dans la démonstration précédente, la ligne commençant par "Let's prove that"
-est purement psychologique, Lean n’en a pas besoin du tout.
+In the previous proof, the line starting with “Let's prove that” is
+purely psychological; Lean doesn't need it at all.
 
-Enfin Lean n’a pas vraiment besoin qu’on lui dise à quel réel appliquer
-les hypothèses de parité, il lui suffit de chercher dans l’égalité à justifier
-donc les lignes de spécialisation sont inutiles.
+Finally, Lean doesn't really need to be told which real to apply the parity
+assumptions to, he just needs to look in the equality to justify, so the
+specialization lines are unnecessary.
 
-On peut donc aussi utiliser la version ci-dessous.
+So you can also use the version below.
 -/
 
-Example "Si f and g sont paires alors leur somme l’est aussi, avec une démonstration concise."
+Example "If f and g are even then so is their sum, with a concise proof."
   Given: (f g : ℝ → ℝ)
-  Assume:(hf : f is evene) (hg : g is evene)
-  Conclusion: (f + g) is evene
+  Assume:(hf : f is even) (hg : g is even)
+  Conclusion: (f + g) is even
 Proof:
   Fix x₀
   Calc
     (f + g) (-x₀) = f (-x₀) + g (-x₀) by computation
-    _             = f x₀ + g (-x₀)    since f is evene
-    _             = f x₀ + g x₀       since g is evene
+    _             = f x₀ + g (-x₀)    since f is even
+    _             = f x₀ + g x₀       since g is even
     _             = (f + g) x₀        by computation
 QED
 
-Exercise "02.3 Précomposer par une fonction paire donne une fonction paire."
+Exercise "02.3 Precomposing by an even function leads to an even function."
   Given: (f g : ℝ → ℝ)
-  Assume: (hf : f is evene)
-  Conclusion: (g ∘ f) is evene
+  Assume: (hf : f is even)
+  Conclusion: (g ∘ f) is even
 Proof:
   sorry
 QED
 
-Exercise "02.4 La composée de deux fonctions impaires is odde."
+Exercise "02.4 Any composition of odd functions is odd."
   Given: (f g : ℝ → ℝ)
-  Assume: (hf : f is odde) (hg : g is odde)
-  Conclusion: (g ∘ f) is odde
+  Assume: (hf : f is odd) (hg : g is odd)
+  Conclusion: (g ∘ f) is odd
 Proof:
   sorry
 QED

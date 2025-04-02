@@ -10,14 +10,6 @@ def injective (f : ℝ → ℝ) := ∀ x y, f x = f y → x = y
 
 notation:50 f:80 " is injective" => injective f
 
-def paire (f : ℝ → ℝ) := ∀ x, f (-x) = f x
-
-notation:50 f:80 " is evene" => paire f
-
-def impaire (f : ℝ → ℝ) := ∀ x : ℝ, f (-x) = -f x
-
-notation:50 f:80 " is odde" => impaire f
-
 def croissante {α β : Type} [LE α] [LE β] (f : α → β) := ∀ x₁, (∀ x₂, x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂)
 
 notation:50 f:80 " is non-decreasing" => croissante f
@@ -98,11 +90,20 @@ dvd_antisymm
 lemma divise_def (a b : ℤ) : a ∣ b ↔ ∃ k, b = a*k :=
 Iff.rfl
 
-def pair (n : ℤ) := ∃ k, n = 2*k
-notation:50 n:60 " is even" => pair n
+class HasParity (α : Type) where
+  isEven : α → Prop
+  isOdd : α → Prop
 
-def impair (n : ℤ) := ∃ k, n = 2*k + 1
-notation:50 n:60 " is odd" => impair n
+notation:50 n:60 " is even" => HasParity.isEven n
+notation:50 n:60 " is odd" => HasParity.isOdd n
+
+instance : HasParity ℤ where
+  isEven n :=  ∃ k, n = 2*k
+  isOdd n :=  ∃ k, n = 2*k + 1
+
+instance : HasParity (ℝ → ℝ) where
+  isEven f := ∀ x, f (-x) = f x
+  isOdd f := ∀ x : ℝ, f (-x) = -f x
 
 lemma pair_ou_impair (n : ℤ) : n is even ∨ n is odd := by
   convert Int.even_or_odd n
@@ -333,8 +334,8 @@ useDefaultDataProviders
 
 useDefaultSuggestionProviders
 
-configureUnfoldableDefs «croissante» «decroissante» «paire» «impaire»
-  «valeur_adherence» «limite_suite» «surjective» «injective» «pair» «impair» «extraction» suite_cauchy limite_infinie_suite
+configureUnfoldableDefs «croissante» «decroissante» --HasParity.isEven HasParity.isOdd
+  «valeur_adherence» «limite_suite» «surjective» «injective» «extraction» suite_cauchy limite_infinie_suite
 
 -- Remarque : to arrivant aux feuilles de négations on pourra ajouter helpByContradictionGoal
 configureHelpProviders SinceHypHelp SinceGoalHelp
