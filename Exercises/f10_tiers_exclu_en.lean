@@ -97,7 +97,7 @@ commande correspondante `Assume for contradiction`.
 
 Example "Unicité de la limite."
   Given: (u : ℕ → ℝ) (l l' : ℝ)
-  Assume: (hl : limite_suite u l) (hl' : limite_suite u l')
+  Assume: (hl : u tends to l) (hl' : u tends to l')
   Conclusion: l = l'
 Proof:
   Assume for contradiction H : l ≠ l'

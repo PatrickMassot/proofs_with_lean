@@ -18,10 +18,10 @@ def decroissante {α β : Type} [LE α] [LE β] (f : α → β) := ∀ x₁ x₂
 
 notation:50 f:80 " is non-increasing" => decroissante f
 
-def limite_suite (u : ℕ → ℝ) (l : ℝ) : Prop :=
+def sequence_tendsto (u : ℕ → ℝ) (l : ℝ) : Prop :=
 ∀ ε > 0, ∃ N, ∀ n ≥ N, |u n - l| ≤ ε
 
-notation3:50 u:80 " tends to " l => limite_suite u l
+notation3:50 u:80 " tends to " l => sequence_tendsto u l
 
 /-- La suite `u` tends to `+∞`. -/
 def limite_infinie_suite (u : ℕ → ℝ) := ∀ A, ∃ N, ∀ n ≥ N, u n ≥ A
@@ -190,7 +190,7 @@ lemma ineg_triangle'' (x y z : ℝ) : |x - y| ≤ |z - x| + |z - y| := by
 
 namespace m154
 
-lemma unicite_limite {u l l'}: limite_suite u l → limite_suite u l' → l = l' := by
+lemma unicite_limite {u l l'}: sequence_tendsto u l → sequence_tendsto u l' → l = l' := by
   intros hl hl'
   apply egal_si_abs_eps
   intros ε ε_pos
@@ -247,7 +247,7 @@ variable { φ : ℕ → ℕ}
 /-- Un réel `a` est valeur d'adhérence d'une suite `u` s'il
 existe une suite extraite de `u` qui tends to `a`. -/
 def valeur_adherence (u : ℕ → ℝ) (a : ℝ) :=
-∃ φ, φ est une extraction ∧ limite_suite (u ∘ φ) a
+∃ φ, φ est une extraction ∧ sequence_tendsto (u ∘ φ) a
 
 notation3:50 a:80 " est valeur d'adhérence de " u => valeur_adherence u a
 
@@ -275,7 +275,7 @@ lemma extraction_machine (ψ : ℕ → ℕ) (hψ : ∀ n, ψ n ≥ n) :
 macro "verifie" : tactic =>
 `(tactic|
     first |(
-        try unfold limite_suite;
+        try unfold sequence_tendsto;
         try unfold continue_en;
         push_neg;
         try simp only [exists_prop];
@@ -335,7 +335,7 @@ useDefaultDataProviders
 useDefaultSuggestionProviders
 
 configureUnfoldableDefs «croissante» «decroissante» --HasParity.isEven HasParity.isOdd
-  «valeur_adherence» «limite_suite» «surjective» «injective» «extraction» suite_cauchy limite_infinie_suite
+  «valeur_adherence» «sequence_tendsto» «surjective» «injective» «extraction» suite_cauchy limite_infinie_suite
 
 -- Remarque : to arrivant aux feuilles de négations on pourra ajouter helpByContradictionGoal
 configureHelpProviders SinceHypHelp SinceGoalHelp
@@ -374,3 +374,8 @@ end
 notation3bis "Prédicat sur " X => X → Prop
 notation3bis "Énoncé" => Prop
 notation3 "Faux" => False
+
+def continuous_function_at (f : ℝ → ℝ) (x₀ : ℝ) :=
+∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| ≤ δ → |f x - f x₀| ≤ ε
+
+notation:50 f:80 " is continuous at " x₀ => continuous_function_at f x₀

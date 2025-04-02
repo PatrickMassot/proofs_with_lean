@@ -25,7 +25,7 @@ lemma inferieur_si_inferieur_plus_eps {x y : ℝ} :
 addAnonymousFactSplittingLemma inferieur_si_inferieur_plus_eps
 
 -- Si u tends to x and u_n ≤ y pour tout n alors x ≤ y.
-lemma lim_le {x y : ℝ} {u : ℕ → ℝ} (hu : limite_suite u x)
+lemma lim_le {x y : ℝ} {u : ℕ → ℝ} (hu : sequence_tendsto u x)
   (ineg : ∀ n, u n ≤ y) : x ≤ y := by
   apply inferieur_si_inferieur_plus_eps
   intros ε ε_pos
@@ -38,7 +38,7 @@ lemma lim_le {x y : ℝ} {u : ℕ → ℝ} (hu : limite_suite u x)
 addAnonymousFactSplittingLemma lim_le
 
 lemma limite_infinie_pas_finie {u : ℕ → ℝ} :
-  limite_infinie_suite u → ∀ x, ¬ limite_suite u x := by
+  limite_infinie_suite u → ∀ x, ¬ sequence_tendsto u x := by
   intros lim_infinie x lim_x
   rcases lim_x 1 (by linarith) with ⟨N, hN⟩
   rcases lim_infinie (x+2) with ⟨N', hN'⟩
@@ -67,11 +67,11 @@ axiom limite_inv_succ :  ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, 1/(n + 1 : ℝ) �
 --   positivity
 
 
-lemma lim_constante (x : ℝ) : limite_suite (λ _ ↦ x) x :=
+lemma lim_constante (x : ℝ) : sequence_tendsto (λ _ ↦ x) x :=
 λ ε ε_pos ↦ ⟨0, λ _ _ ↦ by simp [le_of_lt ε_pos]⟩
 
 lemma limite_si_inferieur_un_sur {u : ℕ → ℝ} {x : ℝ} (h : ∀ n, |u n - x| ≤ 1/(n+1)) :
-limite_suite u x := by
+sequence_tendsto u x := by
   intros ε ε_pos
   rcases limite_inv_succ ε ε_pos with ⟨N, hN⟩
   use N
@@ -81,18 +81,18 @@ limite_suite u x := by
   linarith
 
 
-lemma lim_plus_un_sur (x : ℝ) : limite_suite (λ n ↦ x + 1/(n+1)) x :=
+lemma lim_plus_un_sur (x : ℝ) : sequence_tendsto (λ n ↦ x + 1/(n+1)) x :=
   limite_si_inferieur_un_sur (λ n ↦ by rw [abs_of_pos] <;> linarith [inv_succ_pos n])
 
-lemma lim_moins_un_sur (x : ℝ) : limite_suite (λ n ↦ x - 1/(n+1)) x := by
+lemma lim_moins_un_sur (x : ℝ) : sequence_tendsto (λ n ↦ x - 1/(n+1)) x := by
   refine limite_si_inferieur_un_sur (λ n ↦ ?_)
   rw [show x - 1 / (n + 1) - x = -(1/(n+1)) by ring, abs_neg, abs_of_pos]
   linarith [inv_succ_pos n]
 
 
 lemma gendarmes {u v w : ℕ → ℝ} {l : ℝ}
-(lim_u : limite_suite u l) (lim_w : limite_suite w l)
-(hu : ∀ n, u n ≤ v n) (hw : ∀ n, v n ≤ w n)  : limite_suite v l := by
+(lim_u : sequence_tendsto u l) (lim_w : sequence_tendsto w l)
+(hu : ∀ n, u n ≤ v n) (hw : ∀ n, v n ≤ w n)  : sequence_tendsto v l := by
   intros ε ε_pos
   rcases lim_u ε ε_pos with ⟨N, hN⟩
   rcases lim_w ε ε_pos with ⟨N', hN'⟩
@@ -121,8 +121,8 @@ variable { φ : ℕ → ℕ}
 variable {u : ℕ → ℝ} {l : ℝ}
 
 /-- Si `u` tends to `l` alors toutes ses suites extraites tendent vers `l`. -/
-lemma limite_extraction_si_limite (h : limite_suite u l) (hφ : φ est une extraction) :
-limite_suite (u ∘ φ) l := by
+lemma limite_extraction_si_limite (h : sequence_tendsto u l) (hφ : φ est une extraction) :
+sequence_tendsto (u ∘ φ) l := by
   intros ε ε_pos
   cases' h ε ε_pos with N hN
   use N
@@ -151,7 +151,7 @@ axiom bolzano_weierstrass {a b : ℝ} {u : ℕ → ℝ} (h : ∀ n, u n ∈ [a, 
 --   exact le_of_lt (hN n hn)
 
 
-axiom limite_suite_id : ∀ A : ℝ, ∃ N : ℕ, ∀ n ≥ N, (n : ℝ) ≥ A
+axiom sequence_tendsto_id : ∀ A : ℝ, ∃ N : ℕ, ∀ n ≥ N, (n : ℝ) ≥ A
 
 open Real
 
