@@ -3,19 +3,19 @@ setup_env
 open m154
 
 /-
-# Feuille 3 : Quantificateur existentiel
+# File 3: Existential quantifier
 -/
 
 /-
-Dans l'exemple suivant, on démontre un énoncé de la forme `∃ x, P x` au moyen de
-la commande `Let's prove that _ works`.
+In the following example, we prove a statement of the form `∃ x, P x` using the
+command `Let's prove that _ works`.
 -/
-Example "Démonstration d’existence"
+Example "Existence proof"
   Given:
   Assume:
   Conclusion: ∃ x : ℝ, x*x = 4
 Proof:
-  Let's prove that -2 works  -- Est-ce la seule possibilité ?
+  Let's prove that -2 works  -- Is it the only possibility?
   We compute
 QED
 
@@ -28,21 +28,21 @@ Proof:
 QED
 
 /-
-Dans l'exemple suivant, on utilise une hypothèse de la forme `∃ x : X, P x`
-au moyen de la commande `Since _ we get _ such that`.
+In the following example, we use an assumption of the form `∃ x : X, P x` using
+the command `Since … we get … such that`.
 
-On notera deux choses dans le calcul.
+There are two things to note in the calculation.
 
-Tout d’abord on pourrait justifier la première ligne to écrivant
-`n = n' + 1 since n = n' + 1`
-mais on évite cette formulation embarassante to écrivant
-`n = n' + 1 by hypothesis`.
+Firstly, the first line could be justified by writing
+`n = n' + 1 since n = n' + 1`,
+but this awkward formulation is avoided by writing `n = n' + 1 by hypothesis`.
 
-Ensuite le fait que `n' + 1` soit strictement positif est vrai sans faire
-d’hypothèse sur l’entier naturel `n'` donc on peut le justifier avec `by computation`.
+Secondly, the fact that `n' + 1` is strictly positive is true without making
+any hypothesis about the natural number `n'`, so we can justify it with `by
+computation`.
 -/
 
-Example "Utilisation d’une existence, suivie d’un calcul."
+Example "Use of some existence, followed by a computation."
   Given: (n : ℕ)
   Assume: (h : ∃ n', n = n' + 1)
   Conclusion: n > 0
@@ -54,8 +54,8 @@ Proof:
 QED
 
 /-
-Alternativement, on peut utiliser `Since … it suffices to prove that …`
-pour transformer le but courant par substitution using une égalité.
+Alternatively, we can use `Since … it suffices to prove that …` to
+transform the current goal by substitution using an equality.
 -/
 
 Example "Utilisation d’une existence, suivie d’une substitution"
@@ -69,10 +69,10 @@ Proof:
 QED
 
 /-
-Vous pouvez maintenant choisir entre ces deux styles.
+You can now choose between those two styles.
 -/
 
-Exercise "03.2 Utilisation d’un existence"
+Exercise "03.2 Use of an existence"
   Given: (n : ℕ)
   Assume: (h : ∃ n', n = n' + 3)
   Conclusion: n > 0
@@ -81,13 +81,13 @@ Proof:
 QED
 
 /-
-Il faut bien noter qu'en général il y a plusieurs `x` qui conviennent. Dans
-l'exemple suivant, il y to a deux (sauf si y est nul).
-Pour insister sur le fait qu'on to a fixé un, on l'appelle `x₀`.
+Note that there are usually several `x` that work. In the following
+example, there are two (unless y is zero). To emphasize that we've fixed one,
+we call it `x₀`.
 
-Cet exemple inclut une discussion selon le signe de x₀ mais à ce stade il n’est pas
-utile de retenir la façon dont cette discussion est initiée.
-La démonstration utilise également implicitement la règle des signes pour les produits.
+This example includes a discussion according to the sign of x₀ but at this
+stage it is not useful to remember how this discussion is initiated. The
+demonstration also implicitly uses the sign rule for products.
 -/
 Example "Tout carré est positif."
   Given: (y : ℝ)
@@ -104,22 +104,22 @@ Proof:
 QED
 
 /-
-Les exercices suivants utilisent la relation de divisibilité dans ℤ
-Attention : la barre de divisibilité qui n'est pas celle du clavier
-mais obtenue par ,|.
+The following exercises use the divisibility relation in ℤ.
+Warning: the divisibility bar is not the one on the keyboard, but obtained by
+pressing `,|`.
 
-Dans l’exemple suivant, on améliore la lisibilité to précisant ce que
-« works » signifie.
+In the following example, we improve readability by specifying what “works”
+means.
 -/
 
-Example "La divisibilité est transitive."
+Example "Divisibility is transitive."
   Given: (a b c : ℤ)
   Assume: (h1 : a ∣ b) (h2 : b ∣ c)
   Conclusion: a ∣ c
 Proof:
   Since a ∣ b we get k such that hk : b = a*k -- (1)
   Since b ∣ c we get l such that hl : c = b*l -- (2)
-  -- Pour montrer que a ∣ c, il suffit de trouver m such that c = a*m
+  -- In order to prove a ∣ c, we need to find m such that c = a*m
   Let's prove that ∃ m, c = a * m
   Let's prove that k*l works:c = a * (k * l)
   Calc
@@ -129,10 +129,10 @@ Proof:
 QED
 
 /-
-Voyons maintenant un autre énoncé semblable.
+Let’s now see a similar statement.
 -/
 
-Exercise "03.3 Divisibilité and somme"
+Exercise "03.3 Divisibility and addition."
   Given: (a b c : ℤ)
   Assume: (h1 : a ∣ b) (h2 : a ∣ c)
   Conclusion: a ∣ b+c
@@ -141,76 +141,59 @@ Proof:
 QED
 
 /-
-On commence maintenant à combiner explicitement les quantificateurs
-avec la définition de la surjectivité.
+We now begin to explicitly combine quantifiers with the definition of
+surjectivity.
 
-On rappelle que `f is surjective` signifie `∀ y, ∃ x, f x = y`
+Recall that `f is surjective` means `∀ y, ∃ x, f x = y`.
 -/
 
 /-
-L'exemple suivant illustre l'utilisation de la commande `We rename`.
+The next example also illustrate the use of the `We rename` command.
 -/
 
-Example "On suppose que g ∘ f is surjective. Alors g is surjective."
+Example "If g ∘ f is surjective then g is surjective."
   Given: (f g : ℝ → ℝ)
   Assume: (hyp : (g ∘ f) is surjective)
   Conclusion: g is surjective
 Proof:
-/- On commence par donner une démonstration très bavarde, mais
-   cette discussion est très importante pour comprendre l'enjeu des
-   variables liées and variables libres. -/
-  -- Il s'agit de montrer que ∀ y, ∃ x, g(x) = y
+/- We start with a very verbose proof, but this discussion is very important
+   to understand in order to understand the difference between bound and free
+   variables. -/
   Let's prove that ∀ y, ∃ x, g x = y
-  -- Fix y un réel. On veut trouver x such that g(x) = y
   Fix y
-  -- Or notre hypothèse sur g ∘ f garantit que ∀ y, ∃ x, (g ∘ f)(x) = y
   We reformulate hyp as ∀ y, ∃ x, (g ∘ f) x = y
-  -- A priori le symbole y apparaissant dans cette hypothèse n'a rien à voir
-  -- avec le y que nous avons fixé. C'est une variable liée (ou muette)
-  -- on peut la renommer z.
+  -- A priori the `y` symbol appearing in this assumption has nothing to do with
+  -- the `y` we fixed. It is a bound variable.
+  -- We can rename it to z.
   We rename y to z at hyp
-  -- On a également des variables nommées x at and dans le but.
-  -- Mais ce sont toutes deux des variables liées, n'ayant aucun rapport
-  -- entre elles. En fait le (ou les) x promis par l'hypothèse ne conviennent
-  -- pas pour notre but.
-  -- Renommons donc la variable liée de l'hypothèse pour clarifier la situation.
+  -- We also have variables named `x` in both `hyp` and the goal.
+  -- But they are both bound variable, with no relationship.
+  -- Let’s rename the one appearing in `hyp` for clarity.
   We rename x to w at hyp
-  -- On peut spécialiser l'hypothèse h au y que nous avons fixé
-  -- ce qui fournit w such that (g ∘ f)(w) = y
+  -- We can specialize assumpion `hyp` to the `y` we fixed, and get some `w`
   Since ∀ z, ∃ w, (g ∘ f) w = z we get w : ℝ such that hw : g (f w) = y
-  -- Let's prove that f(w) works pour notre but
   Let's prove that f w works
-  -- Il s'agit de montrer que g(f(w)) = y mais ce n'est rien d'autre
-  -- que notre hypothèse sur w, par définition de la composition.
-  -- Sur papier on écrirait simplement « f(w) works », sans le
-  -- « Let's prove that ».
+  -- We need to prove `g(f(w)) = y` but, by definition of composition,
+  -- this is nothing else than our assumption on `w`.
+  -- On paper we would have simply written “f(w) works”.
   We conclude by hypothesis
 QED
 
 /-
-Bien sûr l'essentiel de la discussion ci-dessus est inutile d'un point
-de vue logique. Ni Lean ni une rédaction pour experts n'ont besoin
-de tous ces discours. Voici la même démonstration sans bavardage.
+Of course, most of the above discussion is useless from a logical point of
+view. Neither Lean nor expert readers needs all this talk. Here's a concise version of the same proof.
 -/
-Example "On suppose que g ∘ f is surjective. Alors g is surjective."
+Example "If g ∘ f is surjective then g is surjective."
   Given: (f g : ℝ → ℝ)
   Assume: (hyp : (g ∘ f) is surjective)
   Conclusion: g is surjective
 Proof:
   Fix y
-  Let's prove that ∃ x, g x = y -- Cette ligne est optionnelle mais facilite la lecture
+  Let's prove that ∃ x, g x = y -- This line is optional but makes reading easier
   Since (g ∘ f) is surjective we get w : ℝ such that hw : (g ∘ f) w = y
   Let's prove that f w works
   We conclude by hypothesis
 QED
-
-/-
-Et on peut passer à la rédaction « sur papier », par exemple :
-
-  Fix y réel. Montrons qu'il existe x réel such that g(x) = y.
-  By l'hypothèse de surjectivité de g ∘ f appliquée à y, we get w réel such that
-  g ∘ f(w) = y. Le réel f(w) works.
--/
 
 Exercise "03.4"
   Given: (f g : ℝ → ℝ)
