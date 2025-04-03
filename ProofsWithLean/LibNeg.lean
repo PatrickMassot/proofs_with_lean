@@ -1,4 +1,4 @@
-import ProofsWithLean.Lib_en
+import ProofsWithLean.Lib
 
 
 open Verbose.English m154

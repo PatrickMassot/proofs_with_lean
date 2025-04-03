@@ -1,4 +1,4 @@
-import ProofsWithLean.Lib_en
+import ProofsWithLean.Lib
 
 macro_rules | `($x ∣ $y)   => `(@Dvd.dvd ℕ Nat.instDvd ($x : ℕ) ($y : ℕ))
 

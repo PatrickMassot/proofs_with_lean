@@ -1,4 +1,4 @@
-import ProofsWithLean.LibPgcd_en
+import ProofsWithLean.LibGcd
 setup_env
 
 namespace m154

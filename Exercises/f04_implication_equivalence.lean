@@ -1,4 +1,4 @@
-import ProofsWithLean.Lib_en
+import ProofsWithLean.Lib
 setup_env
 
 namespace m154

@@ -1,4 +1,4 @@
-import ProofsWithLean.LibNeg_en
+import ProofsWithLean.LibNeg
 setup_env
 
 open m154

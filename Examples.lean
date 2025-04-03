@@ -1,4 +1,4 @@
-import ProofsWithLean.LibNeg_en
+import ProofsWithLean.LibNeg
 setup_env
 
 example (f : ℝ → ℝ) (u : ℕ → ℝ) (x₀ : ℝ)
