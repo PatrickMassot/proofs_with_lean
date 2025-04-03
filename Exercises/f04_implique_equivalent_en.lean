@@ -19,7 +19,7 @@ L’exemple suivant montre comment utiliser directement cette règle.
 -/
 
 Example "Utilisation d’une implication"
-  Given: (P Q : Énoncé)
+  Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
 Proof:
@@ -33,7 +33,7 @@ en fait identique à la précédente.
 -/
 
 Example "Utilisation d’une implication, une modification d’ordre cosmétique"
-  Given: (P Q : Énoncé)
+  Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
 Proof:
@@ -51,7 +51,7 @@ pas d’une nouvelle règle de logique.
 -/
 
 Example "Utilisation d’une implication, to raisonnant vers l’arrière"
-  Given: (P Q : Énoncé)
+  Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
 Proof:
@@ -334,7 +334,7 @@ peuvent extraire une implication d’une équivalence, comme dans l’exemple su
 -/
 
 Example "Utilisation d’une des implications d’une équivalence."
-  Given: (P R : Énoncé)
+  Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : P)
   Conclusion: R
 Proof:
@@ -343,7 +343,7 @@ Proof:
 QED
 
 Exercise "04.8 Utilisation d’une des implications d’une équivalence."
-  Given: (P R : Énoncé)
+  Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : R)
   Conclusion: P
 Proof:
@@ -351,7 +351,7 @@ Proof:
 QED
 
 Exercise "04.9 Utilisation d’une des implications d’une équivalence. Un cas plus complexe."
-  Given: (P Q R S : Énoncé)
+  Given: (P Q R S : Statement)
   Assume: (hPR : P ⇔ R) (hQRS : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
 Proof:
@@ -365,7 +365,7 @@ les deux implications. La commande permettant d’initier cette scission est
 -/
 
 Example "Démonstration d’une équivalence par double implication."
-  Given: (P Q R : Énoncé)
+  Given: (P Q R : Statement)
   Assume: (hPR : P ⇒ R) (hPQ : R ⇒ Q) (hQP : Q ⇒ P)
   Conclusion: P ⇔ R
 Proof:
@@ -398,7 +398,7 @@ permettent de faire cela.
 -/
 
 Example "Une réécriture d’énoncé qui permet de conclure directement."
-  Given: (P Q R S : Énoncé)
+  Given: (P Q R S : Statement)
   Assume: (h : P ⇔ R) (h' : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
 Proof:
@@ -415,7 +415,7 @@ Reprenons encore le même exemple.
 -/
 
 Example "Une réécriture d’énoncé qui permet de changer le but avant de conclure."
-  Given: (P Q R S : Énoncé)
+  Given: (P Q R S : Statement)
   Assume: (h : P ⇔ R) (h' : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
 Proof:
@@ -424,7 +424,7 @@ Proof:
 QED
 
 Exercise "04.11 Une réécriture d’énoncé qui permet de changer le but."
-  Given: (P R : Énoncé)
+  Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : P)
   Conclusion: R
 Proof:
@@ -437,7 +437,7 @@ par réécritures successives.
 -/
 
 Example "Une démonstration d’équivalence par réécriture d’énoncés."
-  Given: (P Q R S T : Énoncé)
+  Given: (P Q R S T : Statement)
   Assume: (hPR : P ⇔ R) (hST : S ⇔ T)
   Conclusion: ((Q ⇒ R) ⇒ S) ⇔ ((Q ⇒ P) ⇒ T)
 Proof:

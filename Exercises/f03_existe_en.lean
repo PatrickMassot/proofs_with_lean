@@ -58,7 +58,7 @@ Alternatively, we can use `Since … it suffices to prove that …` to
 transform the current goal by substitution using an equality.
 -/
 
-Example "Utilisation d’une existence, suivie d’une substitution"
+Example "Use of some existence, followed by a substitution."
   Given: (n : ℕ)
   Assume: (h : ∃ n', n = n' + 1)
   Conclusion: n > 0
@@ -89,7 +89,7 @@ This example includes a discussion according to the sign of x₀ but at this
 stage it is not useful to remember how this discussion is initiated. The
 demonstration also implicitly uses the sign rule for products.
 -/
-Example "Tout carré est positif."
+Example "Every square is non-negative."
   Given: (y : ℝ)
   Assume: (h : ∃ x, y = x*x)
   Conclusion: y ≥ 0
@@ -181,7 +181,8 @@ QED
 
 /-
 Of course, most of the above discussion is useless from a logical point of
-view. Neither Lean nor expert readers needs all this talk. Here's a concise version of the same proof.
+view. Neither Lean nor expert readers needs all this talk. Here's a concise
+version of the same proof.
 -/
 Example "If g ∘ f is surjective then g is surjective."
   Given: (f g : ℝ → ℝ)
@@ -195,7 +196,7 @@ Proof:
   We conclude by hypothesis
 QED
 
-Exercise "03.4"
+Exercise "03.4 A composition of surjective functions is surjective"
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is surjective) (hg : g is surjective)
   Conclusion: (g ∘ f) is surjective

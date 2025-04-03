@@ -46,7 +46,7 @@ L’exemple suivant illustre également le fait que la bibliothèque du cours sa
 reconnaître un certain nombre d’énoncés faux, comme par exemple `1 > 2`.
 -/
 Example "À partir d’hypothèses contradictoires, on peut démontrer tout énoncé."
-  Given: (x : ℝ) (P : Énoncé)
+  Given: (x : ℝ) (P : Statement)
   Assume: (hx : x = 1) (hx' : x > 2)
   Conclusion: P
 Proof:
@@ -57,7 +57,7 @@ Proof:
 QED
 
 Exercise "9.01 À partir d’hypothèses contradictoires, on peut démontrer tout énoncé."
-  Given: (x : ℝ) (P : Énoncé)
+  Given: (x : ℝ) (P : Statement)
   Assume: (hx : x < 0) (hx' : x > 0)
   Conclusion: P
 Proof:
@@ -209,7 +209,7 @@ que, pour tout énoncé `P`, si `P` est vrai alors il n’est pas faux.
 -/
 
 Exercise "9.05 Si un énoncé `P` est vrai alors il n’est pas faux."
-  Given: (P : Énoncé)
+  Given: (P : Statement)
   Assume: (h : P)
   Conclusion: ¬ (¬ P)
 Proof:
@@ -243,7 +243,7 @@ l’exercice précédent mais pas fondamentalement plus compliquée.
 -/
 
 Exercise "9.07 Un énoncé P est faux si and seulement si il est équivalent à Faux."
-  Given: (P : Énoncé)
+  Given: (P : Statement)
   Assume:
   Conclusion: (¬ P) ⇔ (P ⇔ Faux)
 Proof:

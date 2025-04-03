@@ -27,7 +27,7 @@ strictement positif.
 Voyons un exemple artificiel.
 -/
 
-Example "Énoncé commençant par ∀ ε > 0"
+Example "Statement commençant par ∀ ε > 0"
   Given: (u : ℕ → ℝ)
   Assume: (hu : ∀ δ > 0, ∃ n, u n < δ)
   Conclusion:  ∀ ε > 0, ∃ n, u n < ε/2

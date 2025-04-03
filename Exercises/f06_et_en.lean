@@ -167,15 +167,15 @@ QED
 
 /-
 L’exercice suivant nécessite plus de réflexion. Il fait intervenir la notion
-de pgcd de deux entiers naturels and la divisibilité. On rappelle que la
+de gcd de deux entiers naturels and la divisibilité. On rappelle que la
 barre de divisibilité n’est pas la barre de la touche 6 sur un clavier azerty mais
 un symbole unicode qu’on peut obtenir par `,dvd`.
 
 La commande `We compute` (et sa cousine la justification `by computation` dans les `Calc`)
 savent que
-`∀ a b, pgcd a b ∣ a`
+`∀ a b, gcd a b ∣ a`
 et
-`∀ a b, pgcd a b ∣ b`
+`∀ a b, gcd a b ∣ b`
 et aussi
 `∀ a, a ∣ a`.
 
@@ -185,7 +185,7 @@ La base de données de lemmes contient l’énoncé
 l’exercice suivant ne fonctionnerait pas avec des entiers relatifs).
 
 Elle contient également l’énoncé
-`∀ a b c : ℕ, (c ∣ a ∧ c ∣ b) ⇒ c ∣ pgcd a b`
+`∀ a b c : ℕ, (c ∣ a ∧ c ∣ b) ⇒ c ∣ gcd a b`
 
 Ces cinq énoncés suffisent à faire l’exercice.
 -/
@@ -193,7 +193,7 @@ Ces cinq énoncés suffisent à faire l’exercice.
 Exercise "06.5"
   Given: (a b : ℕ)
   Assume:
-  Conclusion: a ∣ b ⇔ pgcd a b = a
+  Conclusion: a ∣ b ⇔ gcd a b = a
 Proof:
   sorry
 QED
