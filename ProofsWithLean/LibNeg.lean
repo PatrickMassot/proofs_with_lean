@@ -17,9 +17,9 @@ lemma mul_le_mul_of_pos_right {α : Type*} {a b c : α} [OrderedSemiring α]
     (h : 0 < a) (h' : b ≤ c) : b*a ≤ c*a :=
   mul_le_mul_of_nonneg_right h' h.le
 
-lemma not_gt_eq (x y : ℝ) (h : x = y) (h' : x > y) : Faux := h'.ne' h
+lemma not_gt_eq (x y : ℝ) (h : x = y) (h' : x > y) : False := h'.ne' h
 
-lemma not_lt_eq (x y : ℝ) (h : x = y) (h' : x < y) : Faux := h'.ne h
+lemma not_lt_eq (x y : ℝ) (h : x = y) (h' : x < y) : False := h'.ne h
 
 lemma non_pair_impair (n : ℤ) (h : n is even) (h' : n is odd) : False :=
   non_pair_et_impair n ⟨h, h'⟩

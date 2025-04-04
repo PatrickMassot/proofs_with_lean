@@ -3,23 +3,23 @@ setup_env
 
 open m154
 /-
-# Feuille 10 : Tiers exclu, raisonnements par l’absurde and contraposées.
+# File 10: Excluded middle, proofs by contradition and contraposition
 
-## Le principe du tiers-exclu
+## The excluded middle principle
 
-Après l’énoncé `Faux` and la définition de la négation, le troisième and dernier
-ingrédient de la théorie des négations est le principe du tiers-exclu :
+After the `False` statement and the definition of negation, the third and final
+ingredient of negation theory is the principle of excluded middle:
 
-« Pour tout énoncé P, P or ¬ P ».
+“For any statement P, P or ¬ P”.
 
-Ce principe ne découle pas du principe d’explosion and de la définition de la
-négation, il faut le rajouter comme axiome.
+This principle does not follow from the principle of explosion and the
+definition of negation, but must be added as an axiom.
 
-Cet axiome se présente sous de multiple formes équivalentes. On commence par
-l’utiliser sous sa forme d’origine.
+This axiom has many equivalent forms. We start by using it in its original
+form.
 -/
 
-Example "Valeur absolue d’une somme"
+Example "Absolure value of a sum"
   Given: (x y : ℝ)
   Assume:
   Conclusion: |x + y| ≤ |x| + |y|
@@ -38,14 +38,14 @@ Proof:
 QED
 
 /-
-Dans l’exercice suivant, on pourra utiliser implicitement les faits suivants :
+In the next exercise, you can implicit use the following facts:
 `∀ x ≥ 0, |x| = x`
 `∀ x < 0, x = - |x|`
 `∀ x, x^2 ≥ 0`
 `∀ x, (-x)^2 = x^2`
 -/
 
-Exercise "10.01 Valeur absolue d’un carré"
+Exercise "10.01 Absolute value of a square"
   Given: (x : ℝ)
   Assume:
   Conclusion: |x^2| = |x|^2
@@ -54,22 +54,25 @@ Proof:
 QED
 
 /-
-## Le raisonnement par l’absurde
+## Proofs by contradiction
 
-On passe maintenant à la deuxième incarnation du principe du tiers exclu : le
-principe de raisonnement par l’absurde. Ce raisonnement est basé sur la
-conséquence suivante du tiers exclu :
-Pour tout énoncé `P`, `¬ ¬ P ⇒ P`.
-Ainsi pour démontrer `P`, il suffit de démontrer `¬ ¬ P`. Or, par définition, pour
-démontrer `¬ ¬ P`, il suffit de supposer `¬ P` and de montrer `Faux`.
-On to déduit que, pour montrer `P`, il suffit de supposer `¬ P` and de montrer
-une contradiction. Since ce raisonnement est très général and un peu fastidieux, on
-l’abrège to la phrase « Assume par l’absurde `¬ P` », où le `¬ P` peut être
-remplacé par une formulation équivalente.
+We now turn to the second incarnation of the excluded middle principle:
+the principle of proofs by contradiction. This reasoning is based on the
+following consequence of the excluded middle:
+For any statement `P`, `¬ ¬ P ⇒ P`.
+Thus, to prove `P`, it suffices to prove `¬ ¬ P`. Now, by
+definition, to prove `¬ ¬ P`, it suffices to assume `¬ P` and show
+`False`. We deduce that, to show `P`, it suffices to assume `¬ P` and show a
+contradiction.
+
+Since this reasoning is very general and a little tedious, we abbreviate it to
+the phrase “Assume for contradition `¬ P`”, where the `¬ P` can be replaced by an
+equivalent formulation.
+
 -/
 
-Example "Dans un triangle rectangle (non dégénéré) de côtés a, b and c,
-         c étant l’hypoténuse, on a : a + b > c."
+Example "In a right-angle triangle with sides x, y and z, z being the
+         hypothenuse, we have x + y > z."
   Given: (x y z : ℝ)
   Assume: (hx : x > 0) (hy : y > 0) (hP : z^2 = x^2 + y^2)
   Conclusion: z < x + y
@@ -86,18 +89,18 @@ Proof:
 QED
 
 /-
-L’exemple suivant reprend l’exercice d’unicité de la limite d’un fichier précédent.
-On ne peut pas démontrer ce résultat sans utiliser l’axiome du tiers exclu
-quelque part. Dans la précédente version, cette utilisation était cachée dans le lemme
+The following example repeats the limit uniqueness exercise from a previous
+file. This result cannot be proven without using the excluded middle
+principle somewhere. In the previous version, this use was hidden in the lemma
 `∀ x y, (∀ ε > 0, |x - y| ≤ ε) ⇒ x = y`
-(dont on démontrera une variante plus bas à l’aide du tiers exclu).
-Cette fois, on illustre l’utilisation du raisonnement par l’absurde and de la
-commande correspondante `Assume for contradiction`.
+(a variant of which will be proven below using the excluded middle
+principle). This time, we illustrate the use of proof by contradiction and the
+corresponding command `Assume for contradiction`.
 -/
 
-Example "Unicité de la limite."
+Example "Uniqueness of limits."
   Given: (u : ℕ → ℝ) (l l' : ℝ)
-  Assume: (hl : limite_suite u l) (hl' : limite_suite u l')
+  Assume: (hl : u tends to l) (hl' : u tends to l')
   Conclusion: l = l'
 Proof:
   Assume for contradiction H : l ≠ l'
@@ -108,14 +111,14 @@ Proof:
       such that hN : ∀ n ≥ N, |u n - l| ≤ |l - l'| / 4
   Since u tends to l' and |l - l'|/4 > 0 we get N'
       such that hN' : ∀ n ≥ N', |u n - l'| ≤ |l - l'| / 4
-  Set N₀ := max N N' -- la commande « Posons » n'est jamais indispensable
-                        -- mais elle économise quelques caractères.
+  Set N₀ := max N N' -- The `Set` command is never mandatory,
+                     -- but can save a couple of letters.
   Since ∀ n ≥ N, |u n - l| ≤ |l - l'| / 4 and N₀ ≥ N
      we get hN₁ : |u N₀ - l| ≤ |l - l'| / 4
   Since ∀ n ≥ N', |u n - l'| ≤ |l - l'| / 4 and N₀ ≥ N'
      we get hN'₁ : |u N₀ - l'| ≤ |l - l'| / 4
-  Let's prove it's contradictory -- Cette ligne n’est pas obligatoire mais clarifie
-  -- La ligne suivante utilise implicitement l’énoncé `∀ x, x < x ⇒ Faux`
+  Let's prove it's contradictory -- this line is not mandatory
+  -- The next line implicitly uses the statement `∀ x, x < x ⇒ False`
   It suffices to prove that |l - l'| < |l - l'|
   Calc
     |l - l'| ≤ |l - u N₀| + |u N₀ - l'|   by computation
@@ -126,7 +129,7 @@ Proof:
     _        < |l - l'|                   since |l - l'| > 0
 QED
 
-Exercise "10.02 Nombres plus petits que tout nombre strictement positif"
+Exercise "10.02 Numbers that are smaller than every positive number."
   Given: (x : ℝ)
   Assume: (h : ∀ ε > 0, x ≤ ε)
   Conclusion:  x ≤ 0
@@ -135,14 +138,14 @@ Proof:
 QED
 
 /-
-## Le principe de contraposition
+## The principle of contraposition
 
-Une autre incarnation très utile de l’axiome du tiers exclu est le principe
-de contraposition : pour démontrer « P ⇒ Q », il suffit de démontrer
-« non Q ⇒ non P ».
+Another very useful incarnation of the excluded middle principle is the
+contraposition principle: to prove “P ⇒ Q”, it suffices to prove
+“not Q ⇒ not P”.
 
-L’exemple suivant illustre l’utilisation du principe de contraposition
-et de la commande correspondante `Let's prove the contrapositive: …`.
+The following example illustrates the use of the contraposition principle and
+the corresponding command `Let's prove the contrapositive: …`.
 -/
 
 Example "Commande de contraposition"
@@ -155,10 +158,10 @@ Proof:
 QED
 
 /-
-Voici un exercice plus concret.
+Here is a more concrete exercise.
 -/
 
-Exercise "10.03 Contraposition concrète"
+Exercise "10.03 Concrete contraposition"
   Given: (f : ℝ → ℝ)
   Assume: (hf : f is injective)
   Conclusion: ∀ x y, x ≠ y ⇒ f x ≠ f y
@@ -167,12 +170,12 @@ Proof:
 QED
 
 /-
-Le but de l’exercice suivant est de voir comment le principe de raisonnement
-par l’absurde entraîne le principe de contradiction. Il est donc crucial de le
-résoudre sans utiliser `Let's prove the contrapositive: …` mais using
-`Assume for contradiction : …`.
+The aim of the following exercise is to see how the principle of proof by contradiction
+leads to the principle of contraposition. It is therefore crucial to
+solve it without using `Let's prove the contrapositive: …` but using
+`Assume for contradiction: …`.
 -/
-Exercise "10.04 Le principe de contraposition à partir du raisonnement par l’absurde."
+Exercise "10.04 The contraposition principle from the proof by contradiction principle."
   Given: (P Q : Prop)
   Assume: (h : (¬ Q) ⇒ ¬ P)
   Conclusion: P ⇒ Q
@@ -181,14 +184,14 @@ Proof:
 QED
 
 
-/- Dans cet exercice, on raisonnera par contraposition pour une des implications
-et on utilisera les définitions de pair and impair.
-On pourra aussi utiliser que la base de données de lemmes utilisables implicitement
-contient les énoncés :
+/-
+In this exercise, we'll reason by contraposition for one of the implications
+and use the definitions of even and odd. You can also use the database of
+implicitly usable lemmas, which contains the statements:
  `∀ n, ¬ n is even ⇒ n is odd`
  `∀ n, ¬ n is odd ⇒ n is even`
 -/
-Exercise "10.05 parité and élévation au carré"
+Exercise "10.05 parity and squaring"
   Given: (n : ℤ)
   Assume:
   Conclusion: n^2 is even ⇔ n is even
@@ -198,14 +201,13 @@ QED
 
 
 /-
-## Négation des énoncés quantifiés
+## Negation of quantified statements
 
-Il est crucial de comprendre les négations d'énoncés comportant des
-quantificateurs. Dans l’exercice suivant, on utilisera seulement la
-définition de la négation.
+Understanding the negation of statements with quantifiers is crucial. In the
+following exercise, we'll use only the definition of negation.
 -/
 
-Exercise "10.06 Négation d’un énoncé existentiel"
+Exercise "10.06 Negation of an existential statement"
   Given: (n : ℤ)
   Assume:
   Conclusion: ¬ (∃ k, n = 2*k) ⇔ ∀ k, n ≠ 2*k
@@ -214,31 +216,31 @@ Proof:
 QED
 
 /-
-By contraste, la règle de négation du quantificateur universel requiert le
-principe du tiers-exclu. Afin de ne pas faire trop de logique pure dans ce
-cours, la section suivante explique comment utiliser ces règles de négation
-sans les démontrer.
+In contrast, the negation rule for the universal quantifier requires the
+excluded middle principle. So as not to overdo the pure logic in this course,
+the following section explains how to use these negation rules without
+demonstrating them.
 
-## Pousser la négation à travers un énoncé
+## Pushing negation through a statement
 
-L’exemple suivant montre comment `It suffices to prove that` peut reformuler le
-but courant to poussant une négation à travers des quantificateurs.
+The following example shows how `It suffices to prove that` can reformulate the
+current goal by pushing a negation through quantifiers.
 -/
 
-Example "La fonction x ↦ 2x n'est pas paire."
+Example "The function x ↦ 2x is not even."
   Given:
   Assume:
   Conclusion: ¬ (fct x ↦ 2*x) is even
 Proof:
-  Let's prove that ¬ ∀ x, 2 * (-x) = 2 * x -- Cette ligne est optionnelle
+  Let's prove that ¬ ∀ x, 2 * (-x) = 2 * x -- This line is optionnal
   It suffices to prove that ∃ x : ℝ, 2 * (-x) ≠ 2 * x
   Let's prove that 42 works
-  -- We compute -- or bien
+  -- We compute -- or else:
   Assume hyp : 2 * -42 = 2 * 42
-  Since 2 * -42 = 2 * 42 we conclude that Faux
+  Since 2 * -42 = 2 * 42 we conclude that False
 QED
 
-Exercise "10.07 La fonction identité, x ↦ x, n'est pas majorée."
+Exercise "10.07 The identity function, x ↦ x, has no upper bound."
   Given:
   Assume:
   Conclusion: ¬ ∃ M : ℝ, ∀ x, x ≤ M
@@ -247,13 +249,14 @@ Proof:
 QED
 
 /-
-Cette façon de pousser les négations est également disponible pour la commande
-`Since … we get h : …` où la nouvelle hypothèse `h` peut être simplement
-obtenue to poussant la négation dans le fait fourni. Cela vaut également pour la variante
-`Since … we conclude that …`, comme on le voit dans l’exemple suivant.
+This way of pushing negations is also available for the command
+`Since … we get h: …` where the new hypothesis `h` can simply be obtained by
+pushing the negation into the provided fact.
+This also applies to the variant `Since … we conclude that …`, as shown in the
+following example.
 -/
 
-Example "Pousser la négation à travers un quantificateur"
+Example "Pushing negationns through quantifiers."
   Given: (f : ℝ → ℝ)
   Assume: (h : ¬ ∀ x, f (-x) ≤ f x)
   Conclusion: ∃ x, f (-x) > f x
@@ -262,18 +265,18 @@ Proof:
 QED
 
 /-
-Vous pouvez utiliser cette façon de pousser la négation pour démontrer un très
-grand classique des « paradoxes » logiques : dans un bar non-vide, il existe
-toujours une personne `p` telle que si `p` boit alors tout le monde boit.
+You can use this way of pushing negation to prove a great classic of
+logical “paradoxes”: in a non-empty bar, there is always one person `p` such
+that if `p` drinks, then everyone drinks.
 
-La démonstration commence par une application du principe du tiers exclu,
-c’est-à-dire par `We discuss depending on whether … or ¬ …` (avec le même énoncé pour remplacer
-les deux séries de points de suspension).
+The proof begins with an application of the principle of excluded
+middle, i.e. `We discuss depending on whether … or ¬ …` (with the same
+statement to replace the two sets of suspension points).
 
-Vous pouvez passer cet exercice si vous êtes un peu to retard sur le reste du groupe.
+You can skip this exercise if you're a bit behind the rest of the group.
 -/
-Exercise "10.08 Le paradoxe du buveur"
-  Given: (x : Bar) -- Le bar est supposé non-vide, on note `x` une personne du bar
+Exercise "10.08 The drinker paradox"
+  Given: (x : Bar) -- The bar is non-empty, we denote by `x` someone in the bar.
   Assume:
   Conclusion: ∃ p : Bar, (p boit ⇒ ∀ q : Bar, q boit)
 Proof:
@@ -281,14 +284,15 @@ Proof:
 QED
 
 /-
-La combinaison « contraposition puis pousser la négation » est tellement courante
-que la commande `Let's prove the contrapositive: …` essaie automatiquement de pousser
-la négation après la contraposition pour obtenir la contraposée annoncée, comme
-vous le constaterez dans l’exercice suivant qui est la variante promise de
-`∀ x y, (∀ ε > 0, |x - y| ≤ ε) ⇒ x = y` (et déjà démontrée par l’absurde plus haut).
+The “contrapose then push the negation” combination is so common that the
+command `Let's prove the contrapositive: …` automatically tries to push the
+negation after the contraposition to get the advertised contrapositive, as
+you'll see in the following exercise which is the promised variant of
+`∀ x y, (∀ ε > 0, |x - y| ≤ ε) ⇒ x = y`
+(and was already proven by contradiction above).
 -/
 
-Exercise "10.09 Nombres plus petits que tout nombre strictement positif"
+Exercise "10.09 Numbers smaller than every positive number."
   Given: (x : ℝ)
   Assume:
   Conclusion: (∀ ε > 0, x ≤ ε) ⇒ x ≤ 0
@@ -297,14 +301,15 @@ Proof:
 QED
 
 /-
-Dans l’exercice suivant, on pourra utiliser que la commande `We proceed depending on`
-connait le lemme `a ≤ b ⇒ a = b ∨ a < b`
-Ainsi, to ayant l’hypothèse `hxy : x ≤ y`, la commande
-`We discuss depending on whether x = y or x < y` permet de scinder
-la discussion to deux branches, l’une supposant x = y and l’autre x < y.
+In the following exercise, we can use that the command
+`We discuss depending on whether …`
+knows the lemma `a ≤ b ⇒ a = b ∨ a < b`
+So, to having the hypothesis `hxy : x ≤ y`, the command
+`We discuss depending on whether x = y or x < y` allows the discussion to be
+split into two branches, one assuming x = y and the other x < y.
 -/
 
-Exercise "10.10 Caractérisation des fonctions strictement croissantes"
+Exercise "10.10 Characterization of increasing functions"
   Given: (f : ℝ → ℝ)
   Assume:
   Conclusion: (∀ x y, x < y ⇒ f x < f y) ⇔ (∀ x y, (x ≤ y ⇔ f x ≤ f y))

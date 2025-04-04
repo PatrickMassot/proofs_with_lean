@@ -382,4 +382,3 @@ end
 
 notation3 "Prédicat sur " X => X → Prop
 notation3 "Statement" => Prop
-notation3 "Faux" => False
