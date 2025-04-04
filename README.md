@@ -2,6 +2,8 @@
 
 This is an English translation of the exercises from the course “Logique et
 démonstrations assistées par ordinateur” at Paris-Saclay university.
+Those exercises have been designed in collaboration with Frédéric Bourgeois,
+Christine Paulin-Mohring and Valérie de Clippel.
 
 It uses Lean and its controlled natural language library 
 [Verbose Lean](https://github.com/PatrickMassot/verbose-lean4/).
