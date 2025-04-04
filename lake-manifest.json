@@ -5,7 +5,7 @@
    "type": "git",
    "subDir": null,
    "scope": "",
-   "rev": "f9527d466dc89713ff26113a0b32f21f4edb2fdc",
+   "rev": "0913912b01d6cb738b41fc721fe52399aa5b0786",
    "name": "verbose",
    "manifestFile": "lake-manifest.json",
    "inputRev": "master",
