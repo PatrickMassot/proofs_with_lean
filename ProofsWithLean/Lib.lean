@@ -91,8 +91,8 @@ class HasParity (α : Type) where
   isEven : α → Prop
   isOdd : α → Prop
 
-notation:50 n:60 " is even" => HasParity.isEven n
-notation:50 n:60 " is odd" => HasParity.isOdd n
+notation:60 n:60 " is even" => HasParity.isEven n
+notation:60 n:60 " is odd" => HasParity.isOdd n
 
 instance : HasParity ℤ where
   isEven n :=  ∃ k, n = 2*k
@@ -231,11 +231,11 @@ open m154
 
 def extraction (φ : ℕ → ℕ) := ∀ n m, n < m → φ n < φ m
 
-notation3:50 φ:80 " est une extraction" => extraction φ
+notation3:50 φ:60 " is an extraction" => extraction φ
 
 def suite_cauchy (u : ℕ → ℝ) := ∀ ε > 0, ∃ N, ∀ p ≥ N, ∀ q ≥ N, |u p - u q| ≤ ε
 
-notation3:50 u:80 " est de Cauchy" => suite_cauchy u
+notation3:50 u:80 " is Cauchy" => suite_cauchy u
 
 -- Dans la suite, φ désignera toujours une fonction de ℕ dans ℕ
 variable { φ : ℕ → ℕ}
@@ -244,12 +244,25 @@ variable { φ : ℕ → ℕ}
 /-- Un réel `a` est valeur d'adhérence d'une suite `u` s'il
 existe une suite extraite de `u` qui tends to `a`. -/
 def valeur_adherence (u : ℕ → ℝ) (a : ℝ) :=
-∃ φ, φ est une extraction ∧ limite_suite (u ∘ φ) a
+∃ φ, φ is an extraction ∧ limite_suite (u ∘ φ) a
 
-notation3:50 a:80 " est valeur d'adhérence de " u => valeur_adherence u a
+syntax:60 term:60 " is " &" a " " cluster "  " point"  " of " term : term
+
+macro_rules
+| `($x is a cluster point of $u) => `(valeur_adherence $u $x)
+
+open Lean PrettyPrinter Delaborator SubExpr in
+@[app_delab valeur_adherence]
+def valAdhDelab : Delab :=
+  whenPPOption getPPNotation do
+  let #[a, u] := (← getExpr).getAppArgs | failure
+  let aS ← delab a
+  let uS ← delab u
+  `($aS is a cluster point of $uS)
+
 
 /-- Toute extraction est supérieure à l'identité. -/
-lemma extraction_superieur_id : φ est une extraction → ∀ n, n ≤ φ n := by
+lemma extraction_superieur_id : φ is an extraction → ∀ n, n ≤ φ n := by
   intros hyp n
   induction n with
   | zero => exact Nat.zero_le _
@@ -257,9 +270,8 @@ lemma extraction_superieur_id : φ est une extraction → ∀ n, n ≤ φ n := b
 
 
 
-
 lemma extraction_machine (ψ : ℕ → ℕ) (hψ : ∀ n, ψ n ≥ n) :
-    ∃ f : ℕ → ℕ, ψ ∘ f est une extraction ∧ ∀ n, f n ≥ n := by
+    ∃ f : ℕ → ℕ, ψ ∘ f is an extraction ∧ ∀ n, f n ≥ n := by
   let θ : ℕ → ℕ := fun n ↦ Nat.recOn n 0 (fun n q ↦ ψ q + 1)
   refine ⟨θ, fun m n h ↦ ?_, fun n ↦ ?_⟩
   { induction h with

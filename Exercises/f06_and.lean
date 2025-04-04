@@ -13,7 +13,7 @@ is called the *conjunction* of `P` and `Q` :
 
 ## Proving a conjunction
 
-To demonstrate a conjunction `P ∧ Q`, both statements `P` and `Q` must be
+To prove a conjunction `P ∧ Q`, both statements `P` and `Q` must be
 proven. To do this, we use the command `Let's first prove that ...` to
 announce the first goal and then, once this goal has been proved,
 `Let's now prove that ...` (these are the same commands as for proving the two
@@ -100,7 +100,7 @@ Furthermore, the `Since` command takes the initiative of splitting the
 conjunctions appearing to hypothèse when looking for justifications of
 statements appearing between `Since` and `we conclude that` or `we get` or
 `it suffices to prove that`. We can therefore be satisfied with the second line
-in the above demonstration.
+in the above proof.
 -/
 
 Exercise "06.2 Using a conjunction"
@@ -198,16 +198,16 @@ Proof:
 QED
 
 /-
-L’exercice suivant nécessite également une réflexion assez poussée.
+The following exercise also requires a fair amount of thought.
 
-On pourra utiliser le lemme de disjonction affirmant que la relation d’ordre sur
-les réels est totale :
+We can use the disjunction lemma asserting that the order relation on the reals
+is total:
 `∀ x y, x ≤ y ∨ y ≤ x`
 
-et le lemme d’anti-symétrie pour cette relation d’ordre :
+and the anti-symmetry lemma for this order relation:
 `∀ x y, (x ≤ y ∧ y ≤ x) ⇒ x = y`
 -/
-Exercise "06.6"
+Exercise "06.6 A characterization of the identity function"
   Given: (f : ℝ → ℝ)
   Assume: (h : f is non-decreasing) (h' : ∀ x, f (f x) = x)
   Conclusion: ∀ x, f x = x

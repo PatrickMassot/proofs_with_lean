@@ -4,21 +4,20 @@ setup_env
 namespace m154
 open Nat
 /-
-# Feuille 4 : Implications and équivalences
+# File 4: Implications and equivalences
 
-L’implication est un connecteur logique.
-À partir de deux énoncés `P` and `Q`, on peut former l’énoncé `P ⇒ Q` qui se lit
-« P implique Q », or encore « Si P est vrai alors Q est vrai ».
-Dans l’énoncé `P ⇒ Q`, l’énoncé `P` est appelé la prémisse de l’implication and
-l’énoncé `Q` est appelé sa conclusion.
+Implication is a logical connector. From two statements `P` and `Q`, we can
+form the statement `P ⇒ Q` which reads “P implies Q”, or “If P is true then Q
+is true”. In the statement `P ⇒ Q`, the statement `P` is called the premise of
+the implication and the statement `Q` is called its conclusion.
 
-La règle d’utilisation d’un tel énoncé est appelée règle du modus ponens.
-Elle affirme que si `P ⇒ Q` est vrai and si `P` est vrai alors `Q` est vrai.
+The rule for using such a statement is called the modus ponens rule. It states
+that if `P ⇒ Q` is true and if `P` is true then `Q` is true.
 
-L’exemple suivant montre comment utiliser directement cette règle.
+The following example shows how to use this rule directly.
 -/
 
-Example "Utilisation d’une implication"
+Example "Using an implication"
   Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
@@ -27,12 +26,12 @@ Proof:
 QED
 
 /-
-La règle du modus ponens n’impose pas l’ordre des vérifications.
-De façon purement cosmétique, cela signifie que la démonstration suivante est
-en fait identique à la précédente.
+The modus ponens rule does not dictate the order of verification. Purely
+cosmetically, this means that the next proof is in fact identical to
+the previous one.
 -/
 
-Example "Utilisation d’une implication, une modification d’ordre cosmétique"
+Example "Using an implication, a cosmetic modification"
   Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
@@ -41,16 +40,16 @@ Proof:
 QED
 
 /-
-De façon un peu plus significative, on peut remettre à plus tard la démonstration
-de la prémisse. On parle alors de raisonnement vers l’arrière (sous-entendu l’arrière
-de la flèche d’implication). Ce mode de raisonnement est particulièrement utile
-lorsque l’implication est claire and que la démonstration de la prémisse est le cœur
-de l’affaire. L’exemple suivant est donc assez artificiel. Nous verrons des
-exemples plus significatifs plus loin. Il s’agit d’une différence de pure présentation,
-pas d’une nouvelle règle de logique.
+More significantly, we can postpone proving the premise. This is called
+backward reasoning (this refers to the fact it goes against the geometric
+direction of the implication arrow). This mode of reasoning is particularly
+useful when the implication is clear and the proof of the premise is
+the heart of the matter. The following example is therefore rather artificial.
+We'll look at more meaningful examples later.
+This is a difference in presentation, not a new rule of logic.
 -/
 
-Example "Utilisation d’une implication, to raisonnant vers l’arrière"
+Example "Using an implication, with backward reasonning"
   Given: (P Q : Statement)
   Assume: (h : P ⇒ Q) (h' : P)
   Conclusion: Q
@@ -60,13 +59,13 @@ Proof:
 QED
 
 /-
-Dans les exemples précédents, la véracité de `P ⇒ Q` est simplement une hypothèse.
-La bibliothèque de résultats du cours contient un certain nombre d’énoncé pouvant
-servir à justifier des implications. Ces énoncés seront mentionnés to commentaire
-avant les exercices.
+In the previous examples, the truth of `P ⇒ Q` is simply an assumption. The
+course library contains a number of statements that can be used to
+justify implications. These statements will be mentioned in comments before the
+exercises.
 
-Un exemple de tel énoncé est : `∀ x : ℝ, x > 0 ⇒ x^2 > 0`. On peut donc écrire
-la démonstration suivante.
+An example of such a statement is: `∀ x : ℝ, x > 0 ⇒ x^2 > 0`. We can therefore
+write the following proof.
 -/
 
 Example "Carré positif"
@@ -78,15 +77,15 @@ Proof:
 QED
 
 /-
-Un autre exemple d’énoncé disponible est
+Another example of an available statement is
 `∀ x : ℝ, x ≠ 0 ⇒ |x| > 0`.
 
-Attention : la barre de valeur absolue est la barre verticale ordinaire
-(AltGr-6 sur un clavier azerty) mais il ne faut pas mettre d’espace après la
-barre ouvrante ni avant la barre fermante.
+Warning: the absolute value bar is the ordinary vertical bar (above the Enter
+key on a qwerty keyboard) but you must not put a space after the opening bar
+or before the closing bar.
 -/
 
-Exercise "04.1 Utilisation d’une implication"
+Exercise "04.1 Using an implication"
   Given: (x : ℝ)
   Assume: (h : x ≠ 0)
   Conclusion: |x| > 0
@@ -95,10 +94,10 @@ Proof:
 QED
 
 /-
-Voyons maintenant comment enchaîner l’utilisation de deux implications.
-Lorsque la règle du modus ponens ne permet pas de conclure immédiatement, on peut
-remplacer le `we conclude that …` final par `we get F : …` où `F` est un nom
-d’hypothèse au choix (parmi les noms disponibles).
+Let's now look at how to chain the use of two implications. When the modus
+ponens rule doesn't allow you to conclude immediately, you can replace the
+final `we conclude that ...` with `we get F : ...` where `F` is a hypothesis
+name of your choice (among the available names).
 -/
 
 Example "Enchaînement d’implications, vers l’avant."
@@ -111,11 +110,11 @@ Proof:
 QED
 
 /-
-Voici la même démonstration organisée to appliquant la première implication
-vers l’arrière.
+Here's the same proof but using the first implication in backward
+reasonning.
 -/
 
-Example "Enchaînement d’implications, vers l’arrière."
+Example "Backward reasonning chaining implications."
   Given: (a : ℝ)
   Assume: (ha : a > 0)
   Conclusion: (a^2)^2 > 0
@@ -125,15 +124,14 @@ Proof:
 QED
 
 /-
-Notez comme cette variante change l’ordre dans lequel
-les implications sont utilisées. Observez soigneusement quel est
-le but au début de la seconde ligne des deux démonstrations précédentes.
+Note how this variant changes the order in which the implications are used.
+Observe carefully what the goal is at the beginning of the second line of the
+two previous proofs.
 
-Lorsque vous aurez bien compris cette subtilité, choisissez votre style préféré pour
-l’exercice suivante.
+Once you've understood this subtlety, choose your preferred style for the next exercise.
 -/
 
-Exercise "04.2 Enchaînement d’implications, dans votre style préféré"
+Exercise "04.2 Chaining implications, using your favorite style."
   Given: (a : ℝ)
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
@@ -142,11 +140,12 @@ Proof:
 QED
 
 /-
-Maintenant essayez l’autre style. L’ordinateur ne vérifiera pas que les deux styles
-sont différents donc vérifiez bien que les buts to début de seconde ligne sont différents.
+Now try the other style. The computer won't check that the two styles are
+different, so make sure that the goals at the beginning of the second line are
+different.
 -/
 
-Exercise "04.3 Enchaînement d’implications, dans l’autre style"
+Exercise "04.3 Chaining implications, in the other style"
   Given: (a : ℝ)
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
@@ -155,14 +154,13 @@ Proof:
 QED
 
 /-
-Arrivé à ce stade, on se lasse d’écrire des implications bien connues.
-Heureusement, les commandes `Since … we conclude that …` and
-`Since … we get …` font l’effort d’aller chercher dans la base de données
-d’implications du cours.
-On peut donc laisser ces implications implicites comme on le ferait sur papier.
+By this stage, you're getting tired of writing well-known implications.
+Fortunately, the commands `Since ... we conclude that ...` and `Since ... we
+get ...` make the effort to search the course's database of implications. We
+can therefore leave these implications implicit as we would on paper.
 -/
 
-Example "Enchaînement d’implications, to laissant les implications implicites"
+Example "Chaining implications, leavings implicit implications."
   Given: (a : ℝ)
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
@@ -172,11 +170,11 @@ Proof:
 QED
 
 /-
-Dans le style vers l’arrière, on peut commencer directement par `It suffices to prove that`.
+It the backward reasonning style, one can start directly with `It suffices to prove that`.
 -/
 
-Example "Enchaînement d’implications, to laissant les implications implicites,
-         avec la première implication vers l’arrière"
+Example "Chaining implications, leaving implicit implications, with the first one
+         in backward reasonning style."
   Given: (a : ℝ)
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
@@ -186,11 +184,11 @@ Proof:
 QED
 
 /-
-Les fans inconditionnels du modus ponens vers l’arrière pourront même écrire :
+Die-hard fans of the backward modus ponens can even write:
 -/
 
-Example "Enchaînement d’implications, to laissant les implications implicites,
-         avec les deux implications vers l’arrière"
+Example "Chaining implications, leaving implicit implications, with both implications
+         in backward reasonning style."
   Given: (a : ℝ)
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
@@ -201,28 +199,28 @@ Proof:
 QED
 
 /-
-On notera que le logiciel a pour instruction de n’utiliser qu’une implication de la base de
-données à la fois. La démonstration optimiste
-  `Since a ≠ 0 we conclude that |a|^2 > 0`
-ne fonctionnerait pas (c’est un choix du cours bien sûr, pas une limitation du logiciel).
+Note that the software is instructed to use only one database implication at a
+time. The optimistic proof
+`Since a ≠ 0 we conclude that |a|^2 > 0`
+would not work (this is a course choice of course, not a software limitation).
 
-Ainsi l’innocente règle du modus ponens suffit déjà à engendrer une grande diversité de styles
-plus or moins explicites and présentant l’argument dans des ordres variés.
-Réfléchir à ce genre de choses est un des objectifs de ce cours.
+So the innocent modus ponens rule is already enough to generate a wide variety
+of more or less explicit styles and present the argument in various orders.
+Reflecting on this kind of thing is one of the aims of this course.
 
-La règle de démonstration directe d’une implication est beaucoup plus simple
-car elle n’admet aucune variante stylistique.
-Pour démontrer un énoncé de la forme `P ⇒ Q`, on suppose que `P` est vrai and on démontre `Q`.
-Ici on utilise la commande `Assume nom : …` où `nom` est un nom à choisir parmi les
-noms disponibles and `…` est à remplacer par l’énoncé `P` (en fait le `: …` est optionnel
-mais il aide la lisibilité).
+The rule for the direct proof of an implication is much simpler, as it
+admits no stylistic variations. To prove a statement of the form `P ⇒ Q`,
+we assume that `P` is true and prove `Q`.
+Here we use the command `Assume name: ...` where `name` is a name to be chosen
+from the available names and `...` is to be replaced by the statement `P` (in
+fact the `: ...` is optional but helps readability).
 
-On peut reprendre un exercice précédent mais, au lieu de supposer a priori
-l’hypothèse `a ≠ 0`, on annonce une implication l’ayant pour prémisse.
-À partir de la seconde ligne la démonstration est comme ci-dessus.
+We can repeat a previous exercise but, instead of assuming a priori the
+hypothesis `a ≠ 0`, we announce an implication having it as a premise. From the
+second line onwards, the proof is as above.
 -/
 
-Example "Démonstration d’une implication"
+Example "Proving an implication"
   Given: (a : ℝ)
   Assume:
   Conclusion: a ≠ 0 ⇒ |a|^2 > 0
@@ -232,7 +230,7 @@ Proof:
   Since |a| > 0 we conclude that |a|^2 > 0
 QED
 
-Exercise "04.4 Démonstration d’une implication"
+Exercise "04.4 Proving an implication"
   Given: (a : ℝ)
   Assume:
   Conclusion: a > 0 ⇒ (a^2)^2 > 0
@@ -242,23 +240,22 @@ QED
 
 
 /-
-Voyons maintenant comment manipuler des prédicats plus complexes.
-On se donne une fonction `f : ℝ → ℝ` and on forme le prédicat
-portant sur deux nombres `x₁` and `x₂` auxquels on associe
-l'énoncé `x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂` (Si x₁ ≤ x₂ alors f(x₁) ≤ f(x₂)).
+Let's now look at how to handle more complex predicates. We give ourselves a
+function `f: ℝ → ℝ` and form the predicate covering two numbers `x₁` and `x₂`
+to which we associate the statement `x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂` (If x₁ ≤ x₂ then
+f(x₁) ≤ f(x₂)).
 
-On peut emboîter deux quantificateurs universels pour obtenir la définition
-de fonction croissante :
+We can nest two universal quantifiers to obtain the increasing function
+definition:
+`f is non-decreasing` means `∀ x₁, (∀ x₂, x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂)`.
 
-`f is non-decreasing` signifie `∀ x₁, (∀ x₂, x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂)`
-
-Un tel emboîtement est un peu lourd à lire, on peut l'abréger en
+Such nesting is a little cumbersome to read, so we can abbreviate it to
 `∀ x₁ x₂, x₁ ≤ x₂ ⇒ f x₁ ≤ f x₂`.
 
-`f is non-increasing` signifie `∀ x₁ x₂, x₁ ≤ x₂ ⇒ f x₁ ≥ f x₂`.
+`f is non-increasing` means `∀ x₁ x₂, x₁ ≤ x₂ ⇒ f x₁ ≥ f x₂`.
 -/
 
-Example "Une composée de fonctions croissantes is non-decreasing"
+Example "A composition of non-increasing functions is non-decreasing"
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is non-decreasing) (hg : g is non-decreasing)
   Conclusion: (g ∘ f) is non-decreasing
@@ -271,8 +268,8 @@ Proof:
 QED
 
 
-Example "Une composée de fonctions croissantes is non-decreasing.
-         Variante to raisonnant vers l’arrière."
+Example "A composition of non-increasing functions is non-decreasing.
+         Variation with backward reasonning."
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is non-decreasing) (hg : g is non-decreasing)
   Conclusion: (g ∘ f) is non-decreasing
@@ -294,11 +291,11 @@ Proof:
 QED
 
 /-
-Pour les exercices suivants, on rappelle qu’une fonction `f` is injective si,
-pour tous `x` and `y`, `f x = f y ⇒ x = y`.
+For the following exercises, recall that a function `f` is injective if, for
+all `x` and `y`, `f x = f y ⇒ x = y`.
 -/
 
-Exercise "04.6 Une composée de fonctions injectives is injective."
+Exercise "04.6 A composition of injective functions is injective."
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is injective) (hg : g is injective)
   Conclusion: g ∘ f is injective
@@ -306,8 +303,8 @@ Proof:
   sorry
 QED
 
-Exercise "04.7 Si une composée is injective alors la première fonction appliquée
-          is injective."
+Exercise "04.7 If a composition is injective then the first applied function is
+          injective."
   Given: (f g : ℝ → ℝ)
   Assume:
   Conclusion: g ∘ f is injective ⇒ f is injective
@@ -316,24 +313,25 @@ Proof:
 QED
 
 /-
-Un connecteur logique cousin de l’implication est l’équivalence.
+A logical connective very much related to implication is equivalence.
 
-À partir de deux énoncés `P` and `Q`, on peut former l’énoncé `P ⇔ Q` qui se lit
-« P équivaut à Q » or encore « P est vrai si and seulement si Q est vrai ».
+From two statements `P` and `Q`, we can form the statement `P ⇔ Q`, which reads
+“P is equivalent to Q” or “P is true if and only if Q is true”.
 
-Il y a deux façons de voir ce connecteur logique.
+There are two ways of looking at this logical connective.
 
-On peut le voir comme une double implication. En effet, dire que l’énoncé
-`P ⇔ Q` est vrai signifie que les énoncés `P ⇒ Q` and `Q ⇒ P`
-sont tous les deux vrais. Avec ce point de vue, il n’y a besoin d’aucune nouvelle règle
-de logique. Pour utiliser que `P ⇔ Q` est vrai on peut utiliser l’une des
-deux implications. Pour démontrer que `P ⇔ Q` est vrai, il faut démontrer les deux implications.
+It can be seen as a double implication. Indeed, to say that the statement
+`P ⇔ Q` is true means that the statements `P ⇒ Q` and `Q ⇒ P` are both true.
+From this point of view, no new rules of logic are needed. To use that `P ⇔ Q`
+is true we can use one of the two implications. To prove that `P ⇔ Q` is true,
+we need to prove both implications.
 
-Du côté utilisation, les commandes `Since … we get …` and `Comme … we conclude that …`
-peuvent extraire une implication d’une équivalence, comme dans l’exemple suivant.
+On the use side, the commands `Since … we get …` and
+`Since … we conclude that …` can extract an implication from an equivalence, as
+in the following example.
 -/
 
-Example "Utilisation d’une des implications d’une équivalence."
+Example "Using one of the implications from an equivalence"
   Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : P)
   Conclusion: R
@@ -342,7 +340,7 @@ Proof:
   Since P ⇒ R and P we conclude that R
 QED
 
-Exercise "04.8 Utilisation d’une des implications d’une équivalence."
+Exercise "04.8 Using one of the implications from an equivalence"
   Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : R)
   Conclusion: P
@@ -350,7 +348,7 @@ Proof:
   sorry
 QED
 
-Exercise "04.9 Utilisation d’une des implications d’une équivalence. Un cas plus complexe."
+Exercise "04.9 Using one of the implications from an equivalence. A more complex case."
   Given: (P Q R S : Statement)
   Assume: (hPR : P ⇔ R) (hQRS : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
@@ -359,12 +357,12 @@ Proof:
 QED
 
 /-
-Pour démontrer une équivalence vue comme double implication, il suffit de démontrer
-les deux implications. La commande permettant d’initier cette scission est
+To prove an equivalence seen as a double implication, simply prove both
+implications. The command to initiate this split is
 `Let's first prove that …`.
 -/
 
-Example "Démonstration d’une équivalence par double implication."
+Example "Proving an equivalence using two implication proofs."
   Given: (P Q R : Statement)
   Assume: (hPR : P ⇒ R) (hPQ : R ⇒ Q) (hQP : Q ⇒ P)
   Conclusion: P ⇔ R
@@ -377,7 +375,7 @@ Proof:
   Since Q ⇒ P and Q we conclude that P
 QED
 
-Exercise "04.10 Nombre que zéro divise."
+Exercise "04.10 Numbers divided by zero."
   Given: (a : ℤ)
   Assume:
   Conclusion: 0 ∣ a ⇔ a = 0
@@ -386,18 +384,17 @@ Proof:
 QED
 
 /-
-L’autre point de vue sur l’équivalence consiste à lui faire jouer le rôle que
-joue l’égalité entre objets mathématiques. De ce point de vue, on peut utiliser
-un énoncé de la forme `P ⇔ Q` pour remplacer `P` par `Q` n’importe où `Q` intervient
-(et vice-versa). On parle de réécriture d’énoncé (contrairement au point de vue
-de la double implication, il s’agit d’une règle de logique qui vient s’ajouter à celles
-concernant l’implication).
+The other way of looking at equivalence is to make it play the same role as
+equality between mathematical objects. From this point of view, we can use a
+statement of the form `P ⇔ Q` to replace `P` by `Q` wherever `Q` occurs (and
+vice versa). This is called statement rewriting (unlike the double implication
+point of view, this is a new logic rule in addition to the implication rules).
 
-La commande `Since … we conclude that …` and sa cousine `Comme … we get …`
-permettent de faire cela.
+The command `Since … we conclude that …` and its cousin
+`Since … we get …` allow you to do this.
 -/
 
-Example "Une réécriture d’énoncé qui permet de conclure directement."
+Example "A statement rewriting that allows to conclude directly."
   Given: (P Q R S : Statement)
   Assume: (h : P ⇔ R) (h' : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
@@ -406,15 +403,14 @@ Proof:
 QED
 
 /-
-On notera que ce point de vue rend très facile une démonstration qui était un peu complexe
-par utilisation d’une double implication.
+Note that this point of view makes a proof that was a little complex by
+using double implication very easy.
 
-On peut également utiliser ce principe de réécriture pour changer le but,
-using la commande `Since … it suffices to prove that …`.
-Reprenons encore le même exemple.
+We can also use this rewriting principle to change the goal, using the command
+`Since … it suffices to prove that …`. Let's take the same example again.
 -/
 
-Example "Une réécriture d’énoncé qui permet de changer le but avant de conclure."
+Example "Rewriting a statement to change the goal before concluding."
   Given: (P Q R S : Statement)
   Assume: (h : P ⇔ R) (h' : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
@@ -423,7 +419,7 @@ Proof:
   We conclude by hypothesis
 QED
 
-Exercise "04.11 Une réécriture d’énoncé qui permet de changer le but."
+Exercise "04.11 Rewriting a statement to change the goal before concluding."
   Given: (P R : Statement)
   Assume: (h : P ⇔ R) (h' : P)
   Conclusion: R
@@ -432,11 +428,11 @@ Proof:
 QED
 
 /-
-On voit encore mieux l’analogie avec l’égalité lorsqu’on démontre une équivalence
-par réécritures successives.
+The analogy with equality becomes even clearer when we prove an
+equivalence by successive rewritings.
 -/
 
-Example "Une démonstration d’équivalence par réécriture d’énoncés."
+Example "Proving an equivalence by statement rewriting."
   Given: (P Q R S T : Statement)
   Assume: (hPR : P ⇔ R) (hST : S ⇔ T)
   Conclusion: ((Q ⇒ R) ⇒ S) ⇔ ((Q ⇒ P) ⇒ T)

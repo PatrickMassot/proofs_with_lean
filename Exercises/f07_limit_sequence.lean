@@ -2,32 +2,31 @@ import ProofsWithLean.Lib
 setup_env
 
 /-
-# Feuille 7 : Suites convergentes.
+# File 7: Convergent sequences.
 -/
 
 /-
-Une suite u est une fonction de ℕ dans ℝ, Lean écrit donc u : ℕ → ℝ
+A sequence u is a function of ℕ in ℝ, so Lean writes `u : ℕ → ℝ`.
 
-`u tends to l` signifie `∀ ε > 0, ∃ N, ∀ n ≥ N, |u n - l| ≤ ε`
+`u tends to l` means `∀ ε > 0, ∃ N, ∀ n ≥ N, |u n - l| ≤ ε`
 
-Il faut bien garder à l’esprit que `∀ ε > 0, …` est l’abbréviation de
-`∀ ε, ε > 0 ⇒ …`.
+Bear in mind that `∀ ε > 0, …` is short for `∀ ε, ε > 0 ⇒ …`.
 
-Pour démontrer un énoncé qui commence ainsi, la commande `Fix` permet
-d’utiliser l’abbréviation
+To prove a statement that begins like this, the command `Fix` allows you
+to use the abbreviation
 `Fix ε > 0`
-à la place de la suite de commandes
+in place of the sequence of commands
 `Fix ε : ℝ`
 `Assume ε_pos : ε > 0`.
 
-Pour utiliser un énoncé qui commence ainsi, il faut donner à la commande
-`Comme` l’énoncé and le fait que le nombre auquel on veut spécialiser l’énoncé est
-strictement positif.
+To use a statement that begins this way, we need to give the command `Since` the
+statement and the fact that the number to which we want to specialize the
+statement is strictly positive.
 
-Voyons un exemple artificiel.
+Let's look at an artificial example first.
 -/
 
-Example "Statement commençant par ∀ ε > 0"
+Example "Statements starting with ∀ ε > 0"
   Given: (u : ℕ → ℝ)
   Assume: (hu : ∀ δ > 0, ∃ n, u n < δ)
   Conclusion:  ∀ ε > 0, ∃ n, u n < ε/2
@@ -37,16 +36,15 @@ Proof:
 QED
 
 /-
-Dans l’exemple ci-dessus, on notera que l’utilisation de la lettre `δ`
-dans l’hypothèse and `ε` dans la conclusion permet de clarifier les choses,
-car on peut dire qu’on a « spécialisé l’hypothèse à `δ = ε/2` ».
-Mais `ε` and `δ` sont des variables liées donc on peut nommer les deux `ε` sans
-rien changer.
+In the example above, note that the use of the letter `δ` in the hypothesis and
+`ε` in the conclusion makes things clearer, because we can say that we have
+“specialized the hypothesis to `δ = ε/2`”. But `ε` and `δ` are bound
+variables so we can name both `ε` without changing anything.
 
-Voyons maintenant un exemple qui utilise la définition de limite.
+Now let's look at an example that uses the limit definition.
 -/
 
-Example "Un exemple pour démarrer"
+Example "An example to get started."
   Given: (u v : ℕ → ℝ) (l : ℝ)
   Assume: (hu : u tends to l) (hv : ∀ n, v n = u n - l)
   Conclusion: v tends to 0
@@ -62,7 +60,7 @@ Proof:
     _         ≤ ε             by hypothesis
 QED
 
-Exercise "07.1 Si u est constante de valeur l, alors u tends to l"
+Exercise "07.1 If u is constant with value l, then u tends to l"
   Given: (u : ℕ → ℝ) (l : ℝ)
   Assume:
   Conclusion: (∀ n, u n = l) ⇒ u tends to l
@@ -70,8 +68,9 @@ Proof:
   sorry
 QED
 
-/- Concernant les valeurs absolues, la base de données de résultats utilisables sans
-les mentionner explicitement inclut
+/-
+Concerning absolute values, the database of results usable without explicitly
+mentioning them includes
 
 `∀ x y, |x + y| ≤ |x| + |y|`
 
@@ -79,17 +78,16 @@ les mentionner explicitement inclut
 
 `∀ x y, |x - y| = |y - x|`
 
-Ces trois résultats sont utilisés par la commande `We compute`
-(ou `by computation` dans les `Calc`).
+These three results are used by the `We compute` command (or `by computation` in `Calc`).
 
-Les commandes `Since …` and `It suffices to prove that …` savent que
+The commands `Since …` and `It suffices to prove that …` know that
 `∀ x y, |x| ≤ y ⇔ -y ≤ x and x ≤ y`
 
-Il est conseillé de noter ces lemmes sur une feuille car ils
-peuvent être utiles dans chaque exercice.
+It is advisable to note these lemmas on a sheet of paper as they can be useful
+in every exercise.
 -/
 
-Exercise "07.2 Si u tends to l strictement positif, alors u n ≥ l/2 pour n assez grand."
+Exercise "07.2 If u tends to some strictly positive l, then u n ≥ l/2 for large enough n."
   Given: (u : ℕ → ℝ) (l : ℝ)
   Assume: (hl : l > 0)
   Conclusion: (u tends to l) ⇒ ∃ N, ∀ n ≥ N, u n ≥ l/2
@@ -98,18 +96,17 @@ Proof:
 QED
 
 /-
-La base de données de résultats contient également des résultats
-concernant le maximum de deux nombres
+The results database also contains results concerning the maximum of two numbers
 
 `∀ p q, p ≤ max p q`
 
 `∀ p q, q ≤ max p q`
 
-Il est conseillé de noter ces lemmes sur une feuille car ils
-peuvent être utiles dans chaque exercice.
+It is advisable to note these lemmas on a sheet of paper as they may be useful
+in each exercise.
 -/
 
-Exercise "07.3 Si u tends to l and v tends to l' alors u+v tends to l+l'"
+Exercise "07.3 If u tends to l and v tends to l', then u+v tends to l+l'"
   Given: (u v : ℕ → ℝ) (l l' : ℝ)
   Assume: (hu : u tends to l) (hv : v tends to l')
   Conclusion: (u + v) tends to (l + l')
@@ -117,7 +114,7 @@ Proof:
   sorry
 QED
 
-Exercise "07.4 théorème des gendarmes"
+Exercise "07.4 The squeeze theorem"
   Given: (u v w : ℕ → ℝ) (l : ℝ)
   Assume: (hu : u tends to l) (hw : w tends to l)
                (h : ∀ n, u n ≤ v n) (h' : ∀ n, v n ≤ w n)
@@ -126,8 +123,8 @@ Proof:
   sorry
 QED
 
-Exercise "07.5 La dernière inégalité dans la définition de limite peut être remplacée par
-          une inégalité stricte."
+Exercise "07.5 The last inequality in the definition of limits can be replaced
+          by a strict one."
   Given: (u : ℕ → ℝ) (l : ℝ)
   Assume:
   Conclusion: (u tends to l) ⇔ ∀ ε > 0, ∃ N, ∀ n ≥ N, |u n - l| < ε
@@ -136,19 +133,19 @@ Proof:
 QED
 
 /-
-Dans l’exercice suivant on pourra utiliser que la commande
+In the following exercise we can use that the command
 `It suffices to prove that`
-connait le lemme
+knows the lemma
 `∀ x y : ℝ, (∀ ε > 0, |x - y| ≤ ε) ⇒ x = y`
 
-et la commande `Comme` connait les lemmes
+and the command `Since` knows the lemmas
 `∀ a b, max a b ≥ a`
-et
+and
 `∀ a b, max a b ≥ b`
 -/
 
 
-Exercise "07.6 Une suite u admet au plus une limite"
+Exercise "07.6 A sequence u admits at most one limit."
   Given: (u : ℕ → ℝ) (l l' : ℝ)
   Assume: (hl : u tends to l) (hl' : u tends to l')
   Conclusion: l = l'
@@ -157,10 +154,10 @@ Proof:
 QED
 
 /-
-`M is supremum of u` signifie
+`M is supremum of u` means
   (∀ n, u n ≤ M) ∧ (∀ ε > 0, ∃ n₀, u n₀ ≥ M - ε)
 -/
-Exercise "07.7 Toute suite croissante ayant une borne supérieure tends to cette borne"
+Exercise "07.7 Every non-decreasing sequence having a supremum tends to this supremum."
   Given: (u : ℕ → ℝ) (M : ℝ)
   Assume: (h : M is supremum of u) (h' : u is non-decreasing)
   Conclusion: u tends to M

@@ -87,7 +87,7 @@ we call it `x₀`.
 
 This example includes a discussion according to the sign of x₀ but at this
 stage it is not useful to remember how this discussion is initiated. The
-demonstration also implicitly uses the sign rule for products.
+proof also implicitly uses the sign rule for products.
 -/
 Example "Every square is non-negative."
   Given: (y : ℝ)

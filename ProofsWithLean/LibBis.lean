@@ -121,7 +121,7 @@ variable { φ : ℕ → ℕ}
 variable {u : ℕ → ℝ} {l : ℝ}
 
 /-- Si `u` tends to `l` alors toutes ses suites extraites tendent vers `l`. -/
-lemma limite_extraction_si_limite (h : limite_suite u l) (hφ : φ est une extraction) :
+lemma limite_extraction_si_limite (h : limite_suite u l) (hφ : φ is an extraction) :
 limite_suite (u ∘ φ) l := by
   intros ε ε_pos
   cases' h ε ε_pos with N hN

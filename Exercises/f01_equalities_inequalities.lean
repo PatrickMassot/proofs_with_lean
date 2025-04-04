@@ -5,7 +5,7 @@ setup_env
 # File 1 : Computations
 
 The software knows the usual algebraic simplification rules.
-This enables it to demonstrate equalities between expressions involving
+This enables it to prove equalities between expressions involving
 arbitrary numbers, without any assumptions.
 
 Let's start with an example where the result is clear to the naked eye.
@@ -71,7 +71,7 @@ It’s important to distinguish between the two types of calculation steps shown
 above. The first involves a hypothesis, the second does not.
 
 Indentation rules are a little subtle, especially when a
-calculation doesn't complete the demonstration. The safest thing to do is
+calculation doesn't complete the proof. The safest thing to do is
 always to leave `Calc` alone on its line and then indent the following lines,
 with the same level of indentation from one line to the next.
 

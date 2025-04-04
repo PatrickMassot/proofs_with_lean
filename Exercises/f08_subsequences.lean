@@ -3,24 +3,24 @@ setup_env
 
 open m154
 /-
-# Feuille 8 : Suites extraites, valeurs d'adhérence and suites de Cauchy.
+# File 8: Subsequences, cluster points and Cauchy sequences.
 -/
 
 /-
-Cette feuille continue l'étude du chapitre 2 du cours de math 101, to abordant
-les suites extraites, les valeurs d'adhérence and les suites de Cauchy.
-Il n'y a aucune nouvelle commande Lean à apprendre. Cependant les
-exercices sont globalement un peu plus difficiles mathématiquement que dans
-la feuille 7. Il est donc inutile de travailler cette feuille si la
-feuille 7 n'est pas solidement comprise.
+This file continues the study of elementary real analysis, covering
+subsequences, cluster points and Cauchy sequences. There are no new Lean commands
+to learn. However, the exercises are on the whole a little more difficult
+mathematically than in File 7. It is therefore pointless to work on this file
+if file 7 is not firmly understood.
 
-On rappelle des lemmes potentiellement utiles.
-Les commandes `Comme` and `It suffices to prove that` and la justification
-`since` des étapes de calcul connaissent le lemme
+Some potentially useful lemmas are recalled. The commands `Since` and
+`It suffices to prove that` and the justification `since` for computation steps
+know the lemma
 
 `∀ x y |x| ≤ y ↔ -y ≤ x ∧ x ≤ y`
 
-La commande `We compute` and la justification `by computation` connaissent les lemmes
+The command `We compute` and the justification `by computation` know the lemmas
+
 `∀ x y, |x + y| ≤ |x| + |y|`
 
 `∀ x y z, |x - y| ≤ |x - z| + |z - y|`
@@ -32,103 +32,106 @@ La commande `We compute` and la justification `by computation` connaissent les l
 `∀ p q, max p q ≥ p`
 
 `∀ p q, max p q ≥ q`
--/
 
-/- On rappelle aussi la définition :
+
+We also recall the definition:
 
 `u tends to l : ∀ ε > 0, ∃ N, ∀ n ≥ N, |u n - l| ≤ ε`
 
-Étant donnée une fonction `φ : ℕ → ℕ`, on dit que
-`φ est une extraction` si elle est strictement croissante :
-∀ n m, n < m → φ n < φ m
+Given a function `φ : ℕ → ℕ`, we say that `φ is an extraction` if it is
+increasing:
+`∀ n m, n < m → φ n < φ m`
 
-Les commandes `Comme` and `It suffices to prove that` and la justification
-`since` des étapes de calcul connaissent le lemme
-suivant (sa démonstration est une récurrence immédiate).
+The commands `Since` and `It suffices to prove that` and the `since`
+justification of the computation steps know the following lemma (its proof is
+an immediate induction).
 
-`φ est une extraction ⇒ ∀ n, n ≤ φ n`
+`φ is an extraction ⇒ ∀ n, n ≤ φ n`
 
-ainsi que le résultat
+as well as the result
 
-`u tends to l ∧ u tends to l' ⇒ l = l'`
+`u tends to l ∧ u tends to l' ⇒ l = l `
 
-démontré dans la feuille précédente.
+proven in the previous file.
 
-Pour l'exercice suivant, il est également utile de se souvenir que la notation
-`∃ n ≥ N, P n` est l'abréviation de `∃ n, n ≥ N ∧ P n`.
+For the following exercise, it's also useful to remember that the notation
+`∃ n ≥ N, P n` is short for `∃ n, n ≥ N ∧ P n`.
 -/
 
-Exercise-lemma extraction_superieur "08.1 Si `φ` est une extraction alors elle prend des valeurs
- arbitrairement grandes pour des indices arbitrairement grands."
+Exercise-lemma extraction_superieur
+  "08.1 If `φ` is an extraction then it takes arbitrarily large value
+        for arbitrarily large indices."
   Given: {φ : ℕ → ℕ}
-  Assume: (h : φ est une extraction)
+  Assume: (h : φ is an extraction)
   Conclusion: ∀ N N', ∃ n ≥ N', φ n ≥ N
 Proof:
   sorry
 QED
 
 /-
-L'exercice précédent est un exercice-lemme, de sorte qu'il vous sera possible
-de l'invoquer implicitement dans les démonstrations suivantes.
+The preceding exercise is an exercise-lemma, so you can invoke it implicitly in
+the following proofs.
 
-Un réel `a` est valeur d'adhérence d'une suite `u` s'il
-existe une suite extraite de `u` qui tends to `a` :
+A real `a` is a cluster point of a sequence `u` if there exists a sequence
+extracted from `u` that tends to `a`:
 
-`a est valeur d'adhérence de u : ∃ φ, φ est une extraction ∧ (u ∘ φ) tends to a'
+`a is a cluster point of u : ∃ φ, φ is an extraction ∧ (u ∘ φ) tends to a'
 -/
 
 Exercise-lemma valeur_proche_adherence
-  "08.2 Si `a` est valeur d'adhérence de `u` alors il existe des valeurs
-  de `u` aussi proches qu'on veut de `a` pour des indices aussi grands qu'on veut."
+  "08.2 If `a` is a cluster point of `u` then there are values of
+  `u` arbitrarily close to `a` for arbitrarily large indices."
   Given: {u : ℕ → ℝ} {a : ℝ}
-  Assume: (hyp : a est valeur d'adhérence de u)
+  Assume: (hyp : a is a cluster point of u)
   Conclusion: ∀ ε > 0, ∀ N, ∃ n ≥ N, |u n - a| ≤ ε
 Proof:
   sorry
 QED
 
-Exercise-lemma limite_extraction_si_limite
-  "08.3 Si `u` tends to `l` alors toutes ses suites extraites tendent vers `l`."
+Exercise-lemma limit_extraction_of_limit
+  "08.3 If `u` tends to `l` then all its subsequences tend to `l`."
   Given: {u : ℕ → ℝ} {φ : ℕ → ℕ} {l : ℝ}
-  Assume: (h : u tends to l) (hφ : φ est une extraction)
+  Assume: (h : u tends to l) (hφ : φ is an extraction)
   Conclusion:  u ∘ φ tends to l
 Proof:
   sorry
 QED
 
-Exercise-lemma val_adh_lim
-  "08.4 Si une suite `u` tends to `l` alors elle n'a pas d'autre valeur d'adhérence que `l`."
+Exercise-lemma cluster_pt_lim
+  "08.4 If a sequence `u` tends to `l` then it has no other cluster point."
   Given: {u : ℕ → ℝ} {l a : ℝ}
-  Assume: (hl : u tends to l) (ha : a est valeur d'adhérence de u)
+  Assume: (hl : u tends to l) (ha : a is a cluster point of u)
   Conclusion: a = l
 Proof:
   sorry
 QED
 
 /-
-Une suite `u` est de Cauchy si ses termes sont aussi proches qu'on
-veut pour des indices assez grands :
+A sequence `u` is Cauchy if its values are arbitrarily close to each other for
+sufficiently large indices:
 
-`u est de Cauchy : ∀ ε > 0, ∃ N, ∀ p ≥ N, ∀ q ≥ N, |u p - u q| ≤ ε`
+`u is Cauchy : ∀ ε > 0, ∃ N, ∀ p ≥ N, ∀ q ≥ N, |u p - u q| ≤ ε`
 -/
 
-Exercise-lemma cauchy_si_converge "08.5 Si une suite `u` converge alors elle est de Cauchy."
+Exercise-lemma cauchy_of_tendsto
+  "08.5 If a sequence `u` converges then it is Cauchy."
   Given: {u : ℕ → ℝ}
   Assume:
-  Conclusion: (∃ l, u tends to l) → u est de Cauchy
+  Conclusion: (∃ l, u tends to l) → u is Cauchy
 Proof:
   sorry
 QED
 
-/- Dans l'exercice suivant, on pourra utiliser l’énoncé démontré plus haut :
+/-
+In the following exercise, we can use the statement proven above:
 
-`a est valeur d'adhérence de u ⇒ ∀ ε > 0, ∀ N, ∃ n ≥ N, |u n - a| ≤ ε`
+`a is a cluster point of u ⇒ ∀ ε > 0, ∀ N, ∃ n ≥ N, |u n - a| ≤ ε`
 -/
 
 Exercise "08.6
-  Si une suite de Cauchy `u` admet une valeur d'adhérence `l` alors elle converge vers `l`."
+  If a Cauchy sequence `u` admits a cluster point `l` then it tends to `l`."
   Given: (u : ℕ → ℝ) (l : ℝ)
-  Assume: (hu : u est de Cauchy) (hl :  l est valeur d'adhérence de u)
+  Assume: (hu : u is Cauchy) (hl :  l is a cluster point of u)
   Conclusion: u tends to l
 Proof:
   sorry
