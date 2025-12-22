@@ -169,7 +169,7 @@ lemma egal_si_abs_eps (x y : ℝ) : (∀ ε > 0, |x - y| ≤ ε) → x = y := by
 
 
 lemma abs_plus (x y : ℝ) : |x + y| ≤ |x| + |y| :=
-abs_add x y
+abs_add_le x y
 
 lemma ineg_triangle (x y z : ℝ) : |x - y| ≤ |x - z| + |z - y| :=
 abs_sub_le x z y
@@ -308,9 +308,9 @@ end Subset
 
 open Verbose.English
 
-lemma le_le_of_abs_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
+lemma le_le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
 
-lemma le_of_abs_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
+lemma le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
 
 lemma le_antisymm' {α : Type*} [PartialOrder α] {a b : α} (h : b ≤ a) (h' : a ≤ b) : a = b :=
   (le_antisymm h h').symm
@@ -325,10 +325,10 @@ lemma ex_mul_of_dvd' {a b : ℤ} (h : ∃ k, b = k * a) : a ∣ b := by
    use k
    rw [hk, mul_comm]
 
-private lemma abs_le_of_le_and_le {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : -b ≤ a ∧ a ≤ b) : |a| ≤ b := abs_le.2 h
 
-private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : a ≤ b ∧ -b ≤ a) : |a| ≤ b := abs_le.2 ⟨h.2, h.1⟩
 
 configureAnonymousFactSplittingLemmas le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos

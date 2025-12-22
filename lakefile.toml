@@ -21,7 +21,7 @@ weak.linter.style.multiGoal = false
 
 [[require]]
 name = "verbose"
-git = "https://github.com/PatrickMassot/verbose-lean4.git"
+git = "https://github.com/siddhartha-gadgil/verbose-lean4.git"
 rev = "master"
 
 [[lean_lib]]
