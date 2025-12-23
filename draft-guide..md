@@ -1,287 +1,437 @@
-# Verbose Lean (English) Reference Guide
+# Verbose Lean (English): Complete Structured Guide
 
-Verbose Lean is a "Controlled Natural Language," meaning it looks like English but follows strict syntactic rules that map directly to Lean 4 tactics.
+## 0. Design Philosophy
 
-## 1. Structure of a Problem
+Verbose Lean provides:
 
-Verbose Lean separates the statement of a theorem from its proof using precise keywords. This structure replaces the standard `theorem` or `example` header.
+* A **controlled natural language** closely aligned with textbook mathematical English
+* A **restricted but expressive grammar**
+* Deterministic elaboration into Lean tactics
+* Forward- and backward-reasoning support
+* Tight integration with `calc`, `have`, `intro`, `cases`, `rcases`, `apply`, `obtain`, `choose`
 
-### Syntax
+The English layer is **not free-form**: every phrase corresponds to a well-defined syntactic category.
 
-```lean
-Exercise "Name of the exercise"
-  Given: (x : Type) (y : Type)
-  Assume: (h1 : x > 0) (h2 : y > x)
-  Conclusion: y > 0
-Proof:
-  <Tactics go here>
-  QED
+---
+
+## 1. Introducing Assumptions: `Assume`
+
+### 1.1 Basic assumption introduction
+
+**Purpose:** Introduce hypotheses from goals of the form `P → Q`, `∀ x, ...`, etc.
+
+**Syntax:**
+
+```
+Assume h
+Assume h : P
+Assume h₁ (h₂ : Q)
+Assume that h₁ (h₂ : Q)
 ```
 
-* **Given:** Declares the objects (variables).
-* **Assume:** Declares the hypotheses.
-* **Conclusion:** States the goal to be proven.
-* **Proof:** / **QED**: Block delimiters for the proof script.
-
----
-
-## 2. Forward Reasoning (Deducing New Facts)
-
-These tactics correspond to the `have` tactic in standard Lean. They allow you to build new facts from existing assumptions and lemmas.
-
-### `Since ... we get ...`
-
-The most versatile forward reasoning tactic. It combines facts to deduce a new one, often performing implicit rewriting or logical steps (like `gcongr`).
-
-* **Syntax:**
-
-    ```text
-    Since <fact1> and <fact2> we get <new_fact_name> : <new_fact_statement>
-    ```
-
-* **Example:**
-
-    ```lean
-    Since x > 0 and y > x we get h_new : y > 0
-    ```
-
-### `We claim that ...`
-
-Proves an intermediate statement. This opens a new subgoal to prove the claim, and then adds it to the context.
-
-* **Syntax:**
-
-    ```text
-    We claim that <fact_name> : <fact_statement>
-    ```
-
-* **Example:**
-
-    ```lean
-    We claim that h_pos : x * x ≥ 0
-    Proof:
-       ... -- prove the claim here
-    ```
-
-### `By ... applied to ... we get ...`
-
-Explicitly instantiates a universal quantifier or a lemma.
-
-* **Syntax:**
-
-    ```text
-    By <lemma_name> applied to <arguments> we get <fact_name> : <fact_statement>
-    ```
-
-* **Example:**
-
-    ```lean
-    By le_trans applied to h1, h2 we get h3 : a ≤ c
-    ```
-
-### `The assumption ... gives ...` (Destructuring Existence)
-
-Used to extract a witness from an existential hypothesis (equivalent to `cases` or `obtain`).
-
-* **Syntax:**
-
-    ```text
-    The assumption <h_exists> gives <var> such that <h_property>
-    ```
-
-* **Example:**
-  * *Context:* `h : ∃ δ, δ > 0`
-  * *Usage:* `The assumption h gives δ such that hδ : δ > 0`
-
----
-
-## 3. Backward Reasoning (Goal Management)
-
-These tactics manipulate the goal, corresponding to `apply`, `suffices`, or refinement.
-
-### `It suffices to prove that ...`
-
-Replaces the current goal with a new sufficient condition.
-
-* **Syntax:**
-
-    ```text
-    It suffices to prove that <new_goal>
-    ```
-
-* **Example:**
-  * *Goal:* `|x - y| < ε`
-  * *Usage:* `It suffices to prove that |x - y| < ε / 2`
-
-### `Let's first prove that ...`
-
-Similar to "We claim", but specifically framed as a sub-goal strategy.
-
-* **Syntax:**
-
-    ```text
-    Let's first prove that <sub_goal>
-    ```
-
-### `By ... it suffices to prove ...`
-
-Applies a lemma to the goal and leaves the premises of that lemma as new goals (equivalent to `apply`).
-
-* **Syntax:**
-
-    ```text
-    By <lemma> it suffices to prove <new_goal>
-    ```
-
-* **Example:**
-
-    ```lean
-    By continuous_def it suffices to prove ∀ ε > 0, ∃ δ > 0, ...
-    ```
-
----
-
-## 4. Introducing Variables and Assumptions
-
-These tactics handle the `intro` tactic, dealing with "For all" quantifiers and implications in the goal.
-
-### `Let ... be ...`
-
-Introduces a variable from a universal quantifier.
-
-* **Syntax:**
-
-    ```text
-    Let <var> be <type>
-    ```
-
-* **Example:**
-  * *Goal:* `∀ n : ℕ, n ≥ 0`
-  * *Usage:* `Let n be a natural number`
-
-### `Fix ...`
-
-A concise way to introduce a variable, often with a constraint if the quantifier is bounded.
-
-* **Syntax:**
-
-    ```text
-    Fix <var>
-    Fix <var> ≥ <bound>
-    ```
-
-* **Example:**
-  * *Goal:* `∀ ε > 0, ...`
-  * *Usage:* `Fix ε > 0`
-
-### `Assume ...`
-
-Introduces the hypothesis of an implication.
-
-* **Syntax:**
-
-    ```text
-    Assume <hypothesis_name> : <hypothesis_statement>
-    ```
-
-* **Example:**
-  * *Goal:* `P → Q`
-  * *Usage:* `Assume hP : P`
-
----
-
-## 5. Structuring the Proof (Decomposition)
-
-Tactics for splitting proofs into smaller logical blocks (cases, induction).
-
-### `We proceed by cases on ...`
-
-Splits the proof based on a logical disjunction or a variable's cases.
-
-* **Syntax:**
-
-    ```text
-    We proceed by cases on <variable_or_proposition>
-    ```
-
-* **Example:**
-
-    ```lean
-    We proceed by cases on n
-    ```
-
-### `We proceed by induction on ...`
-
-Starts an induction proof.
-
-* **Syntax:**
-
-    ```text
-    We proceed by induction on <variable>
-    ```
-
----
-
-## 6. Concluding the Proof
-
-Tactics that close the current goal.
-
-### `The conclusion follows from ...`
-
-Closes the goal using the listed facts (similar to `assumption` or `simp [facts]`).
-
-* **Syntax:**
-
-    ```text
-    The conclusion follows from <fact1>, <fact2>
-    ```
-
-* **Example:**
-
-    ```lean
-    The conclusion follows from h1, h_ineq
-    ```
-
-### `We conclude by ...`
-
-Similar to the above, explicitly naming the method or lemma used to finish.
-
-* **Syntax:**
-
-    ```text
-    We conclude by <tactic_or_lemma>
-    ```
-
----
-
-## 7. Examples
-
-### Example 1: Basic Logic
+**Example:**
 
 ```lean
-Exercise "Transitivity of inequality"
-  Given: (a b c : ℕ)
-  Assume: (h1 : a ≤ b) (h2 : b ≤ c)
-  Conclusion: a ≤ c
-Proof:
-  By le_trans applied to h1, h2 we get h3 : a ≤ c
-  The conclusion follows from h3
-  QED
+example (P Q : Prop) : P → Q → True := by
+  Assume hP (hQ : Q)
+  trivial
 ```
 
-### Example 2: Epsilon-Delta Style (Real Analysis)
+Equivalent to:
 
 ```lean
-Exercise "Continuity definition"
-  Given: (f : ℝ → ℝ) (x₀ : ℝ)
-  Assume: (h_cont : ContinuousAt f x₀)
-  Conclusion: ∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| < δ → |f x - f x₀| < ε
-Proof:
-  Fix ε > 0
-  By continuousAt_def applied to h_cont we get h_def : ∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| < δ → |f x - f x₀| < ε
-  By h_def applied to ε we get h_eps : ∃ δ > 0, ∀ x, |x - x₀| < δ → |f x - f x₀| < ε
-  The assumption h_eps gives δ such that h_delta : δ > 0 and h_main : ∀ x, |x - x₀| < δ → |f x - f x₀| < ε
-  Let's prove that ∃ δ > 0, ∀ x, |x - x₀| < δ → |f x - f x₀| < ε
-  The conclusion follows from h_delta, h_main
-  QED
+intro hP hQ
 ```
+
+---
+
+### 1.2 `Assume for contradiction`
+
+**Purpose:** Start a proof by contradiction when the goal is *not already a negation*.
+
+**Syntax:**
+
+```
+Assume for contradiction h : P
+```
+
+**Semantics:** Replaces the goal with `False` and adds `h : P`.
+
+**Example:**
+
+```lean
+example (P Q : Prop) (h : ¬ Q → ¬ P) : P → Q := by
+  Assume hP
+  Assume for contradiction hQ : ¬ Q
+  exact h hQ hP
+```
+
+**Restrictions (enforced):**
+
+* Disallowed if the goal is already a negation
+* Disallowed if the assumed statement is definitionally incorrect (even after unfolding)
+* Can be enabled for negation goals via:
+
+```lean
+allowProvingNegationsByContradiction
+```
+
+---
+
+## 2. Forward Reasoning: `By … we get / choose / suffices`
+
+### 2.1 Extracting data: `By … we get`
+
+**Purpose:** Eliminate conjunctions, existentials, and splittable lemmas.
+
+**Syntax:**
+
+```
+By h we get h₁ h₂
+By h we get x such that H
+By h applied to t we get ...
+```
+
+**Examples:**
+
+Conjunction:
+
+```lean
+example (P Q : Prop) (h : P ∧ Q) : Q := by
+  By h we get hP hQ
+  exact hQ
+```
+
+Existential:
+
+```lean
+example (n : Nat) (h : ∃ k, n = 2*k) : True := by
+  By h we get k such that H
+  trivial
+```
+
+Lemma with anonymous splitting:
+
+```lean
+example (x : ℝ) (h : |x| ≤ 3) : True := by
+  By h we get h₁ h₂
+  trivial
+```
+
+---
+
+### 2.2 Choice: `By … we choose`
+
+**Purpose:** Extract a *function* from a dependent choice.
+
+**Syntax:**
+
+```
+By h we choose g such that H
+```
+
+**Example:**
+
+```lean
+noncomputable example (f : ℕ → ℕ)
+  (h : ∀ y, ∃ x, f x = y) : ℕ → ℕ := by
+  By h we choose g such that H
+  exact g
+```
+
+Supports multiple properties:
+
+```lean
+By h we choose g such that H₁ and H₂
+```
+
+---
+
+### 2.3 Backward reasoning: `it suffices to prove`
+
+**Purpose:** Apply implications and reduce goals.
+
+**Syntax:**
+
+```
+By h it suffices to prove P
+By h applied to t it suffices to prove P
+By h it suffices to prove P and Q
+```
+
+**Examples:**
+
+```lean
+example (P Q : Prop) (h : P → Q) (hP : P) : Q := by
+  By h it suffices to prove P
+  exact hP
+```
+
+Multiple goals:
+
+```lean
+example (P Q R : Prop) (h : P → R → Q) (hP : P) (hR : R) : Q := by
+  By h it suffices to prove P and R
+  exact hP
+  exact hR
+```
+
+---
+
+## 3. Structured Calculations: `Calc`
+
+### 3.1 Basic calculation blocks
+
+**Purpose:** Chain equalities and inequalities with explicit justifications.
+
+**Syntax:**
+
+```
+Calc
+  t₀ = t₁ by computation
+  _  ≤ t₂ from h
+```
+
+**Example:**
+
+```lean
+example (a b : ℕ) : (a + b)^2 = a^2 + b^2 + 2*a*b := by
+  Calc
+    (a + b)^2 = a^2 + b^2 + 2*a*b by computation
+```
+
+---
+
+### 3.2 Justification forms
+
+Each step may be justified by:
+
+| English phrase   | Meaning                       |
+| ---------------- | ----------------------------- |
+| `by computation` | `ring`, `norm_num`, reduction |
+| `by hypothesis`  | `assumption`                  |
+| `from h`         | `apply h`                     |
+| `since P`        | prove P and apply             |
+| `since P and Q`  | multi-fact reasoning          |
+| `by tactic`      | arbitrary Lean tactics        |
+
+**Example:**
+
+```lean
+Calc f (-x) = f x since even_fun f
+```
+
+---
+
+### 3.3 Inequality chains
+
+**Example:**
+
+```lean
+example (a b c d : ℕ) (h : a ≤ b) (h' : c ≤ d) :
+  a + c ≤ b + d := by
+  Calc
+    a + c ≤ b + c from h
+    _     ≤ b + d from h'
+```
+
+---
+
+### 3.4 Interactive mode
+
+```
+Calc?
+```
+
+Invokes the widget to build a calculation interactively.
+
+---
+
+## 4. Naming Intermediate Results: `Fact` / `Claim`
+
+**Purpose:** Introduce named lemmas (`have`) with English justification.
+
+### 4.1 Proof-based
+
+```
+Fact H : P by
+  tactic
+```
+
+**Example:**
+
+```lean
+Fact H : 1 + 1 = 2 by computation
+```
+
+---
+
+### 4.2 From existing facts
+
+```
+Fact H : Q from h
+```
+
+**Example:**
+
+```lean
+Fact H : ε ≥ 0 from ε_pos
+```
+
+---
+
+### 4.3 Since-justified
+
+```
+Fact H : Q since P
+```
+
+**Example:**
+
+```lean
+Fact H : ε ≥ 0 since ε > 0
+```
+
+---
+
+## 5. Fixing Variables and Goals
+
+### 5.1 `Fix`
+
+**Purpose:** Introduce universally quantified variables.
+
+```
+Fix x
+Fix ε > 0
+Fix n ≥ N
+```
+
+**Example:**
+
+```lean
+Fix ε > 0
+```
+
+Equivalent to:
+
+```lean
+intro ε
+have ε_pos : ε > 0 := ...
+```
+
+---
+
+### 5.2 `Let's prove`
+
+**Purpose:** Explicit goal structuring.
+
+```
+Let's prove that P
+Let's prove that N works : ∀ n ≥ N, ...
+```
+
+Used extensively in Exercises.
+
+---
+
+## 6. Using Facts: `Since … we conclude`
+
+**Purpose:** Forward chaining with one or more facts.
+
+**Syntax:**
+
+```
+Since P we conclude that Q
+Since P and R we conclude that Q
+```
+
+**Example:**
+
+```lean
+Since u converges to x₀ and δ > 0
+we get N such that H
+```
+
+---
+
+## 7. `We conclude`, `We compute`
+
+### 7.1 `We conclude`
+
+Closes a goal using an explicit fact.
+
+```
+We conclude by h
+```
+
+### 7.2 `We compute`
+
+Closes a goal by definitional reduction.
+
+```
+We compute
+```
+
+Used heavily in `Calc` and `Fact`.
+
+---
+
+## 8. Structured Proof Blocks: `Exercise`, `Example`, `Proof`, `QED`
+
+These are **syntactic sugar** for readable, textbook-style proofs.
+
+**Structure:**
+
+```
+Exercise "Title"
+  Given: ...
+  Assume: ...
+  Conclusion: ...
+Proof:
+  ...
+QED
+```
+
+Fully elaborates to standard Lean proof terms.
+
+---
+
+## 9. Advanced Infrastructure (Implicit but Essential)
+
+* **Anonymous fact splitting**
+  (`configureAnonymousFactSplittingLemmas`)
+* **Goal splitting**
+  (`configureAnonymousGoalSplittingLemmas`)
+* **Unfoldable definitions**
+  (`configureUnfoldableDefs`)
+* **Controlled unfolding of notation-heavy definitions**
+* **Strong assumption resolution**
+
+These ensure that English proofs behave predictably.
+
+---
+
+## 10. Summary Table
+
+| Category           | Tactics                                      |
+| ------------------ | -------------------------------------------- |
+| Assumptions        | `Assume`, `Assume for contradiction`         |
+| Forward reasoning  | `By … we get`, `By … we choose`              |
+| Backward reasoning | `it suffices to prove`                       |
+| Calculations       | `Calc`, `Calc?`                              |
+| Naming facts       | `Fact`, `Claim`                              |
+| Structure          | `Fix`, `Let's prove`, `Since`, `We conclude` |
+| Proof blocks       | `Exercise`, `Example`, `Proof`, `QED`        |
+
+---
+
+## Concluding Remarks
+
+Verbose Lean (English) achieves a rare combination of:
+
+* Mathematical readability
+* Formal precision
+* Deterministic elaboration
+* Pedagogical clarity
+
+It is especially well-suited for **teaching**, **formalized textbooks**, and **bridging informal mathematics with Lean**.
