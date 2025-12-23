@@ -1,10 +1,6 @@
-This guide outlines the **Verbose Lean** tactics (English) based on the implementations in the `siddhartha-gadgil/verbose-lean4` repository, which builds upon Patrick Massot’s work.
+# Verbose Lean (English) Reference Guide
 
 Verbose Lean is a "Controlled Natural Language," meaning it looks like English but follows strict syntactic rules that map directly to Lean 4 tactics.
-
----
-
-# Verbose Lean (English) Reference Guide
 
 ## 1. Structure of a Problem
 
