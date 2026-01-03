@@ -12,7 +12,7 @@ To prove a statement of this form directly, you need to prove `P` or prove `Q`.
 To do this, we use the command `Let's prove that` (this is the same syntax as
 when we simply want to facilitate reading by recalling the current goal).
 -/
-Example "Premier exemple de disjonction."
+Example "First example of disjunction."
   Given:
   Assume:
   Conclusion: 2^3 = 3 ∨ 2^3 = 8

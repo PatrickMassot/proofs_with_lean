@@ -148,7 +148,7 @@ The following example illustrates the use of the contraposition principle and
 the corresponding command `Let's prove the contrapositive: …`.
 -/
 
-Example "Commande de contraposition"
+Example "Contraposition command"
   Given: (P Q : Prop)
   Assume: (h : (¬ Q) ⇒ ¬ P)
   Conclusion: P ⇒ Q
@@ -278,7 +278,7 @@ You can skip this exercise if you're a bit behind the rest of the group.
 Exercise "10.08 The drinker paradox"
   Given: (x : Bar) -- The bar is non-empty, we denote by `x` someone in the bar.
   Assume:
-  Conclusion: ∃ p : Bar, (p boit ⇒ ∀ q : Bar, q boit)
+  Conclusion: ∃ p : Bar, (p drinks ⇒ ∀ q : Bar, q drinks)
 Proof:
   sorry
 QED

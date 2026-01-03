@@ -68,7 +68,7 @@ An example of such a statement is: `∀ x : ℝ, x > 0 ⇒ x^2 > 0`. We can ther
 write the following proof.
 -/
 
-Example "Carré positif"
+Example "Positive square"
   Given: (a : ℝ)
   Assume: (ha : a > 0)
   Conclusion: a^2 > 0
@@ -100,7 +100,7 @@ final `we conclude that ...` with `we get F : ...` where `F` is a hypothesis
 name of your choice (among the available names).
 -/
 
-Example "Enchaînement d’implications, vers l’avant."
+Example "Chaining implications, forwards."
   Given: (a : ℝ)
   Assume: (ha : a > 0)
   Conclusion: (a^2)^2 > 0
@@ -262,7 +262,7 @@ Example "A composition of non-increasing functions is non-decreasing"
 Proof:
   Fix x₁ x₂
   Assume h : x₁ ≤ x₂
-  Let's prove that g (f x₁) ≤ g (f x₂) -- Cette ligne est facultative mais facilite la lecture
+  Let's prove that g (f x₁) ≤ g (f x₂) -- This line is optional but makes reading easier
   Since f is non-decreasing and x₁ ≤ x₂ we get H : f x₁ ≤ f x₂
   Since g is non-decreasing and f x₁ ≤ f x₂ we conclude that g (f x₁) ≤ g (f x₂)
 QED
@@ -281,7 +281,7 @@ Proof:
   Since f is non-decreasing and x₁ ≤ x₂ we conclude that f x₁ ≤ f x₂
 QED
 
-Exercise "04.5 La composée d’une fonction croissante and d’une fonction décroissante
+Exercise "04.5 The composition of a non-decreasing and a non-increasing function
           is non-increasing."
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is non-decreasing) (hg : g is non-increasing)

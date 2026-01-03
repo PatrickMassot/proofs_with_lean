@@ -9,8 +9,8 @@ setup_env
 Recall `f is even` mean `∀ x, f (-x) = f x` and
 `f is odd` means `∀ x, f (-x) = -f x`.
 
-Dans l’exemple suivant, on démontre un énoncé de la forme `∀ x, P x` using
-la commande `Fix`.
+In the following example, we prove a statement of the form `∀ x, P x` using
+the `Fix` command.
 -/
 
 Example "The function that maps `x` to `x²` is even."
