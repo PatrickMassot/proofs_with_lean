@@ -276,9 +276,9 @@ statement to replace the two sets of suspension points).
 You can skip this exercise if you're a bit behind the rest of the group.
 -/
 Exercise "10.08 The drinker paradox"
-  Given: (x : Bar) -- The bar is non-empty, we denote by `x` someone in the bar.
+  Given: (x : Bar) (drinks : Bar → Prop) -- The bar is non-empty, we denote by `x` someone in the bar.
   Assume:
-  Conclusion: ∃ p : Bar, (p drinks ⇒ ∀ q : Bar, q drinks)
+  Conclusion: ∃ p : Bar, (drinks p ⇒ ∀ q : Bar, drinks q)
 Proof:
   sorry
 QED
@@ -316,4 +316,3 @@ Exercise "10.10 Characterization of increasing functions"
 Proof:
   sorry
 QED
-
