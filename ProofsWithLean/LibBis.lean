@@ -3,8 +3,8 @@ import ProofsWithLean.Lib
 -- import Mathlib.Topology.Sequences
 open m154
 
-def majorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
-def borne_sup (A : Set ℝ) (x : ℝ) := majorant A x ∧ ∀ y, majorant A y → x ≤ y
+-- def majorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
+-- def borne_sup (A : Set ℝ) (x : ℝ) := majorant A x ∧ ∀ y, majorant A y → x ≤ y
 
 lemma lt_sup {A : Set ℝ} {x : ℝ} (hx : borne_sup A x) : ∀ y, y < x → ∃ a ∈ A, y < a := by
   intro y
@@ -150,3 +150,11 @@ open Real
 
 axiom sup_segment {a b : ℝ} {A : Set ℝ} (hnonvide : ∃ x, x ∈ A) (h : A ⊆ [a, b]) :
   ∃ x ∈ [a, b], borne_sup A x
+
+addAnonymousFactSplittingLemma sup_segment
+addAnonymousFactSplittingLemma funext
+
+def continue_en (f : ℝ → ℝ) (x₀ : ℝ) : Prop :=
+∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| ≤ δ → |f x - f x₀| ≤ ε
+
+notation3:50 f:80 " is continuous at " x:60 => continue_en f x
