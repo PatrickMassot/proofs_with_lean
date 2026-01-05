@@ -36,6 +36,28 @@ def est_borne_inf (M : ℝ) (u : ℕ → ℝ) :=
 
 notation3:50 M:80 " is infimum of " u => est_borne_inf M u
 
+/-- Le réel `x` est un majorant de l'ensemble de réels `A`. -/
+def bounds_above (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
+
+notation3:50 x:80 " bounds above " A:50 => bounds_above A x
+
+/-- Le réel `x` est une  borne supérieure de l'ensemble de réels `A`. -/
+def borne_sup (A : Set ℝ) (x : ℝ) := x bounds above A ∧ ∀ y, y bounds above A → x ≤ y
+
+notation3:50 x:80 " is supremum of " A:50 => borne_sup A x
+
+
+/-- Le réel `x` est un minorant de l'ensemble de réels `A`. -/
+def minorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, x ≤ a
+
+notation3:50 x:80 " bounds below " A:50 => minorant A x
+
+/-- Le réel `x` est une  borne inférieure de l'ensemble de réels `A`. -/
+def borne_inf (A : Set ℝ) (x : ℝ) := x bounds below A ∧ ∀ y, y bounds below A → x ≤ y
+
+notation3:50 x:80 " is infimum of " A:50 => borne_inf A x
+
+
 namespace m154
 
 lemma inferieur_ssi {x y : ℝ} : x ≤ y ↔ 0 ≤ y - x :=

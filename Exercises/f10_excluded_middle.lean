@@ -1,7 +1,6 @@
 import ProofsWithLean.LibNeg
 setup_env
 
-open m154
 /-
 # File 10: Excluded middle, proofs by contradition and contraposition
 
