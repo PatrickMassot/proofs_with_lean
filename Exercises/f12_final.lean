@@ -68,13 +68,13 @@ A real number x is an upper bound of a set of real numbers A:
   `x upper bounds A` means `∀ a ∈ A, a ≤ x`
 
 A real number x is the supremum of a set of real numbers A:
-  `x is a supremum of A` means
+  `x is the supremum of A` means
   `x upper bounds A ∧ ∀ y, y upper bounds A ⇒ x ≤ y`
 
 and showed that if x is the supremum of A, then for every y < x,
 there exists an element of A strictly greater than y:
 
-  `x is a supremum of A ⇒ (∀ y < x, ∃ a ∈ A, y < a)`
+  `x is the supremum of A ⇒ (∀ y < x, ∃ a ∈ A, y < a)`
 
 We also showed:
   `(u tends to x) ∧ (∀ n, u n ≤ y) ⇒ x ≤ y`
@@ -120,7 +120,7 @@ Exercise-lemma upper_bound_to_sequence
   "12.02a If x is the supremum of a set A, then there exists a sequence of
    elements of A that tends to x."
   Given: {A : Set ℝ} {x : ℝ}
-  Assume: (h : x is supremum of A)
+  Assume: (h : x is the supremum of A)
   Conclusion: ∃ u : ℕ → ℝ, (u tends to x) ∧ ∀ n, u n ∈ A
 Proof:
   Fact F1 : ∀ n : ℕ, ∃ a ∈ A, x - 1/(n+1) < a by
@@ -142,10 +142,10 @@ Exercise-lemma supremum_if_upper_bound_and_sequence
   "12.02b If x is an upper bound of A and there exists a sequence of elements
    of A tending to x, then x is the supremum of A."
   Given: {A : Set ℝ} {x : ℝ} {u : ℕ → ℝ}
-  Assume: (x_maj : x bounds above A)
+  Assume: (x_maj : x bounds from above A)
           (u_x : u tends to x)
           (u_A : ∀ n, u n ∈ A)
-  Conclusion: x is supremum of A
+  Conclusion: x is the supremum of A
 Proof:
   sorry
 QED
@@ -254,14 +254,14 @@ Proof:
   Since ∀ x ∈ [a, b], f is continuous at x
     we get M such that hM : ∀ x ∈ [a, b], f x ≤ M
   Set A := {y | ∃ x ∈ [a, b], y = f x}
-  Fact step1 : ∃ y₀ ∈ [m, M], y₀ is supremum of A by
+  Fact step1 : ∃ y₀ ∈ [m, M], y₀ is the supremum of A by
     sorry
-  Since ∃ y₀ ∈ [m, M], y₀ is supremum of A
+  Since ∃ y₀ ∈ [m, M], y₀ is the supremum of A
     we get y₀ such that
       y_mem : y₀ ∈ [m, M]
-      and y_sup : y₀ is supremum of A
-  Since y₀ is supremum of A we get y_maj : y₀ bounds above A
-  Since y₀ is supremum of A we get u : ℕ → ℝ such that
+      and y_sup : y₀ is the supremum of A
+  Since y₀ is the supremum of A we get y_maj : y₀ bounds from above A
+  Since y₀ is the supremum of A we get u : ℕ → ℝ such that
     lim_u : u tends to y₀
     and u_mem : ∀ n, u n ∈ A
   Since ∀ n, u n ∈ A
@@ -280,12 +280,12 @@ Exercise "12.11 The Intermediate Value Theorem"
   Conclusion: ∃ x₀ ∈ [0, 1], f x₀ = 0
 Proof:
   Set A := {x | x ∈ [0, 1] ∧ f x < 0}
-  Fact ex_x₀ : ∃ x₀ ∈ [0, 1], x₀ is supremum of A by
+  Fact ex_x₀ : ∃ x₀ ∈ [0, 1], x₀ is the supremum of A by
     sorry
-  Since ∃ x₀ ∈ [0, 1], x₀ is supremum of A
+  Since ∃ x₀ ∈ [0, 1], x₀ is the supremum of A
     we get x₀ such that
       x₀_mem : x₀ ∈ [0, 1]
-      and x₀_sup : x₀ is supremum of A
+      and x₀_sup : x₀ is the supremum of A
   Let's prove that x₀ works
   Since x₀ ∈ [0, 1] it suffices to prove that f x₀ = 0
   Fact fx₀_le : f x₀ ≤ 0 by

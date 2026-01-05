@@ -154,17 +154,17 @@ The notation “∀ x ∈ A, ...” is an abbreviation for
 Given a real number `x` and a set of real numbers `A`,
 `x upper bounds A` means `∀ a ∈ A, a ≤ x`,
 and
-`x is a supremum of A` means
+`x is the supremum of A` means
 `x upper bounds A ∧ ∀ y, y upper bounds A ⇒ x ≤ y`.
 
 Warning: the universal quantifier consumes everything to its right,
 so parentheses are essential.
 -/
 
--- Exercise "11.4 If x is a supremum of A, then for every y < x there exists
+-- Exercise "11.4 If x is the supremum of A, then for every y < x there exists
 -- an element of A strictly greater than y"
 --   Given: (A : Set ℝ) (x : ℝ)
---   Assume: (hx : x is a supremum of A)
+--   Assume: (hx : x is the supremum of A)
 --   Conclusion: ∀ y, y < x ⇒ ∃ a ∈ A, y < a
 -- Proof:
 --   sorry

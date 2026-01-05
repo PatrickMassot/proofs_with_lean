@@ -154,14 +154,13 @@ Proof:
 QED
 
 /-
-`M is supremum of u` means
+`M is the supremum of u` means
   (∀ n, u n ≤ M) ∧ (∀ ε > 0, ∃ n₀, u n₀ ≥ M - ε)
 -/
 Exercise "07.7 Every non-decreasing sequence having a supremum tends to this supremum."
   Given: (u : ℕ → ℝ) (M : ℝ)
-  Assume: (h : M is supremum of u) (h' : u is non-decreasing)
+  Assume: (h : M is the supremum of u) (h' : u is non-decreasing)
   Conclusion: u tends to M
 Proof:
   sorry
 QED
-
