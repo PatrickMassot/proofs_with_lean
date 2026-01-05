@@ -255,7 +255,7 @@ Such nesting is a little cumbersome to read, so we can abbreviate it to
 `f is non-increasing` means `∀ x₁ x₂, x₁ ≤ x₂ ⇒ f x₁ ≥ f x₂`.
 -/
 
-Example "A composition of non-increasing functions is non-decreasing"
+Example "A composition of non-decreasing functions is non-decreasing"
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is non-decreasing) (hg : g is non-decreasing)
   Conclusion: (g ∘ f) is non-decreasing
@@ -268,7 +268,7 @@ Proof:
 QED
 
 
-Example "A composition of non-increasing functions is non-decreasing.
+Example "A composition of non-decreasing functions is non-decreasing.
          Variation with backward reasonning."
   Given: (f g : ℝ → ℝ)
   Assume: (hf : f is non-decreasing) (hg : g is non-decreasing)
@@ -441,4 +441,3 @@ Proof:
     ((Q ⇒ R) ⇒ S) ⇔ ((Q ⇒ P) ⇒ S) since P ⇔ R
     _             ⇔ ((Q ⇒ P) ⇒ T) since S ⇔ T
 QED
-
