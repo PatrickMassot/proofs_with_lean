@@ -353,7 +353,13 @@ Exercise "04.9 Using one of the implications from an equivalence. A more complex
   Assume: (hPR : P ⇔ R) (hQRS : (Q ⇒ R) ⇒ S)
   Conclusion: (Q ⇒ P) ⇒ S
 Proof:
-  sorry
+  Assume hQP : Q ⇒ P
+  Since R ⇔ P we get hPR' : P ⇒ R
+  Fact hQR: Q ⇒ R by
+    Assume hQ : Q
+    Since Q ⇒ P and Q we get hP : P
+    Since P ⇒ R and P we conclude that R
+  Since (Q ⇒ R) ⇒ S and Q ⇒ R we conclude that S
 QED
 
 /-
