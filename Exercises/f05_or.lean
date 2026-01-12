@@ -151,7 +151,7 @@ Proof:
 QED
 
 /-
-The following exercise uses the notions of parity and imparity for integers.
+The following exercise uses the notions of even and odd for integers.
 
 By definition, a relative integer `n` is even if `∃ k, n = 2*k`.
 By definition, a relative integer `n` is odd if `∃ k, n = 2*k + 1`.
@@ -204,5 +204,3 @@ Exercise "05.6 A characterization of non-decreasing functions."
 Proof:
   sorry
 QED
-
-
