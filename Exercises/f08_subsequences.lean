@@ -78,7 +78,7 @@ extracted from `u` that tends to `a`:
 `a is a cluster point of u : ∃ φ, φ is an extraction ∧ (u ∘ φ) tends to a'
 -/
 
-Exercise-lemma valeur_proche_adherence
+Exercise-lemma cluster_pt_values
   "08.2 If `a` is a cluster point of `u` then there are values of
   `u` arbitrarily close to `a` for arbitrarily large indices."
   Given: {u : ℕ → ℝ} {a : ℝ}
@@ -136,4 +136,3 @@ Exercise "08.6
 Proof:
   sorry
 QED
-

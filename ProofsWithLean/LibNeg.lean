@@ -3,17 +3,17 @@ import ProofsWithLean.Lib
 
 open Verbose.English m154
 
-private lemma abs_le_of_le_and_le {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : -b ≤ a ∧ a ≤ b) : |a| ≤ b := abs_le.2 h
 
-private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : a ≤ b ∧ -b ≤ a) : |a| ≤ b := abs_le.2 ⟨h.2, h.1⟩
 
-lemma mul_le_mul_of_pos_left {α : Type*} {a b c : α}  [OrderedSemiring α]
+lemma mul_le_mul_of_pos_left {α : Type*} {a b c : α}  [CommRing α] [LinearOrder α] [IsOrderedRing α]
     (h : 0 < a) (h' : b ≤ c) : a * b ≤ a * c :=
   mul_le_mul_of_nonneg_left h' h.le
 
-lemma mul_le_mul_of_pos_right {α : Type*} {a b c : α} [OrderedSemiring α]
+lemma mul_le_mul_of_pos_right {α : Type*} {a b c : α} [CommRing α] [LinearOrder α] [IsOrderedRing α]
     (h : 0 < a) (h' : b ≤ c) : b*a ≤ c*a :=
   mul_le_mul_of_nonneg_right h' h.le
 

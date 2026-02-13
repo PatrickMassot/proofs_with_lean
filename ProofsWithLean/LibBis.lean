@@ -3,8 +3,8 @@ import ProofsWithLean.Lib
 -- import Mathlib.Topology.Sequences
 open m154
 
-def majorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
-def borne_sup (A : Set ℝ) (x : ℝ) := majorant A x ∧ ∀ y, majorant A y → x ≤ y
+-- def majorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
+-- def borne_sup (A : Set ℝ) (x : ℝ) := majorant A x ∧ ∀ y, majorant A y → x ≤ y
 
 lemma lt_sup {A : Set ℝ} {x : ℝ} (hx : borne_sup A x) : ∀ y, y < x → ∃ a ∈ A, y < a := by
   intro y
@@ -105,14 +105,7 @@ lemma gendarmes {u v w : ℕ → ℝ} {l : ℝ}
   specialize hu n
   specialize hw n
   rw [abs_inferieur_ssi] at *
-  cases' hN with hNl hNd
-  cases' hN' with hN'l hN'd
-  constructor
-  -- Ici linarith peut finir, mais sur papier on écrirait
-  calc -ε ≤ u n - l := by linarith
-      _ ≤ v n - l := by linarith
-  calc v n - l ≤ w n - l := by linarith
-      _ ≤ ε := by linarith
+  grind
 
 
 
@@ -124,7 +117,7 @@ variable {u : ℕ → ℝ} {l : ℝ}
 lemma limite_extraction_si_limite (h : limite_suite u l) (hφ : φ is an extraction) :
 limite_suite (u ∘ φ) l := by
   intros ε ε_pos
-  cases' h ε ε_pos with N hN
+  rcases h ε ε_pos with ⟨N, hN⟩
   use N
   intros n hn
   apply hN
@@ -157,3 +150,11 @@ open Real
 
 axiom sup_segment {a b : ℝ} {A : Set ℝ} (hnonvide : ∃ x, x ∈ A) (h : A ⊆ [a, b]) :
   ∃ x ∈ [a, b], borne_sup A x
+
+addAnonymousFactSplittingLemma sup_segment
+addAnonymousFactSplittingLemma funext
+
+def continue_en (f : ℝ → ℝ) (x₀ : ℝ) : Prop :=
+∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| ≤ δ → |f x - f x₀| ≤ ε
+
+notation3:50 f:80 " is continuous at " x:60 => continue_en f x

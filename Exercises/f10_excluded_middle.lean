@@ -1,7 +1,6 @@
 import ProofsWithLean.LibNeg
 setup_env
 
-open m154
 /-
 # File 10: Excluded middle, proofs by contradition and contraposition
 
@@ -148,7 +147,7 @@ The following example illustrates the use of the contraposition principle and
 the corresponding command `Let's prove the contrapositive: …`.
 -/
 
-Example "Commande de contraposition"
+Example "Contraposition command"
   Given: (P Q : Prop)
   Assume: (h : (¬ Q) ⇒ ¬ P)
   Conclusion: P ⇒ Q
@@ -276,9 +275,9 @@ statement to replace the two sets of suspension points).
 You can skip this exercise if you're a bit behind the rest of the group.
 -/
 Exercise "10.08 The drinker paradox"
-  Given: (x : Bar) -- The bar is non-empty, we denote by `x` someone in the bar.
+  Given: (x : Bar) (drinks : Bar → Prop) -- The bar is non-empty, we denote by `x` someone in the bar.
   Assume:
-  Conclusion: ∃ p : Bar, (p boit ⇒ ∀ q : Bar, q boit)
+  Conclusion: ∃ p : Bar, (drinks p ⇒ ∀ q : Bar, drinks q)
 Proof:
   sorry
 QED
@@ -316,4 +315,3 @@ Exercise "10.10 Characterization of increasing functions"
 Proof:
   sorry
 QED
-

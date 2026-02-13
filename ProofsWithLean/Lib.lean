@@ -29,12 +29,34 @@ notation3:50 u:80 " tends to +∞"  => limite_infinie_suite u
 def est_borne_sup (M : ℝ) (u : ℕ → ℝ) :=
 (∀ n, u n ≤ M) ∧ ∀ ε > 0, ∃ n₀, u n₀ ≥ M - ε
 
-notation3:50 M:80 " is supremum of " u => est_borne_sup M u
+notation3:50 M:80 " is the supremum of " u => est_borne_sup M u
 
 def est_borne_inf (M : ℝ) (u : ℕ → ℝ) :=
 (∀ n, M ≤ u n) ∧ ∀ ε > 0, ∃ n₀, u n₀ ≤ M + ε
 
-notation3:50 M:80 " is infimum of " u => est_borne_inf M u
+notation3:50 M:80 " is the infimum of " u => est_borne_inf M u
+
+/-- Le réel `x` est un majorant de l'ensemble de réels `A`. -/
+def bounds_above (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
+
+notation3:50 x:80 " bounds from above " A:50 => bounds_above A x
+
+/-- Le réel `x` est une  borne supérieure de l'ensemble de réels `A`. -/
+def borne_sup (A : Set ℝ) (x : ℝ) := x bounds from above A ∧ ∀ y, y bounds from above A → x ≤ y
+
+notation3:50 x:80 " is the supremum of " A:50 => borne_sup A x
+
+
+/-- Le réel `x` est un minorant de l'ensemble de réels `A`. -/
+def minorant (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, x ≤ a
+
+notation3:50 x:80 " bounds from below " A:50 => minorant A x
+
+/-- Le réel `x` est une  borne inférieure de l'ensemble de réels `A`. -/
+def borne_inf (A : Set ℝ) (x : ℝ) := x bounds from below A ∧ ∀ y, y bounds from below A → x ≤ y
+
+notation3:50 x:80 " is the infimum of " A:50 => borne_inf A x
+
 
 namespace m154
 
@@ -169,7 +191,7 @@ lemma egal_si_abs_eps (x y : ℝ) : (∀ ε > 0, |x - y| ≤ ε) → x = y := by
 
 
 lemma abs_plus (x y : ℝ) : |x + y| ≤ |x| + |y| :=
-abs_add x y
+abs_add_le x y
 
 lemma ineg_triangle (x y z : ℝ) : |x - y| ≤ |x - z| + |z - y| :=
 abs_sub_le x z y
@@ -308,9 +330,9 @@ end Subset
 
 open Verbose.English
 
-lemma le_le_of_abs_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
+lemma le_le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
 
-lemma le_of_abs_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
+lemma le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
 
 lemma le_antisymm' {α : Type*} [PartialOrder α] {a b : α} (h : b ≤ a) (h' : a ≤ b) : a = b :=
   (le_antisymm h h').symm
@@ -325,10 +347,10 @@ lemma ex_mul_of_dvd' {a b : ℤ} (h : ∃ k, b = k * a) : a ∣ b := by
    use k
    rw [hk, mul_comm]
 
-private lemma abs_le_of_le_and_le {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : -b ≤ a ∧ a ≤ b) : |a| ≤ b := abs_le.2 h
 
-private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrderedAddCommGroup α] {a b : α}
+private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
     (h : a ≤ b ∧ -b ≤ a) : |a| ≤ b := abs_le.2 ⟨h.2, h.1⟩
 
 configureAnonymousFactSplittingLemmas le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos

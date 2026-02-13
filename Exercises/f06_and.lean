@@ -86,7 +86,7 @@ QED
 /-
 In the example above, the `ha` assumption is never used, so we can omit it.
 -/
-Example "Utilisation d’une partie d’une conjonction"
+Example "Using part of a conjunction"
   Given: (a : ℝ)
   Assume: (h : 0 ≤ a ∧ a ≤ 1)
   Conclusion: a ≤ 2

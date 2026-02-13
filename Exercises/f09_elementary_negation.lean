@@ -28,7 +28,7 @@ QED
 
 -- From False, we can also deduce true things.
 
-Example "Si False alors 0 = 0"
+Example "If False then 0 = 0"
   Given:
   Assume:
   Conclusion: False ⇒ 0 = 0
@@ -221,7 +221,7 @@ You can skip this exercise if pure logic scares you, or if you're behind the
 rest of the group.
 -/
 
-Exercise "9.06 Si un énoncé implique sa négation alors il est faux."
+Exercise "9.06 If a statement implies its negation then it is false."
   Given: (P : Prop)
   Assume: (h : P ⇒ ¬ P)
   Conclusion: ¬ P
