@@ -75,7 +75,7 @@ Example "Inequalities and contradiction"
   Assume: (h : a < b) (h' : b < a)
   Conclusion: False
 Proof:
-  Fact H : a < a by
+  Fact : a < a by
     Calc
       a < b by hypothesis
       _ < a by hypothesis
@@ -107,7 +107,7 @@ For example, if the goal is `False`, you can write
 
 Or write
 
-Fact contradictory : (2 : ℝ) ≤ 1 because
+Fact : (2 : ℝ) ≤ 1 because
   …
 Since 2 ≤ 1 we conclude that False
 
@@ -152,23 +152,23 @@ The notation “∀ x ∈ A, ...” is an abbreviation for
 “∀ x, x ∈ A ⇒ ...”.
 
 Given a real number `x` and a set of real numbers `A`,
-`x upper bounds A` means `∀ a ∈ A, a ≤ x`,
+`x bounds from above A` means `∀ a ∈ A, a ≤ x`,
 and
-`x is the supremum of A` means
-`x upper bounds A ∧ ∀ y, y upper bounds A ⇒ x ≤ y`.
+`x is supremum of A` means
+`x bounds from above A ∧ ∀ y, y bounds from above A ⇒ x ≤ y`.
 
 Warning: the universal quantifier consumes everything to its right,
 so parentheses are essential.
 -/
 
--- Exercise "11.4 If x is the supremum of A, then for every y < x there exists
--- an element of A strictly greater than y"
---   Given: (A : Set ℝ) (x : ℝ)
---   Assume: (hx : x is the supremum of A)
---   Conclusion: ∀ y, y < x ⇒ ∃ a ∈ A, y < a
--- Proof:
---   sorry
--- QED
+Exercise "11.4 If x is supremum of A, then for every y < x there exists
+an element of A strictly greater than y"
+  Given: (A : Set ℝ) (x : ℝ)
+  Assume: (hx : x is supremum of A)
+  Conclusion: ∀ y, y < x ⇒ ∃ a ∈ A, y < a
+Proof:
+  sorry
+QED
 
 /-
 The following exercise is a variant of Exercise 10.9.
@@ -192,3 +192,4 @@ Exercise "11.6 If u tends to x and u n ≤ y for all n, then x ≤ y"
 Proof:
   sorry
 QED
+

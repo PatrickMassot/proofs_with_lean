@@ -29,12 +29,12 @@ notation3:50 u:80 " tends to +∞"  => limite_infinie_suite u
 def est_borne_sup (M : ℝ) (u : ℕ → ℝ) :=
 (∀ n, u n ≤ M) ∧ ∀ ε > 0, ∃ n₀, u n₀ ≥ M - ε
 
-notation3:50 M:80 " is the supremum of " u => est_borne_sup M u
+notation3:50 M:80 " is supremum of " u => est_borne_sup M u
 
 def est_borne_inf (M : ℝ) (u : ℕ → ℝ) :=
 (∀ n, M ≤ u n) ∧ ∀ ε > 0, ∃ n₀, u n₀ ≤ M + ε
 
-notation3:50 M:80 " is the infimum of " u => est_borne_inf M u
+notation3:50 M:80 " is an infimum of " u => est_borne_inf M u
 
 /-- Le réel `x` est un majorant de l'ensemble de réels `A`. -/
 def bounds_above (A : Set ℝ) (x : ℝ) := ∀ a ∈ A, a ≤ x
@@ -44,7 +44,7 @@ notation3:50 x:80 " bounds from above " A:50 => bounds_above A x
 /-- Le réel `x` est une  borne supérieure de l'ensemble de réels `A`. -/
 def borne_sup (A : Set ℝ) (x : ℝ) := x bounds from above A ∧ ∀ y, y bounds from above A → x ≤ y
 
-notation3:50 x:80 " is the supremum of " A:50 => borne_sup A x
+notation3:50 x:80 " is supremum of " A:50 => borne_sup A x
 
 
 /-- Le réel `x` est un minorant de l'ensemble de réels `A`. -/
@@ -55,8 +55,7 @@ notation3:50 x:80 " bounds from below " A:50 => minorant A x
 /-- Le réel `x` est une  borne inférieure de l'ensemble de réels `A`. -/
 def borne_inf (A : Set ℝ) (x : ℝ) := x bounds from below A ∧ ∀ y, y bounds from below A → x ≤ y
 
-notation3:50 x:80 " is the infimum of " A:50 => borne_inf A x
-
+notation3:50 x:80 " is an infimum of " A:50 => borne_inf A x
 
 namespace m154
 
@@ -146,6 +145,9 @@ abs_pos
 
 lemma non_zero_abs_pos {a : ℝ} : a ≠ 0 → |a| > 0 :=
 abs_pos.mpr
+
+lemma abs_pos_of_ne {x y : ℝ} (h : x ≠ y) : |x - y| > 0 := abs_sub_pos.mpr h
+lemma abs_pos_of_ne' {x y : ℝ} (h : x ≠ y) : |y - x| > 0 := abs_sub_pos.mpr h.symm
 
 open Lean PrettyPrinter Delaborator SubExpr in
 @[app_delab Max.max]
@@ -290,7 +292,11 @@ lemma extraction_superieur_id : φ is an extraction → ∀ n, n ≤ φ n := by
   | zero => exact Nat.zero_le _
   | succ n hn => exact Nat.succ_le_of_lt (by linarith [hyp n (n+1) (by linarith)])
 
-
+lemma extraction_croissante (h : φ is an extraction) : φ is non-decreasing := by
+  intro n m hnm
+  rcases Nat.eq_or_lt_of_le hnm with rfl | hnm'
+  rfl
+  exact (h n m hnm').le
 
 lemma extraction_machine (ψ : ℕ → ℕ) (hψ : ∀ n, ψ n ≥ n) :
     ∃ f : ℕ → ℕ, ψ ∘ f is an extraction ∧ ∀ n, f n ≥ n := by
@@ -303,11 +309,21 @@ lemma extraction_machine (ψ : ℕ → ℕ) (hψ : ∀ n, ψ n ≥ n) :
     | zero => apply le_refl
     | succ n ih =>  exact Nat.succ_le_succ (le_trans ih (hψ _)) }
 
+open Lean Elab Tactic in
+elab "check_defs" : tactic => withMainContext do
+  let tgt ← getMainTarget
+  unless tgt.isAppOf `Iff do
+    throwError "Le but doit être une équivalence"
+  let rhs := tgt.getAppArgs[1]!
+  if rhs.containsConst (· == `limite_suite) then
+    throwError "Le membre de droite ne doit pas contenir « tends vers »"
+  if rhs.containsConst (· == `Not) then
+    throwError "Le membre de droite ne doit pas contenir de négation"
+
 macro "verifie" : tactic =>
-`(tactic|
+`(tactic|check_defs <;>
     first |(
         try unfold limite_suite;
-        try unfold continue_en;
         push_neg;
         try simp only [exists_prop];
         try rfl ;
@@ -330,9 +346,9 @@ end Subset
 
 open Verbose.English
 
-lemma le_le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
+lemma le_le_of_abs_le' {α : Type*} [AddCommGroup α] [LinearOrder α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → a ≤ b ∧ -b ≤ a := fun h ↦ ⟨abs_le.1 h |>.2, abs_le.1 h |>.1⟩
 
-lemma le_of_abs_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
+lemma le_of_abs_le' {α : Type*} [AddCommGroup α] [LinearOrder α] [IsOrderedAddMonoid α] {a b : α} : |a| ≤ b → -b ≤ a := fun h ↦ abs_le.1 h |>.1
 
 lemma le_antisymm' {α : Type*} [PartialOrder α] {a b : α} (h : b ≤ a) (h' : a ≤ b) : a = b :=
   (le_antisymm h h').symm
@@ -347,28 +363,46 @@ lemma ex_mul_of_dvd' {a b : ℤ} (h : ∃ k, b = k * a) : a ∣ b := by
    use k
    rw [hk, mul_comm]
 
-private lemma abs_le_of_le_and_le {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
+private lemma abs_le_of_le_and_le {α : Type*} [AddCommGroup α] [LinearOrder α] [IsOrderedAddMonoid α] {a b : α}
     (h : -b ≤ a ∧ a ≤ b) : |a| ≤ b := abs_le.2 h
 
-private lemma abs_le_of_le_and_le' {α : Type*} [LinearOrder α][AddCommGroup α] [IsOrderedAddMonoid α] {a b : α}
+private lemma abs_le_of_le_and_le' {α : Type*} [AddCommGroup α] [LinearOrder α] [IsOrderedAddMonoid α] {a b : α}
     (h : a ≤ b ∧ -b ≤ a) : |a| ≤ b := abs_le.2 ⟨h.2, h.1⟩
 
-configureAnonymousFactSplittingLemmas le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos
+private lemma not_le_lt (x y: ℝ) (h : x ≤ y) (h' : y < x) : False := lt_irrefl x (h.trans_lt h')
+
+
+lemma ineg_quadrilatere (a b c d : ℝ) : |a - b| ≤ |a - c| + |c - d| + |d - b| := by
+  calc
+    |a - b| ≤ |a - d| + |d - b| := ineg_triangle a b d
+    _ ≤ |a - c| + |c - d| + |d - b| := by gcongr; exact ineg_triangle a d c
+
+lemma le_le_of_le_min {α : Type*} [LinearOrder α] {a b c : α} : c ≤ min a b → c ≤ a ∧ c ≤ b := le_inf_iff.1
+
+lemma le_of_le_min_left {α : Type*} [LinearOrder α] {a b c : α}
+  (h : c ≤ min a b) : c ≤ a := le_inf_iff.1 h |>.1
+
+lemma le_of_le_min_right {α : Type*} [LinearOrder α] {a b c : α}
+  (h : c ≤ min a b) : c ≤ b := le_inf_iff.1 h |>.2
+
+configureAnonymousFactSplittingLemmas le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos extraction_croissante not_le_lt le_le_of_le_min le_of_le_min_left le_of_le_min_right
+abs_pos_of_ne abs_pos_of_ne'
 
 configureAnonymousGoalSplittingLemmas LogicIntros AbsIntros Set.Subset.antisymm le_antisymm le_antisymm' lt_irrefl abs_le_of_le_and_le abs_le_of_le_and_le' egal_si_abs_eps
 
 configureAnonymousCaseSplittingLemmas le_or_gt lt_or_gt_of_ne lt_or_eq_of_le eq_or_lt_of_le eq_zero_or_eq_zero_of_mul_eq_zero Classical.em pair_ou_impair le_total
 
-configureAnonymousComputeLemmas abs_diff ineg_triangle abs_plus inferieur_max_gauche inferieur_max_droite
+configureAnonymousComputeLemmas abs_diff ineg_triangle abs_plus inferieur_max_gauche inferieur_max_droite ineg_quadrilatere abs_neg
 
 useDefaultDataProviders
 
 useDefaultSuggestionProviders
 
-configureUnfoldableDefs «croissante» «decroissante» --HasParity.isEven HasParity.isOdd
-  «valeur_adherence» «limite_suite» «surjective» «injective» «extraction» suite_cauchy limite_infinie_suite
+configureUnfoldableDefs «croissante» «decroissante»
+  «valeur_adherence» «limite_suite» «surjective» «injective» «extraction» suite_cauchy
+  limite_infinie_suite est_borne_sup est_borne_inf bounds_above borne_sup minorant borne_inf
 
--- Remarque : to arrivant aux feuilles de négations on pourra ajouter helpByContradictionGoal
+-- Remarque : en arrivant aux feuilles de négations on pourra ajouter helpByContradictionGoal
 configureHelpProviders SinceHypHelp SinceGoalHelp
 
 disableWidget
@@ -380,6 +414,7 @@ macro_rules | `($x ∣ $y)   => `(@Dvd.dvd ℤ Int.instDvd ($x : ℤ) ($y : ℤ)
 macro "setup_env" : command => `(set_option linter.unusedTactic false
 set_option linter.style.multiGoal false
 set_option linter.unnecessarySimpa false
+open Verbose.NameLess
 )
 
 macro "fct " x:ident " ↦ " y:term : term => `(fun ($x : ℝ) ↦ ($y : ℝ))
@@ -404,3 +439,4 @@ end
 
 notation3 "Prédicat sur " X => X → Prop
 notation3 "Statement" => Prop
+notation3 "𝒫" X => Set X

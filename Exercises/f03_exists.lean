@@ -47,7 +47,7 @@ Example "Use of some existence, followed by a computation."
   Assume: (h : ∃ n', n = n' + 1)
   Conclusion: n > 0
 Proof:
-  Since ∃ n', n = n' + 1 we get n' such that hn' : n = n' + 1
+  Since ∃ n', n = n' + 1 we get n' such that n = n' + 1
   Calc
     n = n' + 1 by hypothesis
     _ > 0      by computation
@@ -63,7 +63,7 @@ Example "Use of some existence, followed by a substitution."
   Assume: (h : ∃ n', n = n' + 1)
   Conclusion: n > 0
 Proof:
-  Since ∃ n', n = n' + 1 we get n' such that hn' : n = n' + 1
+  Since ∃ n', n = n' + 1 we get n' such that n = n' + 1
   Since n = n' + 1 it suffices to prove that n' + 1 > 0
   We compute
 QED
@@ -94,12 +94,12 @@ Example "Every square is non-negative."
   Assume: (h : ∃ x, y = x*x)
   Conclusion: y ≥ 0
 Proof:
-  Since ∃ x, y = x*x we get x₀ such that hy₀ : y = x₀*x₀
+  Since ∃ x, y = x*x we get x₀ such that y = x₀*x₀
   Since y = x₀*x₀ it suffices to prove that x₀*x₀ ≥ 0
   We discuss depending on whether 0 ≤ x₀ or x₀ < 0
-  Assume h' : 0 ≤ x₀
+  Assume that 0 ≤ x₀
   Since 0 ≤ x₀ we conclude that x₀*x₀ ≥ 0
-  Assume h' : x₀ < 0
+  Assume that x₀ < 0
   Since x₀ ≤ 0 we conclude that x₀*x₀ ≥ 0
 QED
 
@@ -117,8 +117,8 @@ Example "Divisibility is transitive."
   Assume: (h1 : a ∣ b) (h2 : b ∣ c)
   Conclusion: a ∣ c
 Proof:
-  Since a ∣ b we get k such that hk : b = a*k -- (1)
-  Since b ∣ c we get l such that hl : c = b*l -- (2)
+  Since a ∣ b we get k such that b = a*k -- (1)
+  Since b ∣ c we get l such that c = b*l -- (2)
   -- In order to prove a ∣ c, we need to find m such that c = a*m
   Let's prove that ∃ m, c = a * m
   Let's prove that k*l works:c = a * (k * l)
@@ -171,7 +171,7 @@ Proof:
   -- Let’s rename the one appearing in `hyp` for clarity.
   We rename x to w at hyp
   -- We can specialize assumpion `hyp` to the `y` we fixed, and get some `w`
-  Since ∀ z, ∃ w, (g ∘ f) w = z we get w : ℝ such that hw : g (f w) = y
+  Since ∀ z, ∃ w, (g ∘ f) w = z we get w : ℝ such that g (f w) = y
   Let's prove that f w works
   -- We need to prove `g(f(w)) = y` but, by definition of composition,
   -- this is nothing else than our assumption on `w`.
@@ -191,7 +191,7 @@ Example "If g ∘ f is surjective then g is surjective."
 Proof:
   Fix y
   Let's prove that ∃ x, g x = y -- This line is optional but makes reading easier
-  Since (g ∘ f) is surjective we get w : ℝ such that hw : (g ∘ f) w = y
+  Since (g ∘ f) is surjective we get w : ℝ such that (g ∘ f) w = y
   Let's prove that f w works
   We conclude by hypothesis
 QED

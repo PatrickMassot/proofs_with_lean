@@ -24,12 +24,12 @@ Example "Absolure value of a sum"
   Conclusion: |x + y| ≤ |x| + |y|
 Proof:
   We discuss depending on whether 0 ≤ x + y or ¬ 0 ≤ x + y
-  Assume h : 0 ≤ x + y
+  Assume that 0 ≤ x + y
   Calc
    |x + y| = x + y since x + y ≥ 0
    _       ≤ |x| + |y| since x ≤ |x| and y ≤ |y|
-  Assume h :  ¬ 0 ≤ x + y
-  Since ¬ 0 ≤ x + y we get h' : x + y < 0
+  Assume that  ¬ 0 ≤ x + y
+  Since ¬ 0 ≤ x + y we get that x + y < 0
   Calc
     |x + y| = -(x + y) since x + y < 0
     _       = -x + (-y) by computation
@@ -76,10 +76,10 @@ Example "In a right-angle triangle with sides x, y and z, z being the
   Assume: (hx : x > 0) (hy : y > 0) (hP : z^2 = x^2 + y^2)
   Conclusion: z < x + y
 Proof:
-  Assume for contradiction hn : z ≥ x + y
+  Assume for contradiction that z ≥ x + y
   It suffices to prove that x^2 + y^2 > x^2 + y^2
-  Since x > 0 and y > 0 we get hxpy: x + y > 0
-  Since x > 0 and y > 0 we get hxmy: x * y > 0
+  Since x > 0 and y > 0 we get that x + y > 0
+  Since x > 0 and y > 0 we get that x * y > 0
   Calc
    x^2 + y^2 = z^2 by hypothesis
    _ ≥ (x + y)^2 since x + y ≥ 0 and z ≥ x + y
@@ -102,20 +102,20 @@ Example "Uniqueness of limits."
   Assume: (hl : u tends to l) (hl' : u tends to l')
   Conclusion: l = l'
 Proof:
-  Assume for contradiction H : l ≠ l'
-  Fact ineg : |l - l'| > 0 by
-    Since l ≠ l' we get H' : l - l' ≠ 0
+  Assume for contradiction that l ≠ l'
+  Fact : |l - l'| > 0 by
+    Since l ≠ l' we get that l - l' ≠ 0
     Since l - l' ≠ 0 we conclude that |l - l'| > 0
   Since u tends to l and |l - l'|/4 > 0 we get N
-      such that hN : ∀ n ≥ N, |u n - l| ≤ |l - l'| / 4
+      such that ∀ n ≥ N, |u n - l| ≤ |l - l'| / 4
   Since u tends to l' and |l - l'|/4 > 0 we get N'
-      such that hN' : ∀ n ≥ N', |u n - l'| ≤ |l - l'| / 4
+      such that ∀ n ≥ N', |u n - l'| ≤ |l - l'| / 4
   Set N₀ := max N N' -- The `Set` command is never mandatory,
                      -- but can save a couple of letters.
   Since ∀ n ≥ N, |u n - l| ≤ |l - l'| / 4 and N₀ ≥ N
-     we get hN₁ : |u N₀ - l| ≤ |l - l'| / 4
+     we get that |u N₀ - l| ≤ |l - l'| / 4
   Since ∀ n ≥ N', |u n - l'| ≤ |l - l'| / 4 and N₀ ≥ N'
-     we get hN'₁ : |u N₀ - l'| ≤ |l - l'| / 4
+     we get that |u N₀ - l'| ≤ |l - l'| / 4
   Let's prove it's contradictory -- this line is not mandatory
   -- The next line implicitly uses the statement `∀ x, x < x ⇒ False`
   It suffices to prove that |l - l'| < |l - l'|
@@ -235,7 +235,7 @@ Proof:
   It suffices to prove that ∃ x : ℝ, 2 * (-x) ≠ 2 * x
   Let's prove that 42 works
   -- We compute -- or else:
-  Assume hyp : 2 * -42 = 2 * 42
+  Assume that 2 * -42 = 2 * 42
   Since 2 * -42 = 2 * 42 we conclude that False
 QED
 
@@ -275,9 +275,9 @@ statement to replace the two sets of suspension points).
 You can skip this exercise if you're a bit behind the rest of the group.
 -/
 Exercise "10.08 The drinker paradox"
-  Given: (x : Bar) (drinks : Bar → Prop) -- The bar is non-empty, we denote by `x` someone in the bar.
+  Given: (x : Bar) -- The bar is non-empty, we denote by `x` someone in the bar.
   Assume:
-  Conclusion: ∃ p : Bar, (drinks p ⇒ ∀ q : Bar, drinks q)
+  Conclusion: ∃ p : Bar, (p drinks ⇒ ∀ q : Bar, q drinks)
 Proof:
   sorry
 QED
@@ -315,3 +315,4 @@ Exercise "10.10 Characterization of increasing functions"
 Proof:
   sorry
 QED
+

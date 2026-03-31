@@ -28,7 +28,7 @@ Proof:
   Let's first prove that a^2 > 0
   Since a > 0 we conclude that a^2 > 0
   Let's now prove that |a| > 0
-  Since a > 0 we get H : a ≠ 0
+  Since a > 0 we get that a ≠ 0
   Since a ≠ 0 we conclude that |a| > 0
 QED
 
@@ -70,7 +70,7 @@ To use that a conjunction `P ∧ Q` is true we use that the statements `P` and
 `Q` are both true.
 
 To do this, we use the command
-`Since P ∧ Q we get hP : P and hQ : Q`
+`Since P ∧ Q we get that P and Q`
 where `hP` and `hQ` are any of the available names.
 -/
 
@@ -79,7 +79,7 @@ Example "Using a conjunction"
   Assume: (h : 0 ≤ a ∧ a ≤ 1)
   Conclusion: a ≤ 2
 Proof:
-  Since 0 ≤ a ∧ a ≤ 1 we get ha : 0 ≤ a and ha' : a ≤ 1
+  Since 0 ≤ a ∧ a ≤ 1 we get that 0 ≤ a and a ≤ 1
   Since a ≤ 1 we conclude that a ≤ 2
 QED
 
@@ -91,7 +91,7 @@ Example "Using part of a conjunction"
   Assume: (h : 0 ≤ a ∧ a ≤ 1)
   Conclusion: a ≤ 2
 Proof:
-  Since 0 ≤ a ∧ a ≤ 1 we get ha' : a ≤ 1
+  Since 0 ≤ a ∧ a ≤ 1 we get that a ≤ 1
   Since a ≤ 1 we conclude that a ≤ 2
 QED
 
@@ -131,7 +131,7 @@ Example "Using a statement implying a conjunction"
   Assume: (ha : |a| ≤ 1)
   Conclusion: a ≤ 2
 Proof:
-  Since |a| ≤ 1 and |a| ≤ 1 ⇒ -1 ≤ a ∧ a ≤ 1 we get ha' : -1 ≤ a and ha'' : a ≤ 1
+  Since |a| ≤ 1 and |a| ≤ 1 ⇒ -1 ≤ a ∧ a ≤ 1 we get that -1 ≤ a and a ≤ 1
   Since a ≤ 1 we conclude that a ≤ 2
 QED
 
@@ -145,7 +145,7 @@ Example "Using a statement implying a conjunction,
   Assume: (ha : |a| ≤ 1)
   Conclusion: a ≤ 2
 Proof:
-  Since |a| ≤ 1 we get ha' : -1 ≤ a and ha'' : a ≤ 1
+  Since |a| ≤ 1 we get that -1 ≤ a and a ≤ 1
   Since a ≤ 1 we conclude that a ≤ 2
 QED
 

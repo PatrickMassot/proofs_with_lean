@@ -17,7 +17,7 @@ to use the abbreviation
 `Fix ε > 0`
 in place of the sequence of commands
 `Fix ε : ℝ`
-`Assume ε_pos : ε > 0`.
+`Assume that ε > 0`.
 
 To use a statement that begins this way, we need to give the command `Since` the
 statement and the fact that the number to which we want to specialize the
@@ -50,10 +50,10 @@ Example "An example to get started."
   Conclusion: v tends to 0
 Proof:
   Fix ε > 0
-  Since u tends to l and ε > 0 we get N₁ such that hN₁ : ∀ n ≥ N₁, |u n - l| ≤ ε
+  Since u tends to l and ε > 0 we get N₁ such that ∀ n ≥ N₁, |u n - l| ≤ ε
   Let's prove that N₁ works
   Fix N ≥ N₁
-  Since ∀ n ≥ N₁, |u n - l| ≤ ε and N ≥ N₁ we get hN₁' : |u N - l| ≤ ε
+  Since ∀ n ≥ N₁, |u n - l| ≤ ε and N ≥ N₁ we get that |u N - l| ≤ ε
   Calc
     |v N - 0| = |u N - l - 0| since ∀ n, v n = u n - l
     _         = |u N - l|     by computation
@@ -154,13 +154,14 @@ Proof:
 QED
 
 /-
-`M is the supremum of u` means
+`M is supremum of u` means
   (∀ n, u n ≤ M) ∧ (∀ ε > 0, ∃ n₀, u n₀ ≥ M - ε)
 -/
 Exercise "07.7 Every non-decreasing sequence having a supremum tends to this supremum."
   Given: (u : ℕ → ℝ) (M : ℝ)
-  Assume: (h : M is the supremum of u) (h' : u is non-decreasing)
+  Assume: (h : M is supremum of u) (h' : u is non-decreasing)
   Conclusion: u tends to M
 Proof:
   sorry
 QED
+

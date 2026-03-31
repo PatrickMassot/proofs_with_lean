@@ -55,11 +55,11 @@ Example "Proof by cases"
   Conclusion: a^2 = 4
 Proof:
   We discuss depending on whether a = 2 or a = -2
-  Assume ha : a = 2
+  Assume that a = 2
   Calc
     a^2 = 2^2 since a = 2
     _   = 4   by computation
-  Assume ha : a = -2
+  Assume that a = -2
   Calc
     a^2 = (-2)^2 since a = -2
     _   = 4      by computation
@@ -91,12 +91,12 @@ Example "Implicit use of a disjunction."
   Conclusion: x^2 = 1
 Proof:
   We discuss depending on whether x - 1 = 0 or x + 1 = 0
-  Assume h : x - 1 = 0
+  Assume that x - 1 = 0
   Let's prove that x^2 = 1 -- this line is optional but helps reading
   Calc
     x^2 = 1^2 since x = 1
     _   = 1 by computation
-  Assume h : x + 1 = 0
+  Assume that x + 1 = 0
   Let's prove that x^2 = 1 -- this line is optional but helps reading
   Calc
     x^2 = (-1)^2 since x = -1
@@ -121,22 +121,22 @@ Example "A disjunction proven after a proof by cases."
   Assume:
   Conclusion: a = a*b ⇒ a = 0 ∨ b = 1
 Proof:
-  Assume hyp : a = a*b
+  Assume that a = a*b
   -- At this stage, we need to prove either a = 0 or b = 1
   -- But it’s impossible to decide between those two options.
   -- We need to use the assumption to perform a proof by cases.
-  Fact H : a*(1 - b) = 0 by
+  Fact : a*(1 - b) = 0 by
     -- In this code block, we need to prove that a*(1 - b) = 0
     Calc a*(1 - b) = a - a*b by computation
          _         = 0       since a = a*b
   -- We can now use the new fact `H : a * (1 - b) = 0`
   -- in `We discuss …`
   We discuss depending on whether a = 0 or 1 - b = 0
-  Assume h : a = 0
+  Assume that a = 0
   -- Now we are ready to take side
   Let's prove that a = 0 -- this line is an irreversible decision
   We conclude by hypothesis
-  Assume h : 1 - b = 0
+  Assume that 1 - b = 0
   -- In that case we decide to prove the other conclusion.
   Let's prove that b = 1 -- this line is an irreversible decision
   Since 1 - b = 0 we conclude that b = 1
@@ -174,7 +174,7 @@ The previous exercise is an exercise-lemma, which means that its result has
 been added to the database of usable results without naming them. So, if the
 context of a proof includes an integer `p`, we can write
 ```
-  Since p*(p + 1) is even we get l such that hl : p*(p + 1) = 2*l
+  Since p*(p + 1) is even we get l such that p*(p + 1) = 2*l
 ```
 without justifying why `p*(p + 1)` is even.
 
@@ -204,3 +204,5 @@ Exercise "05.6 A characterization of non-decreasing functions."
 Proof:
   sorry
 QED
+
+

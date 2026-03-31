@@ -2,7 +2,6 @@ import ProofsWithLean.LibBis
 setup_env
 
 
-open m154
 /-
 # Sheet 12: The grand finale
 -/
@@ -16,7 +15,7 @@ a closed interval is bounded and attains its maximum, and finally the
 Intermediate Value Theorem.
 
 It is pointless to attempt this sheet without being comfortable with
-the previous ones. Reviewing earlier sheets and asking questions is
+the previous ones. Reviewing earlier sheets and asking thatstions is
 always a good idea.
 
 We begin with a preliminary warm-up: a variant of passing to the limit
@@ -67,14 +66,14 @@ In Sheet 11, we introduced the following definitions:
 A real number x is an upper bound of a set of real numbers A:
   `x upper bounds A` means `∀ a ∈ A, a ≤ x`
 
-A real number x is the supremum of a set of real numbers A:
-  `x is the supremum of A` means
+A real number x is supremum of a set of real numbers A:
+  `x is supremum of A` means
   `x upper bounds A ∧ ∀ y, y upper bounds A ⇒ x ≤ y`
 
-and showed that if x is the supremum of A, then for every y < x,
+and showed that if x is supremum of A, then for every y < x,
 there exists an element of A strictly greater than y:
 
-  `x is the supremum of A ⇒ (∀ y < x, ∃ a ∈ A, y < a)`
+  `x is supremum of A ⇒ (∀ y < x, ∃ a ∈ A, y < a)`
 
 We also showed:
   `(u tends to x) ∧ (∀ n, u n ≤ y) ⇒ x ≤ y`
@@ -117,18 +116,18 @@ Finally, note the appearance below of the command
 -/
 
 Exercise-lemma upper_bound_to_sequence
-  "12.02a If x is the supremum of a set A, then there exists a sequence of
+  "12.02a If x is supremum of a set A, then there exists a sequence of
    elements of A that tends to x."
   Given: {A : Set ℝ} {x : ℝ}
-  Assume: (h : x is the supremum of A)
+  Assume: (h : x is supremum of A)
   Conclusion: ∃ u : ℕ → ℝ, (u tends to x) ∧ ∀ n, u n ∈ A
 Proof:
-  Fact F1 : ∀ n : ℕ, ∃ a ∈ A, x - 1/(n+1) < a by
+  Fact : ∀ n : ℕ, ∃ a ∈ A, x - 1/(n+1) < a by
     sorry
   Since ∀ n : ℕ, ∃ a ∈ A, x - 1/(n+1) < a
     we choose u such that
-      hu : ∀ n, u n ∈ A
-      and hu' : ∀ n : ℕ, x - 1/(n+1) < u n
+      ∀ n, u n ∈ A
+      and ∀ n : ℕ, x - 1/(n+1) < u n
   sorry
 QED
 
@@ -140,12 +139,12 @@ of a sequence, we include it directly in the statement.
 
 Exercise-lemma supremum_if_upper_bound_and_sequence
   "12.02b If x is an upper bound of A and there exists a sequence of elements
-   of A tending to x, then x is the supremum of A."
+   of A tending to x, then x is supremum of A."
   Given: {A : Set ℝ} {x : ℝ} {u : ℕ → ℝ}
   Assume: (x_maj : x bounds from above A)
           (u_x : u tends to x)
           (u_A : ∀ n, u n ∈ A)
-  Conclusion: x is the supremum of A
+  Conclusion: x is supremum of A
 Proof:
   sorry
 QED
@@ -207,14 +206,14 @@ Exercise-lemma bounded_segment
   Assume: (hf : ∀ x ∈ [a, b], f is continuous at x)
   Conclusion: ∃ M, ∀ x ∈ [a, b], f x ≤ M
 Proof:
-  Assume for contradiction H : ∀ M, ∃ x ∈ [a, b], M < f x
-  Fact F : ∀ n : ℕ, ∃ x ∈ [a, b], f x > n by
+  Assume for contradiction that ∀ M, ∃ x ∈ [a, b], M < f x
+  Fact : ∀ n : ℕ, ∃ x ∈ [a, b], f x > n by
     Fix n
     We conclude by hypothesis
   Since ∀ n : ℕ, ∃ x ∈ [a, b], f x > n
     we choose u : ℕ → ℝ
-      such that hu : ∀ n, u n ∈ [a, b]
-      and hu' : ∀ n, f (u n) > n
+      such that ∀ n, u n ∈ [a, b]
+      and ∀ n, f (u n) > n
   By bolzano_weierstrass using that ∀ n : ℕ, u n ∈ [a, b]
     we get
       (c : ℝ) (c_mem : c ∈ [a, b])
@@ -238,7 +237,7 @@ Exercise-lemma bounded_below_segment
   Assume: (hf : ∀ x ∈ [a, b], f is continuous at x)
   Conclusion: ∃ m, ∀ x ∈ [a, b], m ≤ f x
 Proof:
-  Fact key : ∃ M, ∀ x ∈ [a, b], -f x ≤ M by
+  Fact : ∃ M, ∀ x ∈ [a, b], -f x ≤ M by
     sorry
   sorry
 QED
@@ -250,25 +249,25 @@ admits a maximum."
   Conclusion: ∃ x₀ ∈ [a, b], ∀ x ∈ [a, b], f x ≤ f x₀
 Proof:
   Since ∀ x ∈ [a, b], f is continuous at x
-    we get m such that hm : ∀ x ∈ [a, b], m ≤ f x
+    we get m such that ∀ x ∈ [a, b], m ≤ f x
   Since ∀ x ∈ [a, b], f is continuous at x
-    we get M such that hM : ∀ x ∈ [a, b], f x ≤ M
+    we get M such that ∀ x ∈ [a, b], f x ≤ M
   Set A := {y | ∃ x ∈ [a, b], y = f x}
-  Fact step1 : ∃ y₀ ∈ [m, M], y₀ is the supremum of A by
+  Fact : ∃ y₀ ∈ [m, M], y₀ is supremum of A by
     sorry
-  Since ∃ y₀ ∈ [m, M], y₀ is the supremum of A
+  Since ∃ y₀ ∈ [m, M], y₀ is supremum of A
     we get y₀ such that
-      y_mem : y₀ ∈ [m, M]
-      and y_sup : y₀ is the supremum of A
-  Since y₀ is the supremum of A we get y_maj : y₀ bounds from above A
-  Since y₀ is the supremum of A we get u : ℕ → ℝ such that
-    lim_u : u tends to y₀
-    and u_mem : ∀ n, u n ∈ A
+      y₀ ∈ [m, M]
+      and y₀ is supremum of A
+  Since y₀ is supremum of A we get that y₀ bounds from above A
+  Since y₀ is supremum of A we get u : ℕ → ℝ such that
+    u tends to y₀
+    and ∀ n, u n ∈ A
   Since ∀ n, u n ∈ A
     we choose v : ℕ → ℝ such that
-      v_mem : ∀ n, v n ∈ [a, b]
-      and hufv : ∀ n, u n = f (v n)
-  Since ∀ n, u n = f (v n) we get hu_eq : u = f ∘ v
+      ∀ n, v n ∈ [a, b]
+      and ∀ n, u n = f (v n)
+  Since ∀ n, u n = f (v n) we get that u = f ∘ v
   sorry
 QED
 
@@ -280,27 +279,28 @@ Exercise "12.11 The Intermediate Value Theorem"
   Conclusion: ∃ x₀ ∈ [0, 1], f x₀ = 0
 Proof:
   Set A := {x | x ∈ [0, 1] ∧ f x < 0}
-  Fact ex_x₀ : ∃ x₀ ∈ [0, 1], x₀ is the supremum of A by
+  Fact : ∃ x₀ ∈ [0, 1], x₀ is supremum of A by
     sorry
-  Since ∃ x₀ ∈ [0, 1], x₀ is the supremum of A
+  Since ∃ x₀ ∈ [0, 1], x₀ is supremum of A
     we get x₀ such that
-      x₀_mem : x₀ ∈ [0, 1]
-      and x₀_sup : x₀ is the supremum of A
+      x₀ ∈ [0, 1]
+      and x₀ is supremum of A
   Let's prove that x₀ works
   Since x₀ ∈ [0, 1] it suffices to prove that f x₀ = 0
-  Fact fx₀_le : f x₀ ≤ 0 by
+  Fact : f x₀ ≤ 0 by
     sorry
-  Fact x₀_lt : x₀ < 1 by
+  Fact : x₀ < 1 by
     sorry
   Since f x₀ ≤ 0 it suffices to prove that f x₀ ≥ 0
-  Fact inside' : ∃ N : ℕ, ∀ n ≥ N, x₀ + 1/(n+1) ∈ [0, 1] by
-    Fact inside'' : ∃ N : ℕ, ∀ n ≥ N, 1/(n+1) ≤ 1 - x₀ by
+  Fact : ∃ N : ℕ, ∀ n ≥ N, x₀ + 1/(n+1) ∈ [0, 1] by
+    Fact : ∃ N : ℕ, ∀ n ≥ N, 1/(n+1) ≤ 1 - x₀ by
       sorry
     sorry
   Since ∃ N : ℕ, ∀ n ≥ N, x₀ + 1/(n+1) ∈ [0, 1]
     we get N : ℕ such that
-      hN : ∀ n ≥ N, x₀ + 1/(n+1) ∈ [0, 1]
-  Fact not_in : ∀ n : ℕ, x₀ + 1/(n+1) ∉ A by
+      ∀ n ≥ N, x₀ + 1/(n+1) ∈ [0, 1]
+  Fact : ∀ n : ℕ, x₀ + 1/(n+1) ∉ A by
     sorry
   sorry
 QED
+

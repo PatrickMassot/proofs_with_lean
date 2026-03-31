@@ -105,7 +105,7 @@ Example "Chaining implications, forwards."
   Assume: (ha : a > 0)
   Conclusion: (a^2)^2 > 0
 Proof:
-  Since a > 0 and a > 0 ⇒ a^2 > 0 we get ha' : a^2 > 0
+  Since a > 0 and a > 0 ⇒ a^2 > 0 we get that a^2 > 0
   Since a^2 > 0 and a^2 > 0 ⇒ (a^2)^2 > 0 we conclude that (a^2)^2 > 0
 QED
 
@@ -165,7 +165,7 @@ Example "Chaining implications, leavings implicit implications."
   Assume: (ha : a ≠ 0)
   Conclusion: |a|^2 > 0
 Proof:
-  Since a ≠ 0 we get ha' : |a| > 0
+  Since a ≠ 0 we get that |a| > 0
   Since |a| > 0 we conclude that |a|^2 > 0
 QED
 
@@ -225,8 +225,8 @@ Example "Proving an implication"
   Assume:
   Conclusion: a ≠ 0 ⇒ |a|^2 > 0
 Proof:
-  Assume ha : a ≠ 0
-  Since a ≠ 0 we get ha' : |a| > 0
+  Assume that a ≠ 0
+  Since a ≠ 0 we get that |a| > 0
   Since |a| > 0 we conclude that |a|^2 > 0
 QED
 
@@ -261,9 +261,9 @@ Example "A composition of non-decreasing functions is non-decreasing"
   Conclusion: (g ∘ f) is non-decreasing
 Proof:
   Fix x₁ x₂
-  Assume h : x₁ ≤ x₂
-  Let's prove that g (f x₁) ≤ g (f x₂) -- This line is optional but makes reading easier
-  Since f is non-decreasing and x₁ ≤ x₂ we get H : f x₁ ≤ f x₂
+  Assume that x₁ ≤ x₂
+  Let's prove that g (f x₁) ≤ g (f x₂) -- Cette ligne est facultative mais facilite la lecture
+  Since f is non-decreasing and x₁ ≤ x₂ we get that f x₁ ≤ f x₂
   Since g is non-decreasing and f x₁ ≤ f x₂ we conclude that g (f x₁) ≤ g (f x₂)
 QED
 
@@ -275,7 +275,7 @@ Example "A composition of non-decreasing functions is non-decreasing.
   Conclusion: (g ∘ f) is non-decreasing
 Proof:
   Fix x₁ x₂
-  Assume h : x₁ ≤ x₂
+  Assume that x₁ ≤ x₂
   Let's prove that (g ∘ f) x₁ ≤ (g ∘ f) x₂
   Since g is non-decreasing it suffices to prove that f x₁ ≤ f x₂
   Since f is non-decreasing and x₁ ≤ x₂ we conclude that f x₁ ≤ f x₂
@@ -336,7 +336,7 @@ Example "Using one of the implications from an equivalence"
   Assume: (h : P ⇔ R) (h' : P)
   Conclusion: R
 Proof:
-  Since R ⇔ P we get H : P ⇒ R
+  Since R ⇔ P we get that P ⇒ R
   Since P ⇒ R and P we conclude that R
 QED
 
@@ -370,8 +370,8 @@ Proof:
   Let's first prove that P ⇒ R
   We conclude by hypothesis
   Let's now prove that R ⇒ P
-  Assume hR : R
-  Since R ⇒ Q and R we get hQ : Q
+  Assume that R
+  Since R ⇒ Q and R we get that Q
   Since Q ⇒ P and Q we conclude that P
 QED
 
@@ -441,3 +441,4 @@ Proof:
     ((Q ⇒ R) ⇒ S) ⇔ ((Q ⇒ P) ⇒ S) since P ⇔ R
     _             ⇔ ((Q ⇒ P) ⇒ T) since S ⇔ T
 QED
+

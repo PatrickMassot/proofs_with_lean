@@ -22,7 +22,7 @@ Example "If False then 0 = 1"
   Assume:
   Conclusion: False ⇒ 0 = 1
 Proof:
-  Assume h : False
+  Assume that False
   Since False we conclude that 0 = 1
 QED
 
@@ -33,7 +33,7 @@ Example "If False then 0 = 0"
   Assume:
   Conclusion: False ⇒ 0 = 0
 Proof:
-  Assume h : False
+  Assume that False
   Since False we conclude that 0 = 0
 QED
 
@@ -51,7 +51,7 @@ Example "From contradictory assumptions, we can prove any statement."
 Proof:
   -- We want to prove P. Ex falso quodlibet, hence it is enough to prove False.
   Let's prove it's contradictory
-  Since x = 1 and x > 2 we get H : 1 > 2
+  Since x = 1 and x > 2 we get that 1 > 2
   Since 1 > 2 we conclude that False
 QED
 
@@ -98,7 +98,7 @@ Example "Proving a negation"
   Assume: (hyp : x^3 + x^2 - x + 3 = 0)
   Conclusion: x ≠ 1
 Proof:
-  Assume hyp' : x = 1
+  Assume that x = 1
   Let's prove that False -- this line is optional but clarifies things
   It suffices to prove that 0 = 4
   Calc
@@ -170,12 +170,12 @@ Example "Using a negation"
   Assume: (h : x ≠ 0) (h' : x*(x - 1) = 0)
   Conclusion: x = 1
 Proof:
-  Since x*(x - 1) = 0 we get H : x = 0 ∨ x - 1 = 0
+  Since x*(x - 1) = 0 we get that x = 0 ∨ x - 1 = 0
   We discuss depending on whether x = 0 or x - 1 = 0
-  Assume H : x = 0
+  Assume that x = 0
   Let's prove it's contradictory
   Since x = 0 and x ≠ 0 we conclude that False
-  Assume H : x - 1 = 0
+  Assume that x - 1 = 0
   Since x - 1 = 0 we conclude that x = 1
 QED
 
@@ -183,8 +183,8 @@ QED
 The cumbersome part is the discussion of the two cases, when we already know
 that one of them is impossible. It can be abbreviated to :
 ```
-  Since x*(x - 1) = 0 we get H : x = 0 ∨ x - 1 = 0
-  Since x = 0 ∨ x - 1 = 0 and x ≠ 0 we get H' : x - 1 = 0
+  Since x*(x - 1) = 0 we get that x = 0 ∨ x - 1 = 0
+  Since x = 0 ∨ x - 1 = 0 and x ≠ 0 we get that x - 1 = 0
 ```
 
 Much more often, a hypothesis that is a negation is used to prove a goal
@@ -196,8 +196,8 @@ Example "Deducing a negation from a negation."
   Assume: (h1 : x ≤ y) (h2 : x ≠ y)
   Conclusion: ¬ y ≤ x
 Proof:
-  Assume h' : y ≤ x
-  Since y ≤ x and x ≤ y we get h3 : x = y
+  Assume that y ≤ x
+  Since y ≤ x and x ≤ y we get that x = y
   Since x = y and x ≠ y we conclude that False
 QED
 

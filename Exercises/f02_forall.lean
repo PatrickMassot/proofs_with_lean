@@ -51,7 +51,7 @@ Example "Specializing a parity assumption to create an intermediate fact."
   Assume: (hf : f is even)
   Conclusion: g (f (-5)) = g (f 5)
 Proof:
-  Since f is even we get hf5 : f (-5) = f 5
+  Since f is even we get that f (-5) = f 5
   Since f (-5) = f 5 we conclude that g (f (-5)) = g (f 5)
 QED
 
@@ -68,7 +68,7 @@ Let's now look at an example that proves a quantified statement using two
 quantified hypotheses.
 In this example, we name the real number introduced by the `Fix` command `x₀`
 to emphasize the fact that it is fixed and clearly see that after the line
-`Since f is even we get hf₀ : f (-x₀) = f x₀`, the new hypothesis `hf₀`
+`Since f is even we get that f (-x₀) = f x₀`, the new hypothesis `hf₀`
 relates to this number alone.
 
 Note also that the `by computation` justification, intended for steps not using
@@ -84,8 +84,8 @@ Example "If f and g are even then so is their sum."
 Proof:
   Let's prove that ∀ x, (f + g) (-x) = (f + g) x
   Fix x₀ : ℝ
-  Since f is even we get hf₀ : f (-x₀) = f x₀
-  Since g is even we get hg₀ : g (-x₀) = g x₀
+  Since f is even we get that f (-x₀) = f x₀
+  Since g is even we get that g (-x₀) = g x₀
   Calc
     (f + g) (-x₀) = f (-x₀) + g (-x₀) by computation
     _             = f x₀ + g (-x₀)    since f (-x₀) = f x₀

@@ -77,7 +77,7 @@ lemma pair_succ_impair (n : ℤ) (h : n is odd) : (n + 1) is even := by
 axiom Bar : Type
 axiom buveur : Bar → Prop
 
-postfix:90 "boit" => buveur
+postfix:90 "drinks" => buveur
 
 /-- Multiplicité de `2` dans la décomposition to produit de facteurs premiers d’un entier -/
 axiom v₂ : ℤ → ℤ

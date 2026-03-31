@@ -51,9 +51,14 @@ lemma limite_infinie_pas_finie {u : ℕ → ℝ} :
 
 axiom inv_succ_pos : ∀ n : ℕ, 1/(n + 1 : ℝ) > 0
 
+addAnonymousFactSplittingLemma limite_infinie_pas_finie
 addAnonymousFactSplittingLemma inv_succ_pos
+addAnonymousComputeLemma inv_succ_pos
+addAnonymousComputeLemma abs_neg
 
 axiom limite_inv_succ :  ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, 1/(n + 1 : ℝ) ≤ ε
+
+addAnonymousFactSplittingLemma limite_inv_succ
 -- lemma limite_inv_succ :  ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, 1/(n + 1 : ℝ) ≤ ε := by
 --   have := Metric.tendsto_atTop.mp tendsto_one_div_add_atTop_nhds_zero_nat
 --   simp only [dist_zero_right, norm_inv, Real.norm_eq_abs] at this
@@ -70,6 +75,8 @@ axiom limite_inv_succ :  ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, 1/(n + 1 : ℝ) �
 lemma lim_constante (x : ℝ) : limite_suite (λ _ ↦ x) x :=
 λ ε ε_pos ↦ ⟨0, λ _ _ ↦ by simp [le_of_lt ε_pos]⟩
 
+addAnonymousComputeLemma lim_constante
+
 lemma limite_si_inferieur_un_sur {u : ℕ → ℝ} {x : ℝ} (h : ∀ n, |u n - x| ≤ 1/(n+1)) :
 limite_suite u x := by
   intros ε ε_pos
@@ -84,11 +91,16 @@ limite_suite u x := by
 lemma lim_plus_un_sur (x : ℝ) : limite_suite (λ n ↦ x + 1/(n+1)) x :=
   limite_si_inferieur_un_sur (λ n ↦ by rw [abs_of_pos] <;> linarith [inv_succ_pos n])
 
+addAnonymousFactSplittingLemma lim_plus_un_sur
+addAnonymousComputeLemma lim_plus_un_sur
+
 lemma lim_moins_un_sur (x : ℝ) : limite_suite (λ n ↦ x - 1/(n+1)) x := by
   refine limite_si_inferieur_un_sur (λ n ↦ ?_)
   rw [show x - 1 / (n + 1) - x = -(1/(n+1)) by ring, abs_neg, abs_of_pos]
   linarith [inv_succ_pos n]
 
+addAnonymousFactSplittingLemma lim_moins_un_sur
+addAnonymousComputeLemma lim_moins_un_sur
 
 lemma gendarmes {u v w : ℕ → ℝ} {l : ℝ}
 (lim_u : limite_suite u l) (lim_w : limite_suite w l)
@@ -124,11 +136,17 @@ limite_suite (u ∘ φ) l := by
   calc N ≤ n   := hn -- on peut écrire « by exact hn » si on a un clavier solide
      _ ≤ φ n := extraction_superieur_id hφ n -- idem
 
+addAnonymousFactSplittingLemma limite_extraction_si_limite
 
 def Segment (a b : ℝ) := {x | a ≤ x ∧ x ≤ b}
 
 
 notation (priority := high) "["a ", " b "]" => Segment a b
+
+lemma stupide {a b x : ℝ} (h : x ∈ [a, b]) (h' : x ≠ b) : x < b :=
+  lt_of_le_of_ne  h.2 h'
+
+addAnonymousFactSplittingLemma stupide
 
 axiom bolzano_weierstrass {a b : ℝ} {u : ℕ → ℝ} (h : ∀ n, u n ∈ [a, b]) :
 ∃ c ∈ [a, b], valeur_adherence u c
@@ -146,6 +164,8 @@ axiom bolzano_weierstrass {a b : ℝ} {u : ℕ → ℝ} (h : ∀ n, u n ∈ [a, 
 
 axiom limite_suite_id : ∀ A : ℝ, ∃ N : ℕ, ∀ n ≥ N, (n : ℝ) ≥ A
 
+addAnonymousFactSplittingLemma limite_suite_id
+
 open Real
 
 axiom sup_segment {a b : ℝ} {A : Set ℝ} (hnonvide : ∃ x, x ∈ A) (h : A ⊆ [a, b]) :
@@ -158,3 +178,7 @@ def continue_en (f : ℝ → ℝ) (x₀ : ℝ) : Prop :=
 ∀ ε > 0, ∃ δ > 0, ∀ x, |x - x₀| ≤ δ → |f x - f x₀| ≤ ε
 
 notation3:50 f:80 " is continuous at " x:60 => continue_en f x
+
+configureUnfoldableDefs «croissante» «decroissante» --HasParity.isEven HasParity.isOdd
+  «valeur_adherence» «limite_suite» «surjective» «injective» «extraction» suite_cauchy
+  limite_infinie_suite continue_en

@@ -1,11 +1,11 @@
 {"version": "1.1.0",
  "packagesDir": ".lake/packages",
  "packages":
- [{"url": "https://github.com/siddhartha-gadgil/verbose-lean4.git",
+ [{"url": "https://github.com/PatrickMassot/verbose-lean4.git",
    "type": "git",
    "subDir": null,
    "scope": "",
-   "rev": "e06faab5e6da0fb74faf14190e6eadbba29db652",
+   "rev": "c9e42865f7fd26d5f03bb91cc47cff057e88e294",
    "name": "verbose",
    "manifestFile": "lake-manifest.json",
    "inputRev": "master",
