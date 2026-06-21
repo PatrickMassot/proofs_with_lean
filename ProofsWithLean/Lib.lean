@@ -124,7 +124,7 @@ instance : HasParity (ℝ → ℝ) where
   isOdd f := ∀ x : ℝ, f (-x) = -f x
 
 lemma pair_ou_impair (n : ℤ) : n is even ∨ n is odd := by
-  convert Int.even_or_odd n
+  convert! Int.even_or_odd n
   ext n
   rw [even_iff_exists_two_nsmul]
   rfl
@@ -320,11 +320,11 @@ elab "check_defs" : tactic => withMainContext do
   if rhs.containsConst (· == `Not) then
     throwError "Le membre de droite ne doit pas contenir de négation"
 
-macro "verifie" : tactic =>
+macro "verify" : tactic =>
 `(tactic|check_defs <;>
     first |(
         try unfold limite_suite;
-        push_neg;
+        push Not;
         try simp only [exists_prop];
         try rfl ;
         done) |
