@@ -187,7 +187,7 @@ lemma egal_si_abs_eps (x y : ℝ) : (∀ ε > 0, |x - y| ≤ ε) → x = y := by
   intro h
   apply egal_si_abs_diff_neg
   by_contra H
-  push_neg at H
+  push Not at H
   specialize h ( |x-y|/2) (by linarith)
   linarith
 
@@ -379,13 +379,7 @@ lemma ineg_quadrilatere (a b c d : ℝ) : |a - b| ≤ |a - c| + |c - d| + |d - b
 
 lemma le_le_of_le_min {α : Type*} [LinearOrder α] {a b c : α} : c ≤ min a b → c ≤ a ∧ c ≤ b := le_inf_iff.1
 
-lemma le_of_le_min_left {α : Type*} [LinearOrder α] {a b c : α}
-  (h : c ≤ min a b) : c ≤ a := le_inf_iff.1 h |>.1
-
-lemma le_of_le_min_right {α : Type*} [LinearOrder α] {a b c : α}
-  (h : c ≤ min a b) : c ≤ b := le_inf_iff.1 h |>.2
-
-configureAnonymousFactSplittingLemmas le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos extraction_croissante not_le_lt le_le_of_le_min le_of_le_min_left le_of_le_min_right
+configureAnonymousFactSplittingLemmas LogicElims le_of_abs_le' le_of_abs_le le_le_of_abs_le' le_le_of_abs_le le_le_of_max_le eq_zero_or_eq_zero_of_mul_eq_zero le_antisymm le_antisymm' non_zero_abs_pos carre_pos m154.pos_pos m154.neg_neg extraction_superieur_id unicite_limite le_max_left le_max_right Iff.symm le_of_max_le_left le_of_max_le_right ex_mul_of_dvd ex_mul_of_dvd' abs_diff ineg_triangle abs_plus le_trans lt_of_le_of_lt lt_of_lt_of_le lt_trans abs_of_nonneg abs_of_neg abs_of_nonpos extraction_croissante not_le_lt le_le_of_le_min le_of_le_min_left le_of_le_min_right
 abs_pos_of_ne abs_pos_of_ne'
 
 configureAnonymousGoalSplittingLemmas LogicIntros AbsIntros Set.Subset.antisymm le_antisymm le_antisymm' lt_irrefl abs_le_of_le_and_le abs_le_of_le_and_le' egal_si_abs_eps
